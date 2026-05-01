@@ -59,7 +59,7 @@ export default function PatientClinicalProfileMedcoreHealth() {
 {/*  TopAppBar (Shared Component)  */}
 <header className="flex justify-between items-center w-full px-8 h-16 sticky top-0 z-50 bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 font-manrope text-sm font-medium antialiased docked full-width border-b border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-none">
 <div className="flex items-center gap-4">
-<span className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white">MedCloud HMS</span>
+<span className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white">MedCore HMS</span>
 <div className="relative hidden md:block ml-8 text-slate-500">
 <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[20px]">search</span>
 <input className="pl-10 pr-4 py-2 bg-slate-50 dark:bg-slate-800 border-none rounded-full text-sm focus:ring-2 focus:ring-blue-500 w-64 transition-all duration-150" placeholder="Search records..." type="text" />

@@ -81,7 +81,30 @@ export default {
         "h2": ["Manrope"],
         "h3": ["Manrope"],
         "h1": ["Manrope"],
-        "label-md": ["Inter"]
+        "label-md": ["Inter"],
+        "manrope": ["Manrope", "Inter", "system-ui", "sans-serif"],
+        "display": ["Manrope", "Inter", "system-ui", "sans-serif"],
+        "sans": ["Inter", "system-ui", "sans-serif"]
+      },
+      "maxWidth": {
+        "xs": "20rem",
+        "sm": "24rem",
+        "md": "28rem",
+        "lg": "32rem",
+        "xl": "36rem",
+        "2xl": "42rem",
+        "3xl": "48rem",
+        "4xl": "56rem",
+        "5xl": "64rem",
+        "6xl": "72rem",
+        "7xl": "80rem"
+      },
+      "boxShadow": {
+        "level-1": "0 1px 2px 0 rgba(16, 24, 40, 0.04), 0 1px 3px 0 rgba(16, 24, 40, 0.06)",
+        "level-2": "0 4px 8px -2px rgba(16, 24, 40, 0.08), 0 2px 4px -2px rgba(16, 24, 40, 0.06)",
+        "level-3": "0 12px 24px -6px rgba(16, 24, 40, 0.12), 0 4px 8px -4px rgba(16, 24, 40, 0.06)",
+        "level-4": "0 24px 48px -12px rgba(16, 24, 40, 0.18)",
+        "focus-ring": "0 0 0 4px rgba(0, 91, 191, 0.16)"
       },
       "fontSize": {
         "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],

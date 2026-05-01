@@ -16,24 +16,24 @@ export default function DoctorDashboardMedcoreHealth() {
 {/*  Navigation Tabs  */}
 <div className="flex-1 overflow-y-auto py-md flex flex-col gap-xs">
 {/*  Active Tab: Dashboard  */}
-<a className="flex items-center gap-3 px-4 py-3 bg-blue-50 text-blue-600 border-r-4 border-blue-600 rounded-r-none focus:ring-2 focus:ring-blue-500/20 active:scale-95" href="#">
+<a className="nav-link-active flex items-center gap-3 px-4 py-3 active:scale-95" href="#">
 <span className="material-symbols-outlined" style={{"fontVariationSettings":"'FILL' 1"}}>dashboard</span>
 <span>Dashboard</span>
 </a>
 {/*  Inactive Tabs  */}
-<a className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:text-blue-600 hover:bg-slate-50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" href="#">
+<a className="nav-link flex items-center gap-3 px-4 py-3 active:scale-95" href="#">
 <span className="material-symbols-outlined">calendar_today</span>
 <span>Schedule</span>
 </a>
-<a className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:text-blue-600 hover:bg-slate-50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" href="#">
+<a className="nav-link flex items-center gap-3 px-4 py-3 active:scale-95" href="#">
 <span className="material-symbols-outlined">event_note</span>
 <span>Appointments</span>
 </a>
-<a className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:text-blue-600 hover:bg-slate-50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" href="#">
+<a className="nav-link flex items-center gap-3 px-4 py-3 active:scale-95" href="#">
 <span className="material-symbols-outlined">group</span>
 <span>Patients</span>
 </a>
-<a className="flex items-center justify-between px-4 py-3 text-slate-500 hover:text-blue-600 hover:bg-slate-50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" href="#">
+<a className="nav-link flex items-center justify-between px-4 py-3 active:scale-95" href="#">
 <div className="flex items-center gap-3">
 <span className="material-symbols-outlined">mail</span>
 <span>Messages</span>
@@ -43,11 +43,11 @@ export default function DoctorDashboardMedcoreHealth() {
 </div>
 {/*  Footer Tabs  */}
 <div className="p-md border-t border-slate-200 flex flex-col gap-xs">
-<a className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:text-blue-600 hover:bg-slate-50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" href="#">
+<a className="nav-link flex items-center gap-3 px-4 py-3 active:scale-95" href="#">
 <span className="material-symbols-outlined">settings</span>
 <span>Settings</span>
 </a>
-<a className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:text-blue-600 hover:bg-slate-50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" href="#">
+<a className="nav-link flex items-center gap-3 px-4 py-3 active:scale-95" href="#">
 <span className="material-symbols-outlined">logout</span>
 <span>Logout</span>
 </a>
@@ -59,7 +59,7 @@ export default function DoctorDashboardMedcoreHealth() {
 <header className="flex justify-between items-center w-full px-8 h-16 sticky top-0 z-30 docked full-width border-b bg-white border-slate-200 shadow-sm font-manrope text-sm font-medium antialiased text-blue-600 active:opacity-80 transition-all duration-150">
 {/*  Left: Search & Brand  */}
 <div className="flex items-center gap-lg">
-<div className="text-xl font-extrabold tracking-tight text-slate-900">MedCloud HMS</div>
+<div className="text-xl font-extrabold tracking-tight text-slate-900">MedCore HMS</div>
 {/*  Search Bar  */}
 <div className="relative hidden md:block w-96">
 <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>

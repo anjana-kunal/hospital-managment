@@ -6,39 +6,42 @@ export default function AdminDashboardMedcoreHealth() {
       <div className="bg-background text-on-surface font-body-md antialiased flex h-screen overflow-hidden">
 
 {/*  Shared Component: SideNavBar  */}
-<aside className="fixed left-0 top-0 h-screen w-64 rounded-none border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col gap-1 py-4 z-50 hidden md:flex font-manrope text-sm font-medium">
-<div className="px-6 pb-6 pt-2">
-<h1 className="text-xl font-black text-blue-700 dark:text-blue-400">MedCore Health</h1>
-<p className="text-xs text-slate-500 font-semibold tracking-wider uppercase mt-1">Admin Portal</p>
+<aside className="fixed left-0 top-0 h-screen w-64 border-r border-outline-variant/40 bg-surface-container-lowest flex-col gap-1 py-4 z-50 hidden md:flex font-manrope text-sm font-medium">
+<div className="px-6 pb-6 pt-2 flex items-center gap-2">
+<span className="w-9 h-9 rounded-lg bg-primary text-on-primary flex items-center justify-center shadow-level-1"><span className="material-symbols-outlined fill-icon text-[20px]">health_and_safety</span></span>
+<div>
+<h1 className="font-display text-base font-extrabold tracking-tight text-on-surface">MedCore Health</h1>
+<p className="text-[10px] text-on-surface-variant font-semibold tracking-wider uppercase">Admin Portal</p>
+</div>
 </div>
 <nav className="flex-1 overflow-y-auto">
 {/*  Active Tab  */}
-<a className="text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 border-r-4 border-blue-600 px-4 py-3 flex items-center gap-3 tap-highlight-none active:scale-95" href="#">
-<span className="material-symbols-outlined" style={{"fontVariationSettings":"'FILL' 1"}}>dashboard</span>
+<a className="nav-link-active px-4 py-3 flex items-center gap-3 tap-highlight-none active:scale-95" href="#">
+<span className="material-symbols-outlined fill-icon">dashboard</span>
                 Dashboard
             </a>
 {/*  Inactive Tabs  */}
-<a className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 px-4 py-3 flex items-center gap-3 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all tap-highlight-none active:scale-95" href="#">
+<a className="nav-link px-4 py-3 flex items-center gap-3 tap-highlight-none active:scale-95" href="#">
 <span className="material-symbols-outlined">group</span>
                 User Management
             </a>
-<a className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 px-4 py-3 flex items-center gap-3 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all tap-highlight-none active:scale-95" href="#">
+<a className="nav-link px-4 py-3 flex items-center gap-3 tap-highlight-none active:scale-95" href="#">
 <span className="material-symbols-outlined">verified_user</span>
                 Doctor Approvals
             </a>
-<a className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 px-4 py-3 flex items-center gap-3 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all tap-highlight-none active:scale-95" href="#">
+<a className="nav-link px-4 py-3 flex items-center gap-3 tap-highlight-none active:scale-95" href="#">
 <span className="material-symbols-outlined">corporate_fare</span>
                 Departments
             </a>
-<a className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 px-4 py-3 flex items-center gap-3 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all tap-highlight-none active:scale-95" href="#">
+<a className="nav-link px-4 py-3 flex items-center gap-3 tap-highlight-none active:scale-95" href="#">
 <span className="material-symbols-outlined">event</span>
                 Appointments
             </a>
-<a className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 px-4 py-3 flex items-center gap-3 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all tap-highlight-none active:scale-95" href="#">
+<a className="nav-link px-4 py-3 flex items-center gap-3 tap-highlight-none active:scale-95" href="#">
 <span className="material-symbols-outlined">payments</span>
                 Billing
             </a>
-<a className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 px-4 py-3 flex items-center gap-3 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all tap-highlight-none active:scale-95 mt-auto" href="#">
+<a className="nav-link px-4 py-3 flex items-center gap-3 tap-highlight-none active:scale-95 mt-auto" href="#">
 <span className="material-symbols-outlined">settings</span>
                 Settings
             </a>
@@ -76,7 +79,7 @@ export default function AdminDashboardMedcoreHealth() {
 {/*  KPI Cards Grid  */}
 <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-grid-gutter mb-grid-margin">
 {/*  KPI 1  */}
-<div className="bg-surface-container-lowest rounded-xl shadow-level-1 border border-surface-variant p-lg flex flex-col justify-between">
+<div className="bg-surface-container-lowest rounded-xl shadow-level-1 border border-outline-variant/40 p-lg flex flex-col justify-between hover-lift">
 <div className="flex justify-between items-start mb-4">
 <div className="bg-primary-fixed text-primary p-2 rounded-lg">
 <span className="material-symbols-outlined">group</span>
@@ -87,11 +90,11 @@ export default function AdminDashboardMedcoreHealth() {
 </div>
 <div>
 <div className="font-label-md text-label-md text-on-surface-variant mb-1 uppercase tracking-wider">Total Patients</div>
-<div className="font-h1 text-h1 text-on-surface">12,480</div>
+<div className="font-h1 text-h1 text-on-surface stat-num">12,480</div>
 </div>
 </div>
 {/*  KPI 2  */}
-<div className="bg-surface-container-lowest rounded-xl shadow-level-1 border border-surface-variant p-lg flex flex-col justify-between">
+<div className="bg-surface-container-lowest rounded-xl shadow-level-1 border border-outline-variant/40 p-lg flex flex-col justify-between hover-lift">
 <div className="flex justify-between items-start mb-4">
 <div className="bg-primary-fixed text-primary p-2 rounded-lg">
 <span className="material-symbols-outlined">stethoscope</span>
@@ -102,11 +105,11 @@ export default function AdminDashboardMedcoreHealth() {
 </div>
 <div>
 <div className="font-label-md text-label-md text-on-surface-variant mb-1 uppercase tracking-wider">Total Doctors</div>
-<div className="font-h1 text-h1 text-on-surface">450</div>
+<div className="font-h1 text-h1 text-on-surface stat-num">450</div>
 </div>
 </div>
 {/*  KPI 3  */}
-<div className="bg-surface-container-lowest rounded-xl shadow-level-1 border border-surface-variant p-lg flex flex-col justify-between">
+<div className="bg-surface-container-lowest rounded-xl shadow-level-1 border border-outline-variant/40 p-lg flex flex-col justify-between hover-lift">
 <div className="flex justify-between items-start mb-4">
 <div className="bg-primary-fixed text-primary p-2 rounded-lg">
 <span className="material-symbols-outlined">calendar_today</span>
@@ -117,11 +120,11 @@ export default function AdminDashboardMedcoreHealth() {
 </div>
 <div>
 <div className="font-label-md text-label-md text-on-surface-variant mb-1 uppercase tracking-wider">Appointments Today</div>
-<div className="font-h1 text-h1 text-on-surface">342</div>
+<div className="font-h1 text-h1 text-on-surface stat-num">342</div>
 </div>
 </div>
 {/*  KPI 4  */}
-<div className="bg-surface-container-lowest rounded-xl shadow-level-1 border border-surface-variant p-lg flex flex-col justify-between">
+<div className="bg-surface-container-lowest rounded-xl shadow-level-1 border border-outline-variant/40 p-lg flex flex-col justify-between hover-lift">
 <div className="flex justify-between items-start mb-4">
 <div className="bg-tertiary-fixed text-tertiary p-2 rounded-lg">
 <span className="material-symbols-outlined">payments</span>
@@ -132,7 +135,7 @@ export default function AdminDashboardMedcoreHealth() {
 </div>
 <div>
 <div className="font-label-md text-label-md text-on-surface-variant mb-1 uppercase tracking-wider">Revenue (MTD)</div>
-<div className="font-h1 text-h1 text-on-surface">$84.2k</div>
+<div className="font-h1 text-h1 text-on-surface stat-num">$84.2k</div>
 </div>
 </div>
 {/*  KPI 5  */}
@@ -147,7 +150,7 @@ export default function AdminDashboardMedcoreHealth() {
 </div>
 <div>
 <div className="font-label-md text-label-md text-on-surface-variant mb-1 uppercase tracking-wider">Pending Approvals</div>
-<div className="font-h1 text-h1 text-on-surface">12</div>
+<div className="font-h1 text-h1 text-on-surface stat-num">12</div>
 </div>
 </div>
 </section>

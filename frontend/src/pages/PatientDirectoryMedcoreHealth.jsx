@@ -65,7 +65,7 @@ export default function PatientDirectoryMedcoreHealth() {
 </div>
 {/*  Brand Logo (Centered on mobile, right-aligned next to actions on desktop if no space)  */}
 <div className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white md:hidden mx-auto">
-                MedCloud HMS
+                MedCore HMS
             </div>
 {/*  Trailing Icon Actions  */}
 <div className="flex items-center gap-2 ml-auto sm:ml-4">

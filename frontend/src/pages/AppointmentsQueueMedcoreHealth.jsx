@@ -8,7 +8,7 @@ export default function AppointmentsQueueMedcoreHealth() {
 {/*  Side Navigation  */}
 <nav className="bg-white text-blue-600 font-manrope text-sm font-semibold tracking-wide h-screen w-64 border-r rounded-none border-slate-200 shadow-none fixed left-0 top-0 bottom-0 flex flex-col z-40 hidden md:flex">
 <div className="p-6">
-<span className="text-lg font-bold text-slate-900 font-h3 text-h3">MedCloud HMS</span>
+<span className="text-lg font-bold text-slate-900 font-h3 text-h3">MedCore HMS</span>
 </div>
 <div className="flex items-center gap-4 px-6 py-4 mb-4">
 <img alt="Dr. Julian Bashir" className="w-12 h-12 rounded-full object-cover" data-alt="A professional headshot of a male doctor in his 40s wearing a clean white lab coat over a blue shirt. The lighting is bright and even, typical of a modern clinical setting. The doctor has a warm, confident expression. The background is a slightly blurred, sterile hospital corridor." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqMaRcz2eko8IMTP_cS1SxWXSZbhECu2tCaBbIFgelsvV_9km7imn1kvNgzCVY5oOK4-7CTBEJ3OBEW1RbxC4Uy1JAITL-q5M7zWhjuZj5aEXbsrk54AWIq-oLsKDCP_FZP1zh5lfildFe50dViHJzPprr0LkuMlTRShZ9dNg6JbE3k4ZPMyH5nI1dthOcNMolkSxx1W_sPZ7fO6i9fbEWVNPRotEYJNWEjDgSz0mxHZIkcnpjcsVJ6wBgObEGjik-X0cI3-TigUz2" />
@@ -71,7 +71,7 @@ export default function AppointmentsQueueMedcoreHealth() {
 {/*  Top App Bar  */}
 <header className="bg-white text-blue-600 font-manrope text-sm font-medium antialiased docked full-width top-0 border-b border-slate-200 shadow-sm flex justify-between items-center w-full px-8 h-16 sticky z-50">
 <div className="flex items-center md:hidden">
-<span className="text-xl font-extrabold tracking-tight text-slate-900">MedCloud HMS</span>
+<span className="text-xl font-extrabold tracking-tight text-slate-900">MedCore HMS</span>
 </div>
 <div className="hidden md:flex flex-1 items-center max-w-md bg-[#F1F3F4] rounded-lg px-4 py-2 border border-transparent focus-within:bg-white focus-within:border-primary-container transition-colors">
 <span className="material-symbols-outlined text-outline mr-2" data-icon="search">search</span>
