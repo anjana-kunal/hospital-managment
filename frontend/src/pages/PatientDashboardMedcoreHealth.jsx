@@ -74,9 +74,15 @@ export default function PatientDashboardMedcoreHealth() {
 <span className="material-symbols-outlined">notifications</span>
 <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full ring-2 ring-surface"></span>
 </button>
-<button className="hidden md:flex bg-surface-container-low text-primary-container font-label-md text-label-md px-4 py-2 rounded-lg border border-outline-variant/30 hover:bg-surface-container-high transition-colors">
-                    Patient Login
-                </button>
+<div className="hidden md:flex items-center gap-2 pl-3 ml-1 border-l border-outline-variant/40">
+<div className="text-right leading-tight">
+<div className="font-label-md text-label-md text-on-surface">Alex Johnson</div>
+<div className="font-label-sm text-label-sm text-on-surface-variant">Patient #MC-9842</div>
+</div>
+<button aria-label="Account menu" className="w-9 h-9 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-label-md hover:shadow-level-2 transition-shadow">
+                        AJ
+                    </button>
+</div>
 </div>
 </header>
 {/*  Scrollable Dashboard Content  */}

@@ -62,7 +62,7 @@ export default function ScheduleManagementMedcoreHealth() {
 {/*  TopAppBar (From JSON)  */}
 <header className="bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 font-manrope text-sm font-medium antialiased docked full-width top-0 border-b border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-none flex justify-between items-center w-full px-8 h-16 sticky top-0 z-50 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors duration-200 active:opacity-80 transition-all duration-150">
 <div className="flex items-center gap-6">
-<div className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white">MedCloud HMS</div>
+<div className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white">MedCore HMS</div>
 {/*  Search Bar (on_left)  */}
 <div className="hidden md:flex items-center bg-slate-100 dark:bg-slate-800 rounded-full px-4 py-1.5 border border-transparent focus-within:border-blue-500 transition-colors">
 <span className="material-symbols-outlined text-slate-400 text-sm mr-2" data-icon="search">search</span>

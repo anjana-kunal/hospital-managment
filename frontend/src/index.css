@@ -1,24 +1,168 @@
 @import "tailwindcss";
 @config "../tailwind.config.js";
 
+@layer utilities {
+  .max-w-xs { max-width: 20rem; }
+  .max-w-sm { max-width: 24rem; }
+  .max-w-md { max-width: 28rem; }
+  .max-w-lg { max-width: 32rem; }
+  .max-w-xl { max-width: 36rem; }
+  @media (width >= 64rem) {
+    .lg\:max-w-xs { max-width: 20rem; }
+    .lg\:max-w-sm { max-width: 24rem; }
+    .lg\:max-w-md { max-width: 28rem; }
+    .lg\:max-w-lg { max-width: 32rem; }
+    .lg\:max-w-xl { max-width: 36rem; }
+  }
+}
+
 @layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    text-rendering: optimizeLegibility;
+  }
+
   body {
     @apply bg-background text-on-background font-body-md text-body-md antialiased min-h-screen flex flex-col;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Manrope is the project's display face */
+  h1, h2, h3, h4 {
+    font-family: "Manrope", "Inter", system-ui, sans-serif;
+    letter-spacing: -0.01em;
+  }
+
+  /* Visible, accessible focus ring */
+  :focus-visible {
+    outline: 2px solid var(--color-primary, #005bbf);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  [role="button"]:focus-visible {
+    box-shadow: 0 0 0 4px rgba(0, 91, 191, 0.16);
+    outline-offset: 2px;
+  }
+
+  /* Numerals align nicely in tables and KPIs */
+  table, th, td {
+    font-variant-numeric: tabular-nums;
   }
 }
 
 @layer utilities {
+  /* Material Symbols base + filled variant */
   .material-symbols-outlined {
     font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
   }
-  .material-symbols-outlined[data-weight="fill"] {
-    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  .material-symbols-outlined[data-weight="fill"],
+  .material-symbols-outlined.fill-icon {
+    font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
   }
-  
+  .fill-icon {
+    font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+  }
+
+  /* Soft ambient elevations (legacy alias kept for compatibility) */
   .shadow-ambient-1 {
-    box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 1px 2px 0 rgba(16, 24, 40, 0.04), 0 1px 3px 0 rgba(16, 24, 40, 0.06);
   }
   .shadow-ambient-2 {
-    box-shadow: 0px 12px 24px 0px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 12px 24px -6px rgba(16, 24, 40, 0.12), 0 4px 8px -4px rgba(16, 24, 40, 0.06);
+  }
+
+  /* Hint utilities used across the codebase that previously did nothing */
+  .tap-highlight-none {
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+  .docked { position: sticky; }
+  .full-width { width: 100%; }
+
+  /* Tabular numerals on KPI numbers */
+  .tabular-nums { font-variant-numeric: tabular-nums; }
+  .stat-num {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1, "lnum" 1;
+    letter-spacing: -0.02em;
+  }
+
+  /* Subtle hover lift for cards */
+  .hover-lift {
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+  .hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px -6px rgba(16, 24, 40, 0.12),
+                0 4px 8px -4px rgba(16, 24, 40, 0.06);
+  }
+
+  /* Soft surface gradient used on auth/landing canvases */
+  .surface-gradient {
+    background-image:
+      radial-gradient(ellipse 80% 60% at 0% 0%, rgba(0, 91, 191, 0.06), transparent 60%),
+      radial-gradient(ellipse 80% 60% at 100% 100%, rgba(0, 107, 92, 0.05), transparent 60%);
+    background-color: #f9f9ff;
+  }
+
+  /* Frosted-glass top bar */
+  .glass-bar {
+    background-color: rgba(255, 255, 255, 0.78);
+    backdrop-filter: saturate(180%) blur(12px);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+  }
+
+  /* Sidebar nav link variants used by dashboards */
+  .nav-link {
+    @apply flex items-center gap-3 px-4 py-2.5 mx-2 rounded-lg text-sm font-medium
+           text-on-surface-variant transition-colors;
+  }
+  .nav-link:hover {
+    @apply bg-surface-container text-on-surface;
+  }
+  .nav-link-active {
+    @apply flex items-center gap-3 px-4 py-2.5 mx-2 rounded-lg text-sm font-semibold
+           bg-primary-fixed text-primary;
+  }
+}
+
+/* Pleasant scrollbars (don't intrude in Firefox) */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #c1c6d6 transparent;
+}
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: #c1c6d6;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: #9aa1b5;
+  background-clip: padding-box;
+  border: 2px solid transparent;
+}
+
+/* Reduced motion respect */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
   }
 }
