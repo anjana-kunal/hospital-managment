@@ -1,3 +1,4 @@
+import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
 
 export default function SettingsMedcoreHealth() {
@@ -33,26 +34,26 @@ export default function SettingsMedcoreHealth() {
 </div>
 </div>
 <div className="flex-1 overflow-y-auto py-4">
-<a className="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low transition-colors" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low transition-colors" to="/messages_medcore_health">
 <span className="material-symbols-outlined text-outline">chat</span>
 <span className="font-label-md">Messages</span>
-</a>
-<a className="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low transition-colors" href="#">
+</Link>
+<Link className="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low transition-colors" to="/notifications_medcore_health">
 <span className="material-symbols-outlined text-outline">notifications</span>
 <span className="font-label-md">Notifications</span>
-</a>
-<a className="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low transition-colors" href="#">
+</Link>
+<Link className="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low transition-colors" to="/medical_history_medcore_health">
 <span className="material-symbols-outlined text-outline">history_edu</span>
 <span className="font-label-md">Medical History</span>
-</a>
-<a className="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low transition-colors" href="#">
+</Link>
+<Link className="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low transition-colors" to="/my_profile_medcore_health">
 <span className="material-symbols-outlined text-outline">person</span>
 <span className="font-label-md">Profile</span>
-</a>
-<a className="flex items-center gap-3 px-4 py-3 bg-surface-container-low text-primary border-r-4 border-primary-container opacity-90 transition-all" href="#">
+</Link>
+<Link className="flex items-center gap-3 px-4 py-3 bg-surface-container-low text-primary border-r-4 border-primary-container opacity-90 transition-all" to="/settings_medcore_health">
 <span className="material-symbols-outlined text-primary" style={{"fontVariationSettings":"'FILL' 1"}}>settings</span>
 <span className="font-label-md">Settings</span>
-</a>
+</Link>
 </div>
 </nav>
 {/*  Main Content  */}

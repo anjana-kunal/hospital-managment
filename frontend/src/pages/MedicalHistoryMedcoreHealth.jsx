@@ -1,3 +1,4 @@
+import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
 
 export default function MedicalHistoryMedcoreHealth() {
@@ -37,26 +38,26 @@ export default function MedicalHistoryMedcoreHealth() {
 </div>
 </div>
 <div className="flex-1 py-4 flex flex-col gap-1 overflow-y-auto">
-<a className="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 font-manrope text-sm font-medium transition-colors opacity-90 transition-all" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 font-manrope text-sm font-medium transition-colors opacity-90 transition-all" to="/messages_medcore_health">
 <span className="material-symbols-outlined" data-icon="chat">chat</span>
                 Messages
-            </a>
-<a className="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 font-manrope text-sm font-medium transition-colors opacity-90 transition-all" href="#">
+            </Link>
+<Link className="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 font-manrope text-sm font-medium transition-colors opacity-90 transition-all" to="/notifications_medcore_health">
 <span className="material-symbols-outlined" data-icon="notifications">notifications</span>
                 Notifications
-            </a>
-<a className="flex items-center gap-3 px-4 py-3 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 border-r-4 border-blue-600 font-manrope text-sm font-medium transition-colors opacity-90 transition-all" href="#">
+            </Link>
+<Link className="flex items-center gap-3 px-4 py-3 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 border-r-4 border-blue-600 font-manrope text-sm font-medium transition-colors opacity-90 transition-all" to="/medical_history_medcore_health">
 <span className="material-symbols-outlined" data-icon="history_edu" style={{"fontVariationSettings":"'FILL' 1"}}>history_edu</span>
                 Medical History
-            </a>
-<a className="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 font-manrope text-sm font-medium transition-colors opacity-90 transition-all" href="#">
+            </Link>
+<Link className="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 font-manrope text-sm font-medium transition-colors opacity-90 transition-all" to="/my_profile_medcore_health">
 <span className="material-symbols-outlined" data-icon="person">person</span>
                 Profile
-            </a>
-<a className="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 font-manrope text-sm font-medium transition-colors opacity-90 transition-all" href="#">
+            </Link>
+<Link className="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 font-manrope text-sm font-medium transition-colors opacity-90 transition-all" to="/settings_medcore_health">
 <span className="material-symbols-outlined" data-icon="settings">settings</span>
                 Settings
-            </a>
+            </Link>
 </div>
 </nav>
 {/*  Main Canvas  */}

@@ -12,10 +12,10 @@ export default function LandingPageMedcoreHealth() {
                 MedCore HMS
             </div>
 <nav className="hidden md:flex gap-8 items-center">
-<a className="text-blue-600 dark:text-blue-400 font-bold border-b-2 border-blue-600 pb-1 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-md Active: opacity-80 duration-150 ease-in-out" href="#">Features</a>
-<a className="text-slate-600 dark:text-slate-400 font-medium hover:text-blue-600 transition-colors hover:bg-slate-50 dark:hover:bg-slate-800 rounded-md" href="#">Testimonials</a>
-<a className="text-slate-600 dark:text-slate-400 font-medium hover:text-blue-600 transition-colors hover:bg-slate-50 dark:hover:bg-slate-800 rounded-md" href="#">About Us</a>
-<a className="text-slate-600 dark:text-slate-400 font-medium hover:text-blue-600 transition-colors hover:bg-slate-50 dark:hover:bg-slate-800 rounded-md" href="#">Support</a>
+<a className="text-blue-600 dark:text-blue-400 font-bold border-b-2 border-blue-600 pb-1 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-md Active: opacity-80 duration-150 ease-in-out" href="#features">Features</a>
+<a className="text-slate-600 dark:text-slate-400 font-medium hover:text-blue-600 transition-colors hover:bg-slate-50 dark:hover:bg-slate-800 rounded-md" href="#testimonials">Testimonials</a>
+<a className="text-slate-600 dark:text-slate-400 font-medium hover:text-blue-600 transition-colors hover:bg-slate-50 dark:hover:bg-slate-800 rounded-md" href="#about">About Us</a>
+<a className="text-slate-600 dark:text-slate-400 font-medium hover:text-blue-600 transition-colors hover:bg-slate-50 dark:hover:bg-slate-800 rounded-md" href="#support">Support</a>
 </nav>
 <div className="flex gap-4 items-center">
 <Link className="font-label-md text-label-md text-primary bg-primary-fixed border border-primary-fixed-dim px-md py-sm rounded-lg hover:bg-primary-fixed-dim transition-colors hidden sm:block" to="/login_medcore_health">
@@ -107,7 +107,7 @@ export default function LandingPageMedcoreHealth() {
 </div>
 <h3 className="font-h3 text-h3 text-on-surface mb-sm">Electronic Health Records</h3>
 <p className="font-body-md text-body-md text-on-surface-variant mb-lg">A unified, secure patient history. Access past diagnoses, treatments, and comprehensive medical data instantly without leaving the canvas.</p>
-<a className="font-label-md text-label-md text-primary hover:text-primary-container flex items-center gap-1 transition-colors" href="#">
+<a className="font-label-md text-label-md text-primary hover:text-primary-container flex items-center gap-1 transition-colors" href="#learn-more">
                                 Explore EHR capabilities <span className="material-symbols-outlined text-[16px]" data-icon="arrow_forward">arrow_forward</span>
 </a>
 </div>
@@ -161,10 +161,10 @@ export default function LandingPageMedcoreHealth() {
                 MedCore HMS
             </div>
 <div className="flex flex-wrap gap-6">
-<a className="hover:text-slate-900 dark:hover:text-slate-200 transition-opacity hover:opacity-75" href="#">Privacy Policy</a>
-<a className="hover:text-slate-900 dark:hover:text-slate-200 transition-opacity hover:opacity-75" href="#">Terms of Service</a>
-<a className="hover:text-slate-900 dark:hover:text-slate-200 transition-opacity hover:opacity-75" href="#">HIPAA Compliance</a>
-<a className="hover:text-slate-900 dark:hover:text-slate-200 transition-opacity hover:opacity-75" href="#">Cookie Policy</a>
+<a className="hover:text-slate-900 dark:hover:text-slate-200 transition-opacity hover:opacity-75" href="#learn-more">Privacy Policy</a>
+<a className="hover:text-slate-900 dark:hover:text-slate-200 transition-opacity hover:opacity-75" href="#learn-more">Terms of Service</a>
+<a className="hover:text-slate-900 dark:hover:text-slate-200 transition-opacity hover:opacity-75" href="#hipaa">HIPAA Compliance</a>
+<a className="hover:text-slate-900 dark:hover:text-slate-200 transition-opacity hover:opacity-75" href="#cookies">Cookie Policy</a>
 </div>
 <div className="text-center md:text-right">
                 © 2024 MedCore Health Systems. Clinical Excellence & Reliability.

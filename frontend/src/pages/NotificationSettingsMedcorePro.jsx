@@ -1,3 +1,4 @@
+import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
 
 export default function NotificationSettingsMedcorePro() {
@@ -38,30 +39,30 @@ export default function NotificationSettingsMedcorePro() {
 </div>
 <div className="flex-1 overflow-y-auto py-4 flex flex-col gap-1">
 {/*  Profile  */}
-<a className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all cursor-pointer active:scale-98 transition-transform mx-2 rounded-lg" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all cursor-pointer active:scale-98 transition-transform mx-2 rounded-lg" to="/doctor_profile_medcore_pro">
 <span className="material-symbols-outlined text-xl" data-icon="person">person</span>
 <span>Profile</span>
-</a>
+</Link>
 {/*  Availability  */}
-<a className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all cursor-pointer active:scale-98 transition-transform mx-2 rounded-lg" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all cursor-pointer active:scale-98 transition-transform mx-2 rounded-lg" to="/availability_settings_medcore_pro">
 <span className="material-symbols-outlined text-xl" data-icon="calendar_today">calendar_today</span>
 <span>Availability</span>
-</a>
+</Link>
 {/*  Consultation Fees  */}
-<a className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all cursor-pointer active:scale-98 transition-transform mx-2 rounded-lg" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all cursor-pointer active:scale-98 transition-transform mx-2 rounded-lg" to="/consultation_fees_medcore_pro">
 <span className="material-symbols-outlined text-xl" data-icon="payments">payments</span>
 <span>Consultation Fees</span>
-</a>
+</Link>
 {/*  Notifications (ACTIVE)  */}
-<a className="flex items-center gap-3 px-4 py-3 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-r-4 border-blue-600 transition-all cursor-pointer active:scale-98 transition-transform mx-2 rounded-lg bg-primary-fixed/50 text-primary font-bold" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-r-4 border-blue-600 transition-all cursor-pointer active:scale-98 transition-transform mx-2 rounded-lg bg-primary-fixed/50 text-primary font-bold" to="/notification_settings_medcore_pro">
 <span className="material-symbols-outlined text-xl icon-fill" data-icon="notifications_active">notifications_active</span>
 <span>Notifications</span>
-</a>
+</Link>
 {/*  Security  */}
-<a className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all cursor-pointer active:scale-98 transition-transform mx-2 rounded-lg" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all cursor-pointer active:scale-98 transition-transform mx-2 rounded-lg" to="/account_settings_medcore_pro">
 <span className="material-symbols-outlined text-xl" data-icon="verified_user">verified_user</span>
 <span>Security</span>
-</a>
+</Link>
 </div>
 <div className="p-4 border-t border-gray-100">
 <button className="w-full bg-primary hover:bg-primary/90 text-on-primary font-label-md text-label-md py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors shadow-sm">

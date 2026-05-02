@@ -1,3 +1,4 @@
+import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
 
 export default function AnnouncementsMedcoreHealth() {
@@ -17,36 +18,36 @@ export default function AnnouncementsMedcoreHealth() {
 </div>
 </div>
 <div className="flex-1 overflow-y-auto py-4 flex flex-col gap-sm">
-<a className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-blue-600 cursor-pointer transition-all duration-150 ease-in-out" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-blue-600 cursor-pointer transition-all duration-150 ease-in-out" to="/billing_finance_medcore_health">
 <span className="material-symbols-outlined">payments</span>
 <span>Finance</span>
-</a>
-<a className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-blue-600 cursor-pointer transition-all duration-150 ease-in-out" href="#">
+</Link>
+<Link className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-blue-600 cursor-pointer transition-all duration-150 ease-in-out" to="/bed_management_medcore_health">
 <span className="material-symbols-outlined">hotel</span>
 <span>Beds</span>
-</a>
-<a className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-blue-600 cursor-pointer transition-all duration-150 ease-in-out" href="#">
+</Link>
+<Link className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-blue-600 cursor-pointer transition-all duration-150 ease-in-out" to="/pharmacy_inventory_medcore_health">
 <span className="material-symbols-outlined">medical_services</span>
 <span>Pharmacy</span>
-</a>
-<a className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-blue-600 cursor-pointer transition-all duration-150 ease-in-out" href="#">
+</Link>
+<Link className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-blue-600 cursor-pointer transition-all duration-150 ease-in-out" to="/laboratory_management_medcore_health">
 <span className="material-symbols-outlined">biotech</span>
 <span>Lab</span>
-</a>
-<a className="flex items-center gap-3 px-4 py-3 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-r-4 border-blue-600 cursor-pointer transition-all duration-150 ease-in-out" href="#">
+</Link>
+<Link className="flex items-center gap-3 px-4 py-3 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-r-4 border-blue-600 cursor-pointer transition-all duration-150 ease-in-out" to="/announcements_medcore_health">
 <span className="material-symbols-outlined">campaign</span>
 <span>News</span>
-</a>
+</Link>
 </div>
 <div className="border-t border-gray-200 dark:border-gray-800 py-4 flex flex-col gap-sm">
-<a className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-blue-600 cursor-pointer transition-all duration-150 ease-in-out" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-blue-600 cursor-pointer transition-all duration-150 ease-in-out" to="/admin_dashboard_medcore_health">
 <span className="material-symbols-outlined">contact_support</span>
 <span>Support</span>
-</a>
-<a className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-blue-600 cursor-pointer transition-all duration-150 ease-in-out" href="#">
+</Link>
+<Link className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-blue-600 cursor-pointer transition-all duration-150 ease-in-out" to="/login_medcore_health">
 <span className="material-symbols-outlined">logout</span>
 <span>Logout</span>
-</a>
+</Link>
 </div>
 </nav>
 {/*  Main Content Wrapper  */}

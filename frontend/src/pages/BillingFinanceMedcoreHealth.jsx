@@ -1,3 +1,4 @@
+import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
 
 export default function BillingFinanceMedcoreHealth() {
@@ -12,36 +13,36 @@ export default function BillingFinanceMedcoreHealth() {
 <p className="text-xs text-outline mt-1">Clinical Excellence</p>
 </div>
 <div className="flex flex-col flex-grow mt-4 space-y-1">
-<a className="flex items-center gap-3 px-4 py-3 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-r-4 border-blue-600 cursor-pointer transition-all duration-150 ease-in-out" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-r-4 border-blue-600 cursor-pointer transition-all duration-150 ease-in-out" to="/billing_finance_medcore_health">
 <span className="material-symbols-outlined">payments</span>
                 Finance
-            </a>
-<a className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-blue-600 cursor-pointer transition-all duration-150 ease-in-out" href="#">
+            </Link>
+<Link className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-blue-600 cursor-pointer transition-all duration-150 ease-in-out" to="/bed_management_medcore_health">
 <span className="material-symbols-outlined">hotel</span>
                 Beds
-            </a>
-<a className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-blue-600 cursor-pointer transition-all duration-150 ease-in-out" href="#">
+            </Link>
+<Link className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-blue-600 cursor-pointer transition-all duration-150 ease-in-out" to="/pharmacy_inventory_medcore_health">
 <span className="material-symbols-outlined">medical_services</span>
                 Pharmacy
-            </a>
-<a className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-blue-600 cursor-pointer transition-all duration-150 ease-in-out" href="#">
+            </Link>
+<Link className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-blue-600 cursor-pointer transition-all duration-150 ease-in-out" to="/laboratory_management_medcore_health">
 <span className="material-symbols-outlined">biotech</span>
                 Lab
-            </a>
-<a className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-blue-600 cursor-pointer transition-all duration-150 ease-in-out" href="#">
+            </Link>
+<Link className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-blue-600 cursor-pointer transition-all duration-150 ease-in-out" to="/announcements_medcore_health">
 <span className="material-symbols-outlined">campaign</span>
                 News
-            </a>
+            </Link>
 </div>
 <div className="p-4 mt-auto space-y-1">
-<a className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-blue-600 cursor-pointer transition-all duration-150 ease-in-out" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-blue-600 cursor-pointer transition-all duration-150 ease-in-out" to="/admin_dashboard_medcore_health">
 <span className="material-symbols-outlined">contact_support</span>
                 Support
-            </a>
-<a className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-blue-600 cursor-pointer transition-all duration-150 ease-in-out" href="#">
+            </Link>
+<Link className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-blue-600 cursor-pointer transition-all duration-150 ease-in-out" to="/login_medcore_health">
 <span className="material-symbols-outlined">logout</span>
                 Logout
-            </a>
+            </Link>
 </div>
 </nav>
 {/*  Main Content Area  */}

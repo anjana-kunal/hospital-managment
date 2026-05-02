@@ -1,3 +1,4 @@
+import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
 
 export default function LaboratoryManagementMedcoreHealth() {
@@ -17,50 +18,50 @@ export default function LaboratoryManagementMedcoreHealth() {
 <div className="flex-1 overflow-y-auto py-6">
 <ul className="space-y-2">
 <li>
-<a className="flex items-center gap-3 px-6 py-3 text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-all duration-150 ease-in-out cursor-pointer font-label-md text-label-md" href="#">
+<Link className="flex items-center gap-3 px-6 py-3 text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-all duration-150 ease-in-out cursor-pointer font-label-md text-label-md" to="/billing_finance_medcore_health">
 <span className="material-symbols-outlined" style={{"fontVariationSettings":"'FILL' 0"}}>payments</span>
                         Finance
-                    </a>
+                    </Link>
 </li>
 <li>
-<a className="flex items-center gap-3 px-6 py-3 text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-all duration-150 ease-in-out cursor-pointer font-label-md text-label-md" href="#">
+<Link className="flex items-center gap-3 px-6 py-3 text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-all duration-150 ease-in-out cursor-pointer font-label-md text-label-md" to="/bed_management_medcore_health">
 <span className="material-symbols-outlined" style={{"fontVariationSettings":"'FILL' 0"}}>hotel</span>
                         Beds
-                    </a>
+                    </Link>
 </li>
 <li>
-<a className="flex items-center gap-3 px-6 py-3 text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-all duration-150 ease-in-out cursor-pointer font-label-md text-label-md" href="#">
+<Link className="flex items-center gap-3 px-6 py-3 text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-all duration-150 ease-in-out cursor-pointer font-label-md text-label-md" to="/pharmacy_inventory_medcore_health">
 <span className="material-symbols-outlined" style={{"fontVariationSettings":"'FILL' 0"}}>medical_services</span>
                         Pharmacy
-                    </a>
+                    </Link>
 </li>
 <li>
-<a className="flex items-center gap-3 px-6 py-3 bg-surface-container-low text-primary border-r-4 border-primary font-label-md text-label-md" href="#">
+<Link className="flex items-center gap-3 px-6 py-3 bg-surface-container-low text-primary border-r-4 border-primary font-label-md text-label-md" to="/laboratory_management_medcore_health">
 <span className="material-symbols-outlined" style={{"fontVariationSettings":"'FILL' 1"}}>biotech</span>
                         Lab
-                    </a>
+                    </Link>
 </li>
 <li>
-<a className="flex items-center gap-3 px-6 py-3 text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-all duration-150 ease-in-out cursor-pointer font-label-md text-label-md" href="#">
+<Link className="flex items-center gap-3 px-6 py-3 text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-all duration-150 ease-in-out cursor-pointer font-label-md text-label-md" to="/announcements_medcore_health">
 <span className="material-symbols-outlined" style={{"fontVariationSettings":"'FILL' 0"}}>campaign</span>
                         News
-                    </a>
+                    </Link>
 </li>
 </ul>
 </div>
 <div className="border-t border-surface-variant p-4">
 <ul className="space-y-2">
 <li>
-<a className="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low hover:text-primary rounded-lg transition-all duration-150 ease-in-out cursor-pointer font-label-md text-label-md" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low hover:text-primary rounded-lg transition-all duration-150 ease-in-out cursor-pointer font-label-md text-label-md" to="/admin_dashboard_medcore_health">
 <span className="material-symbols-outlined" style={{"fontVariationSettings":"'FILL' 0"}}>contact_support</span>
                         Support
-                    </a>
+                    </Link>
 </li>
 <li>
-<a className="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low hover:text-primary rounded-lg transition-all duration-150 ease-in-out cursor-pointer font-label-md text-label-md" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low hover:text-primary rounded-lg transition-all duration-150 ease-in-out cursor-pointer font-label-md text-label-md" to="/login_medcore_health">
 <span className="material-symbols-outlined" style={{"fontVariationSettings":"'FILL' 0"}}>logout</span>
                         Logout
-                    </a>
+                    </Link>
 </li>
 </ul>
 </div>

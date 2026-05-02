@@ -1,3 +1,4 @@
+import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
 
 export default function MedicalRecordsMedcoreHealth() {
@@ -12,36 +13,36 @@ export default function MedicalRecordsMedcoreHealth() {
 <span className="text-slate-500 text-xs uppercase tracking-wider font-semibold">Hospital Management</span>
 </div>
 <nav className="flex-1 flex flex-col gap-1 px-2">
-<a className="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-100 hover:text-blue-600 transition-all cursor-pointer active:scale-95 transition-transform rounded-lg" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-100 hover:text-blue-600 transition-all cursor-pointer active:scale-95 transition-transform rounded-lg" to="/patient_dashboard_medcore_health">
 <span className="material-symbols-outlined">dashboard</span>
 <span>Dashboard</span>
-</a>
-<a className="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-100 hover:text-blue-600 transition-all cursor-pointer active:scale-95 transition-transform rounded-lg" href="#">
+</Link>
+<Link className="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-100 hover:text-blue-600 transition-all cursor-pointer active:scale-95 transition-transform rounded-lg" to="/my_appointments_medcore_health">
 <span className="material-symbols-outlined">calendar_today</span>
 <span>Appointments</span>
-</a>
-<a className="flex items-center gap-3 px-4 py-3 bg-blue-50 text-blue-600 border-r-4 border-blue-600 rounded-r-lg cursor-pointer active:scale-95 transition-transform" href="#">
+</Link>
+<Link className="flex items-center gap-3 px-4 py-3 bg-blue-50 text-blue-600 border-r-4 border-blue-600 rounded-r-lg cursor-pointer active:scale-95 transition-transform" to="/medical_records_medcore_health">
 <span className="material-symbols-outlined">history_edu</span>
 <span>Medical Records</span>
-</a>
-<a className="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-100 hover:text-blue-600 transition-all cursor-pointer active:scale-95 transition-transform rounded-lg" href="#">
+</Link>
+<Link className="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-100 hover:text-blue-600 transition-all cursor-pointer active:scale-95 transition-transform rounded-lg" to="/prescriptions_medcore_health">
 <span className="material-symbols-outlined">medication</span>
 <span>Prescriptions</span>
-</a>
-<a className="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-100 hover:text-blue-600 transition-all cursor-pointer active:scale-95 transition-transform rounded-lg" href="#">
+</Link>
+<Link className="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-100 hover:text-blue-600 transition-all cursor-pointer active:scale-95 transition-transform rounded-lg" to="/billing_payments_medcore_health">
 <span className="material-symbols-outlined">payments</span>
 <span>Billing</span>
-</a>
+</Link>
 </nav>
 <div className="mt-auto px-2 flex flex-col gap-1">
-<a className="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-100 hover:text-blue-600 transition-all cursor-pointer active:scale-95 transition-transform rounded-lg" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-100 hover:text-blue-600 transition-all cursor-pointer active:scale-95 transition-transform rounded-lg" to="/settings_medcore_health">
 <span className="material-symbols-outlined">settings</span>
 <span>Settings</span>
-</a>
-<a className="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-100 hover:text-blue-600 transition-all cursor-pointer active:scale-95 transition-transform rounded-lg" href="#">
+</Link>
+<Link className="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-100 hover:text-blue-600 transition-all cursor-pointer active:scale-95 transition-transform rounded-lg" to="/patient_dashboard_medcore_health">
 <span className="material-symbols-outlined">contact_support</span>
 <span>Support</span>
-</a>
+</Link>
 </div>
 </aside>
 {/*  Main Content Area  */}

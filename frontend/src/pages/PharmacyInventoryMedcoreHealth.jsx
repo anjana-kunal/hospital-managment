@@ -1,3 +1,4 @@
+import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
 
 export default function PharmacyInventoryMedcoreHealth() {
@@ -21,50 +22,50 @@ export default function PharmacyInventoryMedcoreHealth() {
 <nav className="flex-1 py-md overflow-y-auto">
 <ul className="space-y-base px-md">
 <li>
-<a className="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all duration-150 ease-in-out rounded-lg font-label-md text-label-md" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all duration-150 ease-in-out rounded-lg font-label-md text-label-md" to="/billing_finance_medcore_health">
 <span className="material-symbols-outlined">payments</span>
 <span>Finance</span>
-</a>
+</Link>
 </li>
 <li>
-<a className="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all duration-150 ease-in-out rounded-lg font-label-md text-label-md" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all duration-150 ease-in-out rounded-lg font-label-md text-label-md" to="/bed_management_medcore_health">
 <span className="material-symbols-outlined">hotel</span>
 <span>Beds</span>
-</a>
+</Link>
 </li>
 <li>
-<a className="flex items-center gap-3 px-4 py-3 bg-primary-fixed text-on-primary-fixed border-r-4 border-primary rounded-l-lg font-label-md text-label-md" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 bg-primary-fixed text-on-primary-fixed border-r-4 border-primary rounded-l-lg font-label-md text-label-md" to="/pharmacy_inventory_medcore_health">
 <span className="material-symbols-outlined" style={{"fontVariationSettings":"'FILL' 1"}}>medical_services</span>
 <span>Pharmacy</span>
-</a>
+</Link>
 </li>
 <li>
-<a className="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all duration-150 ease-in-out rounded-lg font-label-md text-label-md" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all duration-150 ease-in-out rounded-lg font-label-md text-label-md" to="/laboratory_management_medcore_health">
 <span className="material-symbols-outlined">biotech</span>
 <span>Lab</span>
-</a>
+</Link>
 </li>
 <li>
-<a className="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all duration-150 ease-in-out rounded-lg font-label-md text-label-md" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all duration-150 ease-in-out rounded-lg font-label-md text-label-md" to="/announcements_medcore_health">
 <span className="material-symbols-outlined">campaign</span>
 <span>News</span>
-</a>
+</Link>
 </li>
 </ul>
 </nav>
 <div className="p-md border-t border-outline-variant">
 <ul className="space-y-base">
 <li>
-<a className="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all duration-150 ease-in-out rounded-lg font-label-md text-label-md" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all duration-150 ease-in-out rounded-lg font-label-md text-label-md" to="/admin_dashboard_medcore_health">
 <span className="material-symbols-outlined">contact_support</span>
 <span>Support</span>
-</a>
+</Link>
 </li>
 <li>
-<a className="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-error transition-all duration-150 ease-in-out rounded-lg font-label-md text-label-md" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-error transition-all duration-150 ease-in-out rounded-lg font-label-md text-label-md" to="/login_medcore_health">
 <span className="material-symbols-outlined">logout</span>
 <span>Logout</span>
-</a>
+</Link>
 </li>
 </ul>
 </div>

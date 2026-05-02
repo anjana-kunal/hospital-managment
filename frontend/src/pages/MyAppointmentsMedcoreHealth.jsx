@@ -253,10 +253,10 @@ export default function MyAppointmentsMedcoreHealth() {
                         <h4 className="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-3">Consultation Prep</h4>
                         <div className="bg-surface-container-low rounded-lg p-4 border border-outline-variant/30">
                           <p className="font-body-sm text-body-sm text-on-surface mb-2">Please ensure you are in a quiet room with a stable internet connection. Have your recent medication list ready.</p>
-                          <a className="flex items-center gap-2 text-primary font-label-sm text-label-sm hover:underline mt-2" href="#">
+                          <Link className="flex items-center gap-2 text-primary font-label-sm text-label-sm hover:underline mt-2" to="/patient_dashboard_medcore_health">
                             <span className="material-symbols-outlined text-[16px]">description</span>
                             Complete Pre-visit Questionnaire
-                          </a>
+                          </Link>
                         </div>
                       </div>
                       <div>

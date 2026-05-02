@@ -1,3 +1,4 @@
+import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
 
 export default function ConsultationFeesMedcorePro() {
@@ -30,26 +31,26 @@ export default function ConsultationFeesMedcorePro() {
 <button className="w-full bg-primary text-on-primary py-2 rounded-lg font-semibold hover:opacity-90 transition-opacity">New Appointment</button>
 </div>
 <nav className="flex-1 overflow-y-auto py-4">
-<a className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all cursor-pointer active:scale-98 transition-transform" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all cursor-pointer active:scale-98 transition-transform" to="/doctor_profile_medcore_pro">
 <span className="material-symbols-outlined">person</span>
                     Profile
-                </a>
-<a className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all cursor-pointer active:scale-98 transition-transform" href="#">
+                </Link>
+<Link className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all cursor-pointer active:scale-98 transition-transform" to="/availability_settings_medcore_pro">
 <span className="material-symbols-outlined">calendar_today</span>
                     Availability
-                </a>
-<a className="flex items-center gap-3 px-4 py-3 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-r-4 border-blue-600 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all cursor-pointer active:scale-98 transition-transform" href="#">
+                </Link>
+<Link className="flex items-center gap-3 px-4 py-3 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-r-4 border-blue-600 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all cursor-pointer active:scale-98 transition-transform" to="/consultation_fees_medcore_pro">
 <span className="material-symbols-outlined">payments</span>
                     Consultation Fees
-                </a>
-<a className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all cursor-pointer active:scale-98 transition-transform" href="#">
+                </Link>
+<Link className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all cursor-pointer active:scale-98 transition-transform" to="/notification_settings_medcore_pro">
 <span className="material-symbols-outlined">notifications_active</span>
                     Notifications
-                </a>
-<a className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all cursor-pointer active:scale-98 transition-transform" href="#">
+                </Link>
+<Link className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all cursor-pointer active:scale-98 transition-transform" to="/account_settings_medcore_pro">
 <span className="material-symbols-outlined">verified_user</span>
                     Security
-                </a>
+                </Link>
 </nav>
 </aside>
 {/*  Main Canvas  */}

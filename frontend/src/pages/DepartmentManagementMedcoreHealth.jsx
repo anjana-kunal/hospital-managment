@@ -1,3 +1,4 @@
+import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
 
 export default function DepartmentManagementMedcoreHealth() {
@@ -12,34 +13,34 @@ export default function DepartmentManagementMedcoreHealth() {
 <p className="text-label-sm font-label-sm text-on-surface-variant mt-base">Admin Portal</p>
 </div>
 <div className="flex flex-col gap-xs w-full">
-<a className="text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-all px-md py-sm flex items-center gap-sm w-full" href="#">
+<Link className="text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-all px-md py-sm flex items-center gap-sm w-full" to="/admin_dashboard_medcore_health">
 <span className="material-symbols-outlined" style={{"fontVariationSettings":"'FILL' 0"}}>dashboard</span>
 <span className="font-label-md text-label-md">Dashboard</span>
-</a>
-<a className="text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-all px-md py-sm flex items-center gap-sm w-full" href="#">
+</Link>
+<Link className="text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-all px-md py-sm flex items-center gap-sm w-full" to="/user_management_medcore_health">
 <span className="material-symbols-outlined" style={{"fontVariationSettings":"'FILL' 0"}}>group</span>
 <span className="font-label-md text-label-md">User Management</span>
-</a>
-<a className="text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-all px-md py-sm flex items-center gap-sm w-full" href="#">
+</Link>
+<Link className="text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-all px-md py-sm flex items-center gap-sm w-full" to="/doctor_approvals_medcore_health">
 <span className="material-symbols-outlined" style={{"fontVariationSettings":"'FILL' 0"}}>verified_user</span>
 <span className="font-label-md text-label-md">Doctor Approvals</span>
-</a>
-<a className="text-primary bg-surface-container-low border-r-4 border-primary px-md py-sm flex items-center gap-sm w-full" href="#">
+</Link>
+<Link className="text-primary bg-surface-container-low border-r-4 border-primary px-md py-sm flex items-center gap-sm w-full" to="/department_management_medcore_health">
 <span className="material-symbols-outlined" style={{"fontVariationSettings":"'FILL' 1"}}>corporate_fare</span>
 <span className="font-label-md text-label-md">Departments</span>
-</a>
-<a className="text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-all px-md py-sm flex items-center gap-sm w-full" href="#">
+</Link>
+<Link className="text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-all px-md py-sm flex items-center gap-sm w-full" to="/global_appointment_management_medcore_health">
 <span className="material-symbols-outlined" style={{"fontVariationSettings":"'FILL' 0"}}>event</span>
 <span className="font-label-md text-label-md">Appointments</span>
-</a>
-<a className="text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-all px-md py-sm flex items-center gap-sm w-full" href="#">
+</Link>
+<Link className="text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-all px-md py-sm flex items-center gap-sm w-full" to="/billing_finance_medcore_health">
 <span className="material-symbols-outlined" style={{"fontVariationSettings":"'FILL' 0"}}>payments</span>
 <span className="font-label-md text-label-md">Billing</span>
-</a>
-<a className="text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-all px-md py-sm flex items-center gap-sm w-full" href="#">
+</Link>
+<Link className="text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-all px-md py-sm flex items-center gap-sm w-full" to="/system_settings_medcore_health">
 <span className="material-symbols-outlined" style={{"fontVariationSettings":"'FILL' 0"}}>settings</span>
 <span className="font-label-md text-label-md">Settings</span>
-</a>
+</Link>
 </div>
 </nav>
 {/*  Main Wrapper  */}

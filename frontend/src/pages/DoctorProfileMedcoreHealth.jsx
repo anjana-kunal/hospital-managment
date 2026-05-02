@@ -1,3 +1,4 @@
+import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
 
 export default function DoctorProfileMedcoreHealth() {
@@ -14,34 +15,34 @@ export default function DoctorProfileMedcoreHealth() {
 </div>
 </div>
 <nav className="flex flex-col gap-2 font-manrope text-sm font-medium">
-<a className="flex items-center gap-3 text-slate-500 dark:text-slate-400 px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-lg transition-all duration-200" href="#">
+<Link className="flex items-center gap-3 text-slate-500 dark:text-slate-400 px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-lg transition-all duration-200" to="/patient_dashboard_medcore_health">
 <span className="material-symbols-outlined" data-icon="dashboard">dashboard</span>
                 Dashboard
-            </a>
-<a className="flex items-center gap-3 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 rounded-lg px-4 py-3 transition-all duration-200" href="#">
+            </Link>
+<Link className="flex items-center gap-3 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 rounded-lg px-4 py-3 transition-all duration-200" to="/my_appointments_medcore_health">
 <span className="material-symbols-outlined" data-icon="calendar_month" data-weight="fill" style={{"fontVariationSettings":"'FILL' 1"}}>calendar_month</span>
                 Appointments
-            </a>
-<a className="flex items-center gap-3 text-slate-500 dark:text-slate-400 px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-lg transition-all duration-200" href="#">
+            </Link>
+<Link className="flex items-center gap-3 text-slate-500 dark:text-slate-400 px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-lg transition-all duration-200" to="/medical_records_medcore_health">
 <span className="material-symbols-outlined" data-icon="folder_shared">folder_shared</span>
                 Records
-            </a>
-<a className="flex items-center gap-3 text-slate-500 dark:text-slate-400 px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-lg transition-all duration-200" href="#">
+            </Link>
+<Link className="flex items-center gap-3 text-slate-500 dark:text-slate-400 px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-lg transition-all duration-200" to="/billing_payments_medcore_health">
 <span className="material-symbols-outlined" data-icon="payments">payments</span>
                 Billing
-            </a>
-<a className="flex items-center gap-3 text-slate-500 dark:text-slate-400 px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-lg transition-all duration-200" href="#">
+            </Link>
+<Link className="flex items-center gap-3 text-slate-500 dark:text-slate-400 px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-lg transition-all duration-200" to="/settings_medcore_health">
 <span className="material-symbols-outlined" data-icon="settings">settings</span>
                 Settings
-            </a>
+            </Link>
 </nav>
 </aside>
 <main className="flex-1 ml-64 flex flex-col h-screen overflow-y-auto bg-background pb-16">
 <header className="px-grid-margin py-lg border-b border-surface-variant bg-surface sticky top-0 z-30">
 <nav className="flex text-on-surface-variant font-label-md text-label-md items-center gap-2">
-<a className="hover:text-primary transition-colors" href="#">Appointments</a>
+<Link className="hover:text-primary transition-colors" to="/my_appointments_medcore_health">Appointments</Link>
 <span className="material-symbols-outlined text-[16px]" data-icon="chevron_right">chevron_right</span>
-<a className="hover:text-primary transition-colors" href="#">Find a Specialist</a>
+<Link className="hover:text-primary transition-colors" to="/search_doctors_medcore_health">Find a Specialist</Link>
 <span className="material-symbols-outlined text-[16px]" data-icon="chevron_right">chevron_right</span>
 <span className="text-on-surface">Dr. Sarah Mitchell</span>
 </nav>

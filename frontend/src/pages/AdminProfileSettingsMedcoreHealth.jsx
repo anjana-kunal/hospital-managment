@@ -1,6 +1,8 @@
+import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
 
 export default function AdminProfileSettingsMedcoreHealth() {
+  const navigate = useNavigate();
   return (
     <>
       <div className="bg-background text-on-background font-body-md min-h-screen flex">
@@ -14,26 +16,26 @@ export default function AdminProfileSettingsMedcoreHealth() {
 </div>
 </div>
 <nav className="flex-1 px-4 space-y-1">
-<a className="flex items-center gap-3 px-md py-sm rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container transition-all duration-200" href="#">
+<Link className="flex items-center gap-3 px-md py-sm rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container transition-all duration-200" to="/reports_analytics_medcore_health">
 <span className="material-symbols-outlined text-[20px]">monitoring</span>
                 Analytics
-            </a>
-<a className="flex items-center gap-3 px-md py-sm rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container transition-all duration-200" href="#">
+            </Link>
+<Link className="flex items-center gap-3 px-md py-sm rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container transition-all duration-200" to="/audit_logs_medcore_health">
 <span className="material-symbols-outlined text-[20px]">history_edu</span>
                 Audit Logs
-            </a>
-<a className="flex items-center gap-3 px-md py-sm rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container transition-all duration-200" href="#">
+            </Link>
+<Link className="flex items-center gap-3 px-md py-sm rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container transition-all duration-200" to="/roles_permissions_medcore_health">
 <span className="material-symbols-outlined text-[20px]">admin_panel_settings</span>
                 Permissions
-            </a>
-<a className="flex items-center gap-3 px-md py-sm rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container transition-all duration-200" href="#">
+            </Link>
+<Link className="flex items-center gap-3 px-md py-sm rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container transition-all duration-200" to="/system_settings_medcore_health">
 <span className="material-symbols-outlined text-[20px]">settings</span>
                 System Settings
-            </a>
-<a className="flex items-center gap-3 px-md py-sm rounded-lg font-label-md text-label-md bg-primary-container text-on-primary-container border-l-4 border-primary transition-all duration-200" href="#">
+            </Link>
+<Link className="flex items-center gap-3 px-md py-sm rounded-lg font-label-md text-label-md bg-primary-container text-on-primary-container border-l-4 border-primary transition-all duration-200" to="/admin_profile_settings_medcore_health">
 <span className="material-symbols-outlined text-[20px]" style={{"fontVariationSettings":"'FILL' 1"}}>person</span>
                 Profile
-            </a>
+            </Link>
 </nav>
 <div className="px-6 mt-auto">
 <div className="px-md py-sm bg-surface-container-low rounded-lg border border-outline-variant flex items-center gap-2">
@@ -62,9 +64,7 @@ export default function AdminProfileSettingsMedcoreHealth() {
 </div>
 <div className="flex items-center gap-3 pl-2">
 <img alt="Administrator Profile" className="w-8 h-8 rounded-full border border-outline-variant object-cover" data-alt="A small, circular profile picture of a professional medical administrator. The portrait is sharply focused with soft, corporate lighting, set against a pristine, uncluttered background that reflects a high-end clinical precision aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUI607jwFsI-IexXVqePO0qKvBZk3WbUFNwFRgXywG9SXUtCuNuncGs3ySgi4gAI9CSj_h1rzUmToo3BPvGVkK43FXsTZktlDkbI41uZRC_q9eUwfPAg5MY9wr9LzcZriLFbjbchhrdBWGrSc8rKsCfhQa5aKuekKRZx5pxEP5VMPNBYRm96QxEvKoLmjsLuHuG2o_n_5V8g45sj52UC_eFgohkQ9AzPqwC-4cSvt4XjywfKndNETXx2hDTm0xKNdSGTacjddv0Qzu" />
-<button className="font-label-md text-label-md text-error hover:bg-error-container/20 px-3 py-1.5 rounded transition-colors">
-                        Logout
-                    </button>
+<button onClick={() => navigate("/login_medcore_health")} className="font-label-md text-label-md text-error hover:bg-error-container/20 px-3 py-1.5 rounded transition-colors">Logout</button>
 </div>
 </div>
 </header>

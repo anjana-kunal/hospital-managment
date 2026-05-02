@@ -1,6 +1,8 @@
+import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
 
 export default function ReportsAnalyticsMedcoreHealth() {
+  const navigate = useNavigate();
   return (
     <>
       <div className="bg-background text-on-surface font-body-md h-screen flex overflow-hidden">
@@ -18,26 +20,26 @@ export default function ReportsAnalyticsMedcoreHealth() {
 </div>
 <nav className="flex-1 px-2 space-y-1">
 {/*  Active Tab  */}
-<a className="font-manrope text-sm font-semibold bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-r-4 border-blue-600 flex items-center gap-3 px-6 py-4 cursor-pointer hover:pl-2 transition-all duration-200" href="#">
+<Link className="font-manrope text-sm font-semibold bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-r-4 border-blue-600 flex items-center gap-3 px-6 py-4 cursor-pointer hover:pl-2 transition-all duration-200" to="/reports_analytics_medcore_health">
 <span className="material-symbols-outlined" style={{"fontVariationSettings":"'FILL' 1"}}>monitoring</span>
                 Analytics
-            </a>
-<a className="font-manrope text-sm font-semibold text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center gap-3 px-6 py-4 cursor-pointer hover:pl-2 transition-all duration-200" href="#">
+            </Link>
+<Link className="font-manrope text-sm font-semibold text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center gap-3 px-6 py-4 cursor-pointer hover:pl-2 transition-all duration-200" to="/audit_logs_medcore_health">
 <span className="material-symbols-outlined">history_edu</span>
                 Audit Logs
-            </a>
-<a className="font-manrope text-sm font-semibold text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center gap-3 px-6 py-4 cursor-pointer hover:pl-2 transition-all duration-200" href="#">
+            </Link>
+<Link className="font-manrope text-sm font-semibold text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center gap-3 px-6 py-4 cursor-pointer hover:pl-2 transition-all duration-200" to="/roles_permissions_medcore_health">
 <span className="material-symbols-outlined">admin_panel_settings</span>
                 Permissions
-            </a>
-<a className="font-manrope text-sm font-semibold text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center gap-3 px-6 py-4 cursor-pointer hover:pl-2 transition-all duration-200" href="#">
+            </Link>
+<Link className="font-manrope text-sm font-semibold text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center gap-3 px-6 py-4 cursor-pointer hover:pl-2 transition-all duration-200" to="/system_settings_medcore_health">
 <span className="material-symbols-outlined">settings</span>
                 System Settings
-            </a>
-<a className="font-manrope text-sm font-semibold text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center gap-3 px-6 py-4 cursor-pointer hover:pl-2 transition-all duration-200" href="#">
+            </Link>
+<Link className="font-manrope text-sm font-semibold text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center gap-3 px-6 py-4 cursor-pointer hover:pl-2 transition-all duration-200" to="/admin_profile_settings_medcore_health">
 <span className="material-symbols-outlined">person</span>
                 Profile
-            </a>
+            </Link>
 </nav>
 <div className="px-6 mt-auto pt-6">
 <div className="bg-surface-container-low rounded-lg p-md border border-outline-variant flex items-center gap-3">
@@ -75,9 +77,7 @@ export default function ReportsAnalyticsMedcoreHealth() {
 <div className="w-8 h-8 rounded-full overflow-hidden border border-outline-variant shrink-0 cursor-pointer active:opacity-80 hover:bg-gray-50 transition-colors">
 <img alt="Administrator Profile" className="w-full h-full object-cover" data-alt="A professional headshot portrait of a healthcare administrator. The individual is wearing subtle, modern corporate attire, viewed against a pristine white studio background. The lighting is soft and even, typical of high-end corporate photography, conveying trustworthiness and clinical precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLN-QGjb5qhg8MpcbH95-qLZJixfjvyh5NENn1lGqbqfdTvNyYlxGNzcbbKUjJHHberWbM_UivAZd7j-MH9Jo_Rz6WZp5Wv5yVq-FboG3oGYLpYFCG_pioG2zUuFPoNlemCn-HsRvyrcvd8kx8K_TjEhVwNP8DGWtwYtC8XsclJ1jGindFtmMGLN4L-qKsqTaxTQRRDHgQ1kag4CY2lEwtR1rKMQVZ0WD0MByVahMtO9WYI65Eqe4Rq9X6eehQO9NRWm2Ba6aysZjH" />
 </div>
-<button className="font-manrope text-sm font-medium text-blue-600 dark:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors px-3 py-1.5 rounded cursor-pointer active:opacity-80 hidden sm:block">
-                        Logout
-                    </button>
+<button onClick={() => navigate("/login_medcore_health")} className="font-manrope text-sm font-medium text-blue-600 dark:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors px-3 py-1.5 rounded cursor-pointer active:opacity-80 hidden sm:block">Logout</button>
 </div>
 </div>
 </header>

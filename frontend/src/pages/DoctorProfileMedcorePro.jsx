@@ -1,3 +1,4 @@
+import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
 
 export default function DoctorProfileMedcorePro() {
@@ -39,26 +40,26 @@ export default function DoctorProfileMedcorePro() {
 </div>
 </div>
 <div className="flex-1 flex flex-col gap-1 px-2">
-<a className="flex items-center gap-3 px-4 py-3 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-r-4 border-blue-600 rounded-lg cursor-pointer active:scale-98 transition-transform font-manrope text-sm font-medium" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-r-4 border-blue-600 rounded-lg cursor-pointer active:scale-98 transition-transform font-manrope text-sm font-medium" to="/doctor_profile_medcore_pro">
 <span className="material-symbols-outlined fill" data-icon="person" data-weight="fill">person</span>
                     Profile
-                </a>
-<a className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg cursor-pointer active:scale-98 transition-transform hover:bg-gray-50 dark:hover:bg-gray-800 transition-all font-manrope text-sm font-medium" href="#">
+                </Link>
+<Link className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg cursor-pointer active:scale-98 transition-transform hover:bg-gray-50 dark:hover:bg-gray-800 transition-all font-manrope text-sm font-medium" to="/availability_settings_medcore_pro">
 <span className="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
                     Availability
-                </a>
-<a className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg cursor-pointer active:scale-98 transition-transform hover:bg-gray-50 dark:hover:bg-gray-800 transition-all font-manrope text-sm font-medium" href="#">
+                </Link>
+<Link className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg cursor-pointer active:scale-98 transition-transform hover:bg-gray-50 dark:hover:bg-gray-800 transition-all font-manrope text-sm font-medium" to="/consultation_fees_medcore_pro">
 <span className="material-symbols-outlined" data-icon="payments">payments</span>
                     Consultation Fees
-                </a>
-<a className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg cursor-pointer active:scale-98 transition-transform hover:bg-gray-50 dark:hover:bg-gray-800 transition-all font-manrope text-sm font-medium" href="#">
+                </Link>
+<Link className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg cursor-pointer active:scale-98 transition-transform hover:bg-gray-50 dark:hover:bg-gray-800 transition-all font-manrope text-sm font-medium" to="/notification_settings_medcore_pro">
 <span className="material-symbols-outlined" data-icon="notifications_active">notifications_active</span>
                     Notifications
-                </a>
-<a className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg cursor-pointer active:scale-98 transition-transform hover:bg-gray-50 dark:hover:bg-gray-800 transition-all font-manrope text-sm font-medium" href="#">
+                </Link>
+<Link className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg cursor-pointer active:scale-98 transition-transform hover:bg-gray-50 dark:hover:bg-gray-800 transition-all font-manrope text-sm font-medium" to="/account_settings_medcore_pro">
 <span className="material-symbols-outlined" data-icon="verified_user">verified_user</span>
                     Security
-                </a>
+                </Link>
 </div>
 <div className="p-4 border-t border-gray-100 dark:border-gray-800 mt-auto">
 <button className="w-full bg-[#1A73E8] text-white py-2 px-4 rounded-lg font-manrope text-sm font-medium hover:bg-primary/90 transition-colors flex justify-center items-center gap-2">

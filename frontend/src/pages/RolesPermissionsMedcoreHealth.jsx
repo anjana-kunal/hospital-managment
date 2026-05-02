@@ -1,3 +1,4 @@
+import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
 
 export default function RolesPermissionsMedcoreHealth() {
@@ -17,27 +18,27 @@ export default function RolesPermissionsMedcoreHealth() {
 </div>
 {/*  Navigation Links  */}
 <nav className="flex-1 flex flex-col gap-base mt-md">
-<a className="font-manrope text-sm font-semibold flex items-center gap-3 px-6 py-4 cursor-pointer hover:pl-2 transition-all duration-200 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800" href="#">
+<Link className="font-manrope text-sm font-semibold flex items-center gap-3 px-6 py-4 cursor-pointer hover:pl-2 transition-all duration-200 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800" to="/reports_analytics_medcore_health">
 <span className="material-symbols-outlined">monitoring</span>
 <span>Analytics</span>
-</a>
-<a className="font-manrope text-sm font-semibold flex items-center gap-3 px-6 py-4 cursor-pointer hover:pl-2 transition-all duration-200 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800" href="#">
+</Link>
+<Link className="font-manrope text-sm font-semibold flex items-center gap-3 px-6 py-4 cursor-pointer hover:pl-2 transition-all duration-200 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800" to="/audit_logs_medcore_health">
 <span className="material-symbols-outlined">history_edu</span>
 <span>Audit Logs</span>
-</a>
+</Link>
 {/*  ACTIVE TAB  */}
-<a className="font-manrope text-sm font-semibold flex items-center gap-3 px-6 py-4 cursor-pointer hover:pl-2 transition-all duration-200 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-r-4 border-blue-600" href="#">
+<Link className="font-manrope text-sm font-semibold flex items-center gap-3 px-6 py-4 cursor-pointer hover:pl-2 transition-all duration-200 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-r-4 border-blue-600" to="/roles_permissions_medcore_health">
 <span className="material-symbols-outlined icon-fill">admin_panel_settings</span>
 <span>Permissions</span>
-</a>
-<a className="font-manrope text-sm font-semibold flex items-center gap-3 px-6 py-4 cursor-pointer hover:pl-2 transition-all duration-200 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800" href="#">
+</Link>
+<Link className="font-manrope text-sm font-semibold flex items-center gap-3 px-6 py-4 cursor-pointer hover:pl-2 transition-all duration-200 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800" to="/system_settings_medcore_health">
 <span className="material-symbols-outlined">settings</span>
 <span>System Settings</span>
-</a>
-<a className="font-manrope text-sm font-semibold flex items-center gap-3 px-6 py-4 cursor-pointer hover:pl-2 transition-all duration-200 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800" href="#">
+</Link>
+<Link className="font-manrope text-sm font-semibold flex items-center gap-3 px-6 py-4 cursor-pointer hover:pl-2 transition-all duration-200 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800" to="/admin_profile_settings_medcore_health">
 <span className="material-symbols-outlined">person</span>
 <span>Profile</span>
-</a>
+</Link>
 </nav>
 {/*  CTA / Footer  */}
 <div className="px-6 mt-auto">

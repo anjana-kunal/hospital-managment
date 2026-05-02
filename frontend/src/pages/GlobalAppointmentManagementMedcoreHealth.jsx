@@ -1,3 +1,4 @@
+import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
 
 export default function GlobalAppointmentManagementMedcoreHealth() {
@@ -19,37 +20,37 @@ export default function GlobalAppointmentManagementMedcoreHealth() {
 </div>
 {/*  Navigation Links  */}
 <nav className="flex-1 flex flex-col gap-1">
-<a className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 px-4 py-3 flex items-center gap-3 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all tap-highlight-none active:scale-95" href="#">
+<Link className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 px-4 py-3 flex items-center gap-3 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all tap-highlight-none active:scale-95" to="/admin_dashboard_medcore_health">
 <span className="material-symbols-outlined">dashboard</span>
                 Dashboard
-            </a>
-<a className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 px-4 py-3 flex items-center gap-3 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all tap-highlight-none active:scale-95" href="#">
+            </Link>
+<Link className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 px-4 py-3 flex items-center gap-3 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all tap-highlight-none active:scale-95" to="/user_management_medcore_health">
 <span className="material-symbols-outlined">group</span>
                 User Management
-            </a>
-<a className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 px-4 py-3 flex items-center gap-3 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all tap-highlight-none active:scale-95" href="#">
+            </Link>
+<Link className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 px-4 py-3 flex items-center gap-3 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all tap-highlight-none active:scale-95" to="/doctor_approvals_medcore_health">
 <span className="material-symbols-outlined">verified_user</span>
                 Doctor Approvals
-            </a>
-<a className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 px-4 py-3 flex items-center gap-3 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all tap-highlight-none active:scale-95" href="#">
+            </Link>
+<Link className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 px-4 py-3 flex items-center gap-3 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all tap-highlight-none active:scale-95" to="/department_management_medcore_health">
 <span className="material-symbols-outlined">corporate_fare</span>
                 Departments
-            </a>
+            </Link>
 {/*  Active Tab  */}
-<a className="text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 border-r-4 border-blue-600 px-4 py-3 flex items-center gap-3 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all tap-highlight-none active:scale-95" href="#">
+<Link className="text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 border-r-4 border-blue-600 px-4 py-3 flex items-center gap-3 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all tap-highlight-none active:scale-95" to="/global_appointment_management_medcore_health">
 <span className="material-symbols-outlined" data-weight="fill">event</span>
                 Appointments
-            </a>
-<a className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 px-4 py-3 flex items-center gap-3 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all tap-highlight-none active:scale-95" href="#">
+            </Link>
+<Link className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 px-4 py-3 flex items-center gap-3 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all tap-highlight-none active:scale-95" to="/billing_finance_medcore_health">
 <span className="material-symbols-outlined">payments</span>
                 Billing
-            </a>
+            </Link>
 </nav>
 <div className="mt-auto flex flex-col gap-1">
-<a className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 px-4 py-3 flex items-center gap-3 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all tap-highlight-none active:scale-95" href="#">
+<Link className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 px-4 py-3 flex items-center gap-3 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all tap-highlight-none active:scale-95" to="/system_settings_medcore_health">
 <span className="material-symbols-outlined">settings</span>
                 Settings
-            </a>
+            </Link>
 </div>
 </aside>
 {/*  Main Content Wrapper  */}

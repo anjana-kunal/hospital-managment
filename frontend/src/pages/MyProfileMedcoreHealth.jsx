@@ -1,3 +1,4 @@
+import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
 
 export default function MyProfileMedcoreHealth() {
@@ -49,26 +50,26 @@ export default function MyProfileMedcoreHealth() {
 </div>
 {/*  Navigation Links  */}
 <div className="flex-1 py-lg flex flex-col gap-xs font-manrope text-sm font-medium">
-<a className="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" to="/messages_medcore_health">
 <span className="material-symbols-outlined">chat</span>
 <span>Messages</span>
-</a>
-<a className="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+</Link>
+<Link className="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" to="/notifications_medcore_health">
 <span className="material-symbols-outlined">notifications</span>
 <span>Notifications</span>
-</a>
-<a className="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+</Link>
+<Link className="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" to="/medical_history_medcore_health">
 <span className="material-symbols-outlined">history_edu</span>
 <span>Medical History</span>
-</a>
-<a className="flex items-center gap-3 px-4 py-3 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 border-r-4 border-blue-600 opacity-90 transition-all hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+</Link>
+<Link className="flex items-center gap-3 px-4 py-3 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 border-r-4 border-blue-600 opacity-90 transition-all hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" to="/my_profile_medcore_health">
 <span className="material-symbols-outlined" style={{"fontVariationSettings":"'FILL' 1"}}>person</span>
 <span>Profile</span>
-</a>
-<a className="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+</Link>
+<Link className="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" to="/settings_medcore_health">
 <span className="material-symbols-outlined">settings</span>
 <span>Settings</span>
-</a>
+</Link>
 </div>
 </nav>
 {/*  Main Content Canvas  */}

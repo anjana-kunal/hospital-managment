@@ -1,3 +1,4 @@
+import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
 
 export default function AvailabilitySettingsMedcorePro() {
@@ -19,34 +20,34 @@ export default function AvailabilitySettingsMedcorePro() {
 <div className="flex-1 overflow-y-auto w-full">
 <ul className="flex flex-col w-full">
 <li>
-<a className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all cursor-pointer active:scale-98" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all cursor-pointer active:scale-98" to="/doctor_profile_medcore_pro">
 <span className="material-symbols-outlined">person</span>
                         Profile
-                    </a>
+                    </Link>
 </li>
 <li>
-<a className="flex items-center gap-3 px-4 py-3 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-r-4 border-blue-600 transition-all cursor-pointer active:scale-98" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-r-4 border-blue-600 transition-all cursor-pointer active:scale-98" to="/availability_settings_medcore_pro">
 <span className="material-symbols-outlined" style={{"fontVariationSettings":"'FILL' 1"}}>calendar_today</span>
                         Availability
-                    </a>
+                    </Link>
 </li>
 <li>
-<a className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all cursor-pointer active:scale-98" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all cursor-pointer active:scale-98" to="/consultation_fees_medcore_pro">
 <span className="material-symbols-outlined">payments</span>
                         Consultation Fees
-                    </a>
+                    </Link>
 </li>
 <li>
-<a className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all cursor-pointer active:scale-98" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all cursor-pointer active:scale-98" to="/notification_settings_medcore_pro">
 <span className="material-symbols-outlined">notifications_active</span>
                         Notifications
-                    </a>
+                    </Link>
 </li>
 <li>
-<a className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all cursor-pointer active:scale-98" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all cursor-pointer active:scale-98" to="/account_settings_medcore_pro">
 <span className="material-symbols-outlined">verified_user</span>
                         Security
-                    </a>
+                    </Link>
 </li>
 </ul>
 </div>

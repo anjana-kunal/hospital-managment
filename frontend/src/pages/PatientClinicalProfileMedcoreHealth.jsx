@@ -1,3 +1,4 @@
+import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
 
 export default function PatientClinicalProfileMedcoreHealth() {
@@ -18,40 +19,40 @@ export default function PatientClinicalProfileMedcoreHealth() {
 </div>
 <div className="flex-1 py-4 overflow-y-auto">
 {/*  Dashboard (Inactive)  */}
-<a className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" to="/doctor_dashboard_medcore_health">
 <span className="material-symbols-outlined" data-icon="dashboard">dashboard</span>
 <span>Dashboard</span>
-</a>
+</Link>
 {/*  Schedule (Inactive)  */}
-<a className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" to="/schedule_management_medcore_health">
 <span className="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
 <span>Schedule</span>
-</a>
+</Link>
 {/*  Appointments (Inactive)  */}
-<a className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" to="/appointments_queue_medcore_health">
 <span className="material-symbols-outlined" data-icon="event_note">event_note</span>
 <span>Appointments</span>
-</a>
+</Link>
 {/*  Patients (Active)  */}
-<a className="flex items-center gap-3 px-4 py-3 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-r-4 border-blue-600 rounded-r-none hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-r-4 border-blue-600 rounded-r-none hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" to="/patient_directory_medcore_health">
 <span className="material-symbols-outlined" data-icon="group" style={{"fontVariationSettings":"'FILL' 1"}}>group</span>
 <span>Patients</span>
-</a>
+</Link>
 {/*  Messages (Inactive)  */}
-<a className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" to="/messages_medcore_health">
 <span className="material-symbols-outlined" data-icon="mail">mail</span>
 <span>Messages</span>
-</a>
+</Link>
 </div>
 <div className="p-4 border-t border-slate-200 dark:border-slate-800">
-<a className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200" to="/settings_medcore_health">
 <span className="material-symbols-outlined" data-icon="settings">settings</span>
 <span>Settings</span>
-</a>
-<a className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200" href="#">
+</Link>
+<Link className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200" to="/login_medcore_health">
 <span className="material-symbols-outlined" data-icon="logout">logout</span>
 <span>Logout</span>
-</a>
+</Link>
 </div>
 </nav>
 {/*  Main Content Area  */}
@@ -224,7 +225,7 @@ export default function PatientClinicalProfileMedcoreHealth() {
 <div className="bg-surface-container-lowest rounded-xl p-md ambient-shadow-level-1 border border-surface-variant">
 <h3 className="font-h3 text-h3 text-on-surface mb-md pb-xs border-b border-surface-variant">Lab Reports</h3>
 <div className="space-y-sm">
-<a className="flex items-center justify-between p-2 rounded hover:bg-surface transition-colors border border-transparent hover:border-outline-variant group" href="#">
+<Link className="flex items-center justify-between p-2 rounded hover:bg-surface transition-colors border border-transparent hover:border-outline-variant group" to="/medical_records_medcore_health">
 <div className="flex items-center gap-2">
 <span className="material-symbols-outlined text-tertiary">science</span>
 <div>
@@ -233,8 +234,8 @@ export default function PatientClinicalProfileMedcoreHealth() {
 </div>
 </div>
 <span className="material-symbols-outlined text-outline group-hover:text-primary">download</span>
-</a>
-<a className="flex items-center justify-between p-2 rounded hover:bg-surface transition-colors border border-transparent hover:border-outline-variant group" href="#">
+</Link>
+<Link className="flex items-center justify-between p-2 rounded hover:bg-surface transition-colors border border-transparent hover:border-outline-variant group" to="/medical_records_medcore_health">
 <div className="flex items-center gap-2">
 <span className="material-symbols-outlined text-tertiary">science</span>
 <div>
@@ -243,7 +244,7 @@ export default function PatientClinicalProfileMedcoreHealth() {
 </div>
 </div>
 <span className="material-symbols-outlined text-outline group-hover:text-primary">download</span>
-</a>
+</Link>
 </div>
 </div>
 </div>

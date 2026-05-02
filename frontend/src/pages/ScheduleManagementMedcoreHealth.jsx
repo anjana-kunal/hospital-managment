@@ -1,3 +1,4 @@
+import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
 
 export default function ScheduleManagementMedcoreHealth() {
@@ -20,41 +21,41 @@ export default function ScheduleManagementMedcoreHealth() {
 {/*  Navigation Links  */}
 <div className="flex-1 overflow-y-auto py-4 flex flex-col gap-1">
 {/*  Dashboard (Inactive)  */}
-<a className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" to="/doctor_dashboard_medcore_health">
 <span className="material-symbols-outlined" data-icon="dashboard">dashboard</span>
                 Dashboard
-            </a>
+            </Link>
 {/*  Schedule (Active State based on Semantic Mapping)  */}
-<a className="flex items-center gap-3 px-4 py-3 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-r-4 border-blue-600 rounded-r-none hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-r-4 border-blue-600 rounded-r-none hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" to="/schedule_management_medcore_health">
 <span className="material-symbols-outlined fill" data-icon="calendar_today">calendar_today</span>
                 Schedule
-            </a>
+            </Link>
 {/*  Appointments (Inactive)  */}
-<a className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" to="/appointments_queue_medcore_health">
 <span className="material-symbols-outlined" data-icon="event_note">event_note</span>
                 Appointments
-            </a>
+            </Link>
 {/*  Patients (Inactive)  */}
-<a className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" to="/patient_directory_medcore_health">
 <span className="material-symbols-outlined" data-icon="group">group</span>
                 Patients
-            </a>
+            </Link>
 {/*  Messages (Inactive)  */}
-<a className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" to="/messages_medcore_health">
 <span className="material-symbols-outlined" data-icon="mail">mail</span>
                 Messages
-            </a>
+            </Link>
 </div>
 {/*  Footer Links  */}
 <div className="border-t border-slate-200 dark:border-slate-800 py-4 flex flex-col gap-1">
-<a className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" href="#">
+<Link className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" to="/settings_medcore_health">
 <span className="material-symbols-outlined" data-icon="settings">settings</span>
                 Settings
-            </a>
-<a className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" href="#">
+            </Link>
+<Link className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" to="/login_medcore_health">
 <span className="material-symbols-outlined" data-icon="logout">logout</span>
                 Logout
-            </a>
+            </Link>
 </div>
 </nav>
 {/*  Main Content Wrapper  */}

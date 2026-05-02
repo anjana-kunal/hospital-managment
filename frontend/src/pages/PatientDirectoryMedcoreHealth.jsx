@@ -1,3 +1,4 @@
+import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
 
 export default function PatientDirectoryMedcoreHealth() {
@@ -17,37 +18,37 @@ export default function PatientDirectoryMedcoreHealth() {
 </div>
 </div>
 <div className="flex-1 py-4 flex flex-col gap-1 overflow-y-auto font-manrope text-sm font-semibold tracking-wide text-blue-600 dark:text-blue-400">
-<a className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" href="#" title="Dashboard">
+<Link className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" to="/doctor_dashboard_medcore_health" title="Dashboard">
 <span aria-hidden="true" className="material-symbols-outlined" data-icon="dashboard">dashboard</span>
                 Dashboard
-            </a>
-<a className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" href="#" title="Schedule">
+            </Link>
+<Link className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" to="/schedule_management_medcore_health" title="Schedule">
 <span aria-hidden="true" className="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
                 Schedule
-            </a>
-<a className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" href="#" title="Appointments">
+            </Link>
+<Link className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" to="/appointments_queue_medcore_health" title="Appointments">
 <span aria-hidden="true" className="material-symbols-outlined" data-icon="event_note">event_note</span>
                 Appointments
-            </a>
+            </Link>
 {/*  Active Tab  */}
-<a aria-current="page" className="flex items-center gap-3 px-4 py-3 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-r-4 border-blue-600 rounded-r-none hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" href="#" title="Patients">
+<Link aria-current="page" className="flex items-center gap-3 px-4 py-3 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-r-4 border-blue-600 rounded-r-none hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" to="/patient_directory_medcore_health" title="Patients">
 <span aria-hidden="true" className="material-symbols-outlined" data-icon="group" data-weight="fill" style={{"fontVariationSettings":"'FILL' 1"}}>group</span>
                 Patients
-            </a>
-<a className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" href="#" title="Messages">
+            </Link>
+<Link className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" to="/messages_medcore_health" title="Messages">
 <span aria-hidden="true" className="material-symbols-outlined" data-icon="mail">mail</span>
                 Messages
-            </a>
+            </Link>
 </div>
 <div className="mt-auto p-4 border-t border-slate-200 dark:border-slate-800 flex flex-col gap-1 font-manrope text-sm font-semibold tracking-wide">
-<a className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" href="#" title="Settings">
+<Link className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" to="/settings_medcore_health" title="Settings">
 <span aria-hidden="true" className="material-symbols-outlined" data-icon="settings">settings</span>
                 Settings
-            </a>
-<a className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" href="#" title="Logout">
+            </Link>
+<Link className="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 focus:ring-2 focus:ring-blue-500/20 active:scale-95" to="/login_medcore_health" title="Logout">
 <span aria-hidden="true" className="material-symbols-outlined" data-icon="logout">logout</span>
                 Logout
-            </a>
+            </Link>
 </div>
 </nav>
 {/*  Main Content Wrapper  */}
@@ -321,29 +322,29 @@ export default function PatientDirectoryMedcoreHealth() {
 </div>
 <div>
 <nav aria-label="Pagination" className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
-<a className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-surface-variant bg-surface-container-lowest text-sm font-medium text-outline hover:bg-surface-container-low transition-colors" href="#">
+<button type="button" className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-surface-variant bg-surface-container-lowest text-sm font-medium text-outline hover:bg-surface-container-low transition-colors" >
 <span className="sr-only">Previous</span>
 <span className="material-symbols-outlined text-[20px]">chevron_left</span>
-</a>
-<a aria-current="page" className="z-10 bg-primary-fixed border-primary-container text-on-primary-fixed relative inline-flex items-center px-4 py-2 border text-sm font-label-md" href="#">
+</button>
+<button type="button" aria-current="page" className="z-10 bg-primary-fixed border-primary-container text-on-primary-fixed relative inline-flex items-center px-4 py-2 border text-sm font-label-md" >
                                     1
-                                </a>
-<a className="bg-surface-container-lowest border-surface-variant text-on-surface-variant hover:bg-surface-container-low relative inline-flex items-center px-4 py-2 border text-sm font-medium transition-colors" href="#">
+                                </button>
+<button type="button" className="bg-surface-container-lowest border-surface-variant text-on-surface-variant hover:bg-surface-container-low relative inline-flex items-center px-4 py-2 border text-sm font-medium transition-colors" >
                                     2
-                                </a>
-<a className="bg-surface-container-lowest border-surface-variant text-on-surface-variant hover:bg-surface-container-low relative inline-flex items-center px-4 py-2 border text-sm font-medium transition-colors" href="#">
+                                </button>
+<button type="button" className="bg-surface-container-lowest border-surface-variant text-on-surface-variant hover:bg-surface-container-low relative inline-flex items-center px-4 py-2 border text-sm font-medium transition-colors" >
                                     3
-                                </a>
+                                </button>
 <span className="relative inline-flex items-center px-4 py-2 border border-surface-variant bg-surface-container-lowest text-sm font-medium text-outline">
                                     ...
                                 </span>
-<a className="bg-surface-container-lowest border-surface-variant text-on-surface-variant hover:bg-surface-container-low relative inline-flex items-center px-4 py-2 border text-sm font-medium transition-colors" href="#">
+<button type="button" className="bg-surface-container-lowest border-surface-variant text-on-surface-variant hover:bg-surface-container-low relative inline-flex items-center px-4 py-2 border text-sm font-medium transition-colors" >
                                     10
-                                </a>
-<a className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-surface-variant bg-surface-container-lowest text-sm font-medium text-outline hover:bg-surface-container-low transition-colors" href="#">
+                                </button>
+<button type="button" className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-surface-variant bg-surface-container-lowest text-sm font-medium text-outline hover:bg-surface-container-low transition-colors" >
 <span className="sr-only">Next</span>
 <span className="material-symbols-outlined text-[20px]">chevron_right</span>
-</a>
+</button>
 </nav>
 </div>
 </div>
