@@ -78,6 +78,68 @@ npm run db:seed
 npm run dev
 ```
 
+## Copy-Paste Run Commands
+
+Use these commands when you want to run the project locally.
+
+### Start Backend
+
+Open Terminal 1:
+
+```powershell
+cd "C:\Users\A N J A N A\Desktop\hospital managment\backend"
+npm run dev
+```
+
+Backend URL:
+
+```text
+http://localhost:5000
+```
+
+Health check:
+
+```text
+http://localhost:5000/health
+```
+
+### Start Frontend
+
+Open Terminal 2:
+
+```powershell
+cd "C:\Users\A N J A N A\Desktop\hospital managment\frontend"
+npm run dev
+```
+
+Frontend URL:
+
+```text
+http://127.0.0.1:3000
+```
+
+### First-Time Backend Setup
+
+Run these only after a fresh clone or if `node_modules` is missing:
+
+```powershell
+cd "C:\Users\A N J A N A\Desktop\hospital managment\backend"
+npm install
+npm run prisma:migrate -- --name init
+npm run db:seed
+npm run dev
+```
+
+### First-Time Frontend Setup
+
+Run these only after a fresh clone or if `node_modules` is missing:
+
+```powershell
+cd "C:\Users\A N J A N A\Desktop\hospital managment\frontend"
+npm install
+npm run dev
+```
+
 ## Demo Accounts
 
 All demo accounts use password `Password@123`.
