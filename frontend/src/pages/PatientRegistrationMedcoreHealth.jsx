@@ -23,7 +23,7 @@ export default function PatientRegistrationMedcoreHealth() {
       if (!form[field]) { setError('Please fill in all required fields.'); return; }
     }
     if (form.password !== form.confirmPassword) { setError('Passwords do not match.'); return; }
-    navigate('/otp_verification_medcore_health');
+    navigate('/patient_dashboard_medcore_health');
   }
 
   const inputClass = "w-full px-md py-3 bg-surface-container border-2 border-transparent rounded-lg font-body-md text-body-md text-on-surface focus:bg-surface-container-lowest focus:border-primary focus:ring-0 transition-colors";

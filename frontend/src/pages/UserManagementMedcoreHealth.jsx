@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const ROLE_TABS = ['Patients', 'Doctors', 'Staff', 'Admins'];
 
-const USERS = {
+const INITIAL_USERS = {
   Patients: [
     { initials: 'ES', bg: 'bg-primary-fixed text-on-primary-fixed-variant', name: 'Eleanor Sterling', sub: 'ID: PT-84920', contact: 'e.sterling@example.com', phone: '+1 (555) 293-4819', role: 'Patient', status: 'Active', statusBg: 'bg-secondary-container text-on-secondary-container', statusDot: 'bg-secondary', lastLogin: 'Today, 09:41 AM', img: null },
   ],
@@ -18,15 +18,63 @@ const USERS = {
   ],
 };
 
+const DEPARTMENTS = ['Cardiology', 'Neurology', 'Surgery', 'Pediatrics', 'Emergency', 'Radiology', 'Oncology', 'Orthopedics'];
+
+const EMPTY_DOCTOR_FORM = { name: '', email: '', department: '', role: '', password: '', confirmPassword: '' };
+
 export default function UserManagementMedcoreHealth() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('Patients');
   const [searchQuery, setSearchQuery] = useState('');
+  const [users, setUsers] = useState(INITIAL_USERS);
+  const [showAddDoctor, setShowAddDoctor] = useState(false);
+  const [doctorForm, setDoctorForm] = useState(EMPTY_DOCTOR_FORM);
+  const [formError, setFormError] = useState('');
+  const [addedMsg, setAddedMsg] = useState('');
+  const [showDoctorPassword, setShowDoctorPassword] = useState(false);
 
-  const users = (USERS[activeTab] || []).filter(u =>
+  const filteredUsers = (users[activeTab] || []).filter(u =>
     u.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     u.role.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  function handleDoctorFormChange(e) {
+    setDoctorForm(f => ({ ...f, [e.target.name]: e.target.value }));
+    setFormError('');
+  }
+
+  function handleAddDoctor(e) {
+    e.preventDefault();
+    const { name, email, department, role, password, confirmPassword } = doctorForm;
+    if (!name || !email || !department || !role || !password || !confirmPassword) {
+      setFormError('All fields are required.'); return;
+    }
+    if (password !== confirmPassword) {
+      setFormError('Passwords do not match.'); return;
+    }
+    const initials = name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+    const newDoc = {
+      initials,
+      bg: 'bg-secondary-fixed text-on-secondary-fixed',
+      name: name.startsWith('Dr.') ? name : `Dr. ${name}`,
+      sub: `${department} Dept.`,
+      contact: email,
+      phone: 'Ext: —',
+      role,
+      status: 'Active',
+      statusBg: 'bg-secondary-container text-on-secondary-container',
+      statusDot: 'bg-secondary',
+      lastLogin: 'Never',
+      img: null,
+    };
+    setUsers(u => ({ ...u, Doctors: [...u.Doctors, newDoc] }));
+    setDoctorForm(EMPTY_DOCTOR_FORM);
+    setShowAddDoctor(false);
+    setFormError('');
+    setAddedMsg(`Dr. ${name} added successfully.`);
+    setActiveTab('Doctors');
+    setTimeout(() => setAddedMsg(''), 4000);
+  }
 
   return (
     <div className="bg-background text-on-background antialiased flex h-screen overflow-hidden">
@@ -70,6 +118,12 @@ export default function UserManagementMedcoreHealth() {
             <span className="font-label-md">Settings</span>
           </Link>
         </nav>
+        <div className="border-t border-slate-200 p-4">
+          <Link className="text-slate-600 hover:text-blue-600 px-4 py-3 flex items-center gap-3 hover:bg-slate-50 transition-all rounded-lg" to="/login_medcore_health">
+            <span className="material-symbols-outlined">logout</span>
+            <span className="font-label-md">Logout</span>
+          </Link>
+        </div>
       </aside>
 
       <div className="flex-1 flex flex-col md:ml-64 w-full h-full">
@@ -81,17 +135,11 @@ export default function UserManagementMedcoreHealth() {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <button
-              onClick={() => navigate('/notifications_medcore_health')}
-              className="w-10 h-10 rounded-full flex items-center justify-center text-slate-500 hover:bg-slate-50 transition-colors relative"
-            >
+            <button onClick={() => navigate('/notifications_medcore_health')} className="w-10 h-10 rounded-full flex items-center justify-center text-slate-500 hover:bg-slate-50 transition-colors relative">
               <span className="material-symbols-outlined">notifications</span>
               <span className="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border border-white"></span>
             </button>
-            <button
-              onClick={() => navigate('/admin_profile_settings_medcore_health')}
-              className="w-10 h-10 rounded-full flex items-center justify-center text-slate-500 hover:bg-slate-50 transition-colors"
-            >
+            <button onClick={() => navigate('/admin_profile_settings_medcore_health')} className="w-10 h-10 rounded-full flex items-center justify-center text-slate-500 hover:bg-slate-50 transition-colors">
               <span className="material-symbols-outlined">account_circle</span>
             </button>
           </div>
@@ -103,16 +151,32 @@ export default function UserManagementMedcoreHealth() {
               <h1 className="font-h1 text-h1 text-on-surface mb-2">User Management</h1>
               <p className="font-body-lg text-body-lg text-on-surface-variant">Manage hospital staff, administrators, and patient records.</p>
             </div>
-            <button className="bg-primary text-on-primary font-label-md px-6 py-3 rounded-DEFAULT flex items-center gap-2 hover:bg-surface-tint transition-colors shadow-sm">
-              <span className="material-symbols-outlined text-[20px]">add</span>
-              Invite New User
-            </button>
+            <div className="flex gap-3">
+              <button
+                onClick={() => { setActiveTab('Doctors'); setShowAddDoctor(true); }}
+                className="bg-secondary text-on-secondary font-label-md px-5 py-3 rounded-DEFAULT flex items-center gap-2 hover:opacity-90 transition-opacity shadow-sm"
+              >
+                <span className="material-symbols-outlined text-[20px]">stethoscope</span>
+                Add Doctor
+              </button>
+              <button className="bg-primary text-on-primary font-label-md px-5 py-3 rounded-DEFAULT flex items-center gap-2 hover:bg-surface-tint transition-colors shadow-sm">
+                <span className="material-symbols-outlined text-[20px]">add</span>
+                Invite User
+              </button>
+            </div>
           </div>
+
+          {addedMsg && (
+            <div className="mb-6 flex items-center gap-3 px-4 py-3 bg-secondary-container text-on-secondary-container rounded-lg border border-secondary/20 font-body-sm text-body-sm">
+              <span className="material-symbols-outlined text-secondary">check_circle</span>
+              {addedMsg}
+            </div>
+          )}
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-grid-gutter mb-grid-margin">
             {[
               { label: 'Total Users', value: '12,450', icon: 'group', bg: 'bg-primary-fixed text-on-primary-fixed-variant' },
-              { label: 'Active Doctors', value: '842', icon: 'stethoscope', bg: 'bg-secondary-fixed text-on-secondary-fixed-variant' },
+              { label: 'Active Doctors', value: String(users.Doctors.length), icon: 'stethoscope', bg: 'bg-secondary-fixed text-on-secondary-fixed-variant' },
               { label: 'Pending Approvals', value: '34', icon: 'pending_actions', bg: 'bg-tertiary-fixed text-on-tertiary-fixed-variant' },
             ].map(stat => (
               <div key={stat.label} className="bg-surface-container-lowest rounded-xl p-lg shadow-level-1 border border-surface-variant flex items-center justify-between">
@@ -136,12 +200,13 @@ export default function UserManagementMedcoreHealth() {
                       key={tab}
                       onClick={() => { setActiveTab(tab); setSearchQuery(''); }}
                       className={`px-4 py-2 rounded-DEFAULT font-label-md transition-colors ${
-                        activeTab === tab
-                          ? 'bg-primary text-on-primary shadow-sm'
-                          : 'text-on-surface-variant hover:text-on-surface'
+                        activeTab === tab ? 'bg-primary text-on-primary shadow-sm' : 'text-on-surface-variant hover:text-on-surface'
                       }`}
                     >
                       {tab}
+                      {tab === 'Doctors' && (
+                        <span className="ml-1.5 text-xs bg-white/20 px-1.5 py-0.5 rounded-full">{users.Doctors.length}</span>
+                      )}
                     </button>
                   ))}
                 </div>
@@ -155,9 +220,14 @@ export default function UserManagementMedcoreHealth() {
                       onChange={e => setSearchQuery(e.target.value)}
                     />
                   </div>
-                  <button className="flex items-center gap-2 px-4 py-2 border border-outline-variant rounded-DEFAULT text-on-surface font-label-md hover:bg-surface-container-low transition-colors">
-                    <span className="material-symbols-outlined text-[20px]">filter_list</span>Filters
-                  </button>
+                  {activeTab === 'Doctors' && (
+                    <button
+                      onClick={() => setShowAddDoctor(true)}
+                      className="flex items-center gap-2 px-4 py-2 bg-secondary text-on-secondary rounded-DEFAULT font-label-md hover:opacity-90 transition-opacity"
+                    >
+                      <span className="material-symbols-outlined text-[18px]">add</span>Add Doctor
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
@@ -166,14 +236,14 @@ export default function UserManagementMedcoreHealth() {
               <table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="bg-surface font-label-md text-on-surface-variant border-b border-surface-variant">
-                    {['User','Contact','Role','Status','Last Login','Actions'].map(h => (
+                    {['User', 'Contact', 'Role', 'Status', 'Last Login', 'Actions'].map(h => (
                       <th key={h} className={`py-4 px-6 font-semibold ${h === 'Actions' ? 'text-center w-16' : ''}`}>{h}</th>
                     ))}
                   </tr>
                 </thead>
                 <tbody className="font-body-sm text-on-surface">
-                  {users.map((user, i) => (
-                    <tr key={user.name} className={`border-b border-surface-variant hover:bg-surface-container-low transition-colors ${i % 2 === 0 ? 'bg-surface-container-lowest' : 'bg-background'}`}>
+                  {filteredUsers.map((user, i) => (
+                    <tr key={user.name + i} className={`border-b border-surface-variant hover:bg-surface-container-low transition-colors ${i % 2 === 0 ? 'bg-surface-container-lowest' : 'bg-background'}`}>
                       <td className="py-3 px-6">
                         <div className="flex items-center gap-3">
                           {user.img ? (
@@ -203,7 +273,7 @@ export default function UserManagementMedcoreHealth() {
                       </td>
                     </tr>
                   ))}
-                  {users.length === 0 && (
+                  {filteredUsers.length === 0 && (
                     <tr>
                       <td colSpan={6} className="py-10 text-center text-on-surface-variant">No users found.</td>
                     </tr>
@@ -213,7 +283,7 @@ export default function UserManagementMedcoreHealth() {
             </div>
 
             <div className="p-4 border-t border-surface-variant flex items-center justify-between bg-surface-container-lowest rounded-b-xl">
-              <span className="font-body-sm text-on-surface-variant">Showing {users.length} of {users.length} entries</span>
+              <span className="font-body-sm text-on-surface-variant">Showing {filteredUsers.length} of {(users[activeTab] || []).length} entries</span>
               <div className="flex gap-1">
                 <button className="w-8 h-8 flex items-center justify-center rounded-DEFAULT border border-surface-variant text-outline hover:bg-surface-container-low transition-colors" disabled>
                   <span className="material-symbols-outlined text-[18px]">chevron_left</span>
@@ -227,6 +297,134 @@ export default function UserManagementMedcoreHealth() {
           </div>
         </main>
       </div>
+
+      {/* Add Doctor Modal */}
+      {showAddDoctor && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-on-background/40 backdrop-blur-sm">
+          <div className="bg-surface-container-lowest rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.15)] border border-outline-variant/30 w-full max-w-lg">
+            <div className="flex items-center justify-between p-6 border-b border-outline-variant/30">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center">
+                  <span className="material-symbols-outlined">stethoscope</span>
+                </div>
+                <div>
+                  <h2 className="font-h3 text-h3 text-on-surface">Add Doctor Account</h2>
+                  <p className="font-label-sm text-label-sm text-on-surface-variant">Admin-issued credentials</p>
+                </div>
+              </div>
+              <button
+                onClick={() => { setShowAddDoctor(false); setDoctorForm(EMPTY_DOCTOR_FORM); setFormError(''); }}
+                className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors text-on-surface-variant"
+              >
+                <span className="material-symbols-outlined">close</span>
+              </button>
+            </div>
+
+            <form className="p-6 space-y-4" onSubmit={handleAddDoctor}>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="col-span-2 flex flex-col gap-1">
+                  <label className="font-label-sm text-label-sm text-on-surface-variant">Full Name <span className="text-error">*</span></label>
+                  <input
+                    name="name"
+                    placeholder="e.g. Sarah Jenkins"
+                    value={doctorForm.name}
+                    onChange={handleDoctorFormChange}
+                    className="w-full px-3 py-2.5 bg-surface-container border-2 border-transparent rounded-lg font-body-md text-body-md text-on-surface focus:bg-surface-container-lowest focus:border-primary outline-none transition-colors"
+                  />
+                </div>
+                <div className="col-span-2 flex flex-col gap-1">
+                  <label className="font-label-sm text-label-sm text-on-surface-variant">Email Address <span className="text-error">*</span></label>
+                  <input
+                    name="email"
+                    type="email"
+                    placeholder="doctor@medcore.org"
+                    value={doctorForm.email}
+                    onChange={handleDoctorFormChange}
+                    className="w-full px-3 py-2.5 bg-surface-container border-2 border-transparent rounded-lg font-body-md text-body-md text-on-surface focus:bg-surface-container-lowest focus:border-primary outline-none transition-colors"
+                  />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <label className="font-label-sm text-label-sm text-on-surface-variant">Department <span className="text-error">*</span></label>
+                  <select
+                    name="department"
+                    value={doctorForm.department}
+                    onChange={handleDoctorFormChange}
+                    className="w-full px-3 py-2.5 bg-surface-container border-2 border-transparent rounded-lg font-body-md text-body-md text-on-surface focus:bg-surface-container-lowest focus:border-primary outline-none transition-colors appearance-none cursor-pointer"
+                  >
+                    <option value="">Select dept.</option>
+                    {DEPARTMENTS.map(d => <option key={d} value={d}>{d}</option>)}
+                  </select>
+                </div>
+                <div className="flex flex-col gap-1">
+                  <label className="font-label-sm text-label-sm text-on-surface-variant">Title / Role <span className="text-error">*</span></label>
+                  <input
+                    name="role"
+                    placeholder="e.g. Attending Physician"
+                    value={doctorForm.role}
+                    onChange={handleDoctorFormChange}
+                    className="w-full px-3 py-2.5 bg-surface-container border-2 border-transparent rounded-lg font-body-md text-body-md text-on-surface focus:bg-surface-container-lowest focus:border-primary outline-none transition-colors"
+                  />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <label className="font-label-sm text-label-sm text-on-surface-variant">Temporary Password <span className="text-error">*</span></label>
+                  <div className="relative">
+                    <input
+                      name="password"
+                      type={showDoctorPassword ? 'text' : 'password'}
+                      placeholder="••••••••"
+                      value={doctorForm.password}
+                      onChange={handleDoctorFormChange}
+                      className="w-full pl-3 pr-10 py-2.5 bg-surface-container border-2 border-transparent rounded-lg font-body-md text-body-md text-on-surface focus:bg-surface-container-lowest focus:border-primary outline-none transition-colors"
+                    />
+                    <button type="button" onClick={() => setShowDoctorPassword(v => !v)} className="absolute right-2 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-on-surface">
+                      <span className="material-symbols-outlined text-[18px]">{showDoctorPassword ? 'visibility' : 'visibility_off'}</span>
+                    </button>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-1">
+                  <label className="font-label-sm text-label-sm text-on-surface-variant">Confirm Password <span className="text-error">*</span></label>
+                  <input
+                    name="confirmPassword"
+                    type={showDoctorPassword ? 'text' : 'password'}
+                    placeholder="••••••••"
+                    value={doctorForm.confirmPassword}
+                    onChange={handleDoctorFormChange}
+                    className="w-full px-3 py-2.5 bg-surface-container border-2 border-transparent rounded-lg font-body-md text-body-md text-on-surface focus:bg-surface-container-lowest focus:border-primary outline-none transition-colors"
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-start gap-2 p-3 bg-primary-fixed/30 rounded-lg">
+                <span className="material-symbols-outlined text-primary-container text-[18px] mt-0.5">info</span>
+                <p className="font-body-sm text-body-sm text-on-surface-variant">The doctor will receive their credentials via email and must change their password on first login.</p>
+              </div>
+
+              {formError && (
+                <div className="flex items-center gap-2 text-error font-body-sm text-body-sm">
+                  <span className="material-symbols-outlined text-[16px]">error</span>{formError}
+                </div>
+              )}
+
+              <div className="flex gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={() => { setShowAddDoctor(false); setDoctorForm(EMPTY_DOCTOR_FORM); setFormError(''); }}
+                  className="flex-1 py-3 border border-outline-variant rounded-lg font-label-md text-label-md text-on-surface hover:bg-surface-container-low transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="flex-1 py-3 bg-secondary text-on-secondary rounded-lg font-label-md text-label-md hover:opacity-90 transition-opacity shadow-sm flex items-center justify-center gap-2"
+                >
+                  <span className="material-symbols-outlined text-[18px]">person_add</span>
+                  Add Doctor
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
