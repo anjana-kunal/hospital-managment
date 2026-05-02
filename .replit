@@ -11,6 +11,59 @@ channel = "stable-25_05"
 [userenv.shared]
 NODE_ENV = "development"
 PORT = "3001"
-CLIENT_ORIGIN = "http://0.0.0.0:5000"
+CLIENT_ORIGIN = "*"
 BCRYPT_SALT_ROUNDS = "12"
 JWT_EXPIRES_IN = "7d"
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Start application"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Backend API"
+
+[[workflows.workflow]]
+name = "Start application"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd frontend && npm run dev"
+waitForPort = 5000
+
+[workflows.workflow.metadata]
+outputType = "webview"
+
+[[workflows.workflow]]
+name = "Backend API"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd backend && npm run dev"
+waitForPort = 3001
+
+[workflows.workflow.metadata]
+outputType = "console"
+
+[[ports]]
+localPort = 3001
+externalPort = 3001
+
+[[ports]]
+localPort = 5000
+externalPort = 80
+
+[deployment]
+deploymentTarget = "autoscale"
+run = ["bash", "-c", "cd backend && node src/server.js"]
+build = ["bash", "-c", "cd frontend && npm run build && cd ../backend && npm install && npx prisma generate"]
