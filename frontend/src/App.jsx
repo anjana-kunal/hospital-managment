@@ -46,6 +46,11 @@ import SelectSlotMedcoreHealth from './pages/SelectSlotMedcoreHealth';
 import SettingsMedcoreHealth from './pages/SettingsMedcoreHealth';
 import SystemSettingsMedcoreHealth from './pages/SystemSettingsMedcoreHealth';
 import UserManagementMedcoreHealth from './pages/UserManagementMedcoreHealth';
+import TelemedicineMedcoreHealth from './pages/TelemedicineMedcoreHealth';
+import HealthTimelineMedcoreHealth from './pages/HealthTimelineMedcoreHealth';
+import PatientQueueMedcoreHealth from './pages/PatientQueueMedcoreHealth';
+import ConsultationSummaryMedcoreHealth from './pages/ConsultationSummaryMedcoreHealth';
+import StaffShiftPlannerMedcoreHealth from './pages/StaffShiftPlannerMedcoreHealth';
 
 function App() {
   return (
@@ -98,6 +103,11 @@ function App() {
         <Route path="/settings_medcore_health" element={<SettingsMedcoreHealth />} />
         <Route path="/system_settings_medcore_health" element={<SystemSettingsMedcoreHealth />} />
         <Route path="/user_management_medcore_health" element={<UserManagementMedcoreHealth />} />
+        <Route path="/telemedicine_medcore_health" element={<TelemedicineMedcoreHealth />} />
+        <Route path="/health_timeline_medcore_health" element={<HealthTimelineMedcoreHealth />} />
+        <Route path="/patient_queue_medcore_health" element={<PatientQueueMedcoreHealth />} />
+        <Route path="/consultation_summary_medcore_health" element={<ConsultationSummaryMedcoreHealth />} />
+        <Route path="/staff_shift_planner_medcore_health" element={<StaffShiftPlannerMedcoreHealth />} />
       </Routes>
     </Router>
   );

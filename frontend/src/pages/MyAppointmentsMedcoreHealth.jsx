@@ -3,6 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const TABS = ['Upcoming', 'Completed', 'Cancelled'];
 
+const TRACKER_STEPS = ['Booked', 'Confirmed', 'In Queue', 'With Doctor', 'Complete'];
+const CURRENT_STEP = 2;
+
 const UPCOMING = [
   {
     id: 1, doctor: 'Dr. Emily Chen', specialty: 'Neurology Specialist', specialtyIcon: 'psychology',
@@ -10,7 +13,7 @@ const UPCOMING = [
     date: 'Oct 24, 2023', time: '10:00 AM - 10:45 AM', meetingLabel: 'Ready to join in 15m', meetingSubLabel: 'MedCore Secure Video',
     meetingIcon: 'link', selected: true,
     img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBUILhh9d0EelBcT3XgcNeaFFLImOHkkH6wpiu9Ac0UwjcSY_o4uL4QpGHLvt8G2DtMo2yt3iCk9TxECYS3dRLV24mbLwyX0ZFzo_-wsBVaBSjSXzMskqftDqgEprNAG86v7i-4vqq0B3Zpqc_DjD6veHkhwgMJZY9nqRbRY_CVqBDoIkpiH2bYKsnfO89P-CpNppvweczpE0nyuPAtKNRkmzJiSlaDvYgj0SYp5k3yTtqZsGXLh3Z_Iz4sqBH4691e79KF_IcuxKT_',
-    actions: ['Reschedule','Join'],
+    actions: ['Reschedule', 'Join'],
   },
   {
     id: 2, doctor: 'Dr. Marcus Johnson', specialty: 'Cardiology', specialtyIcon: 'monitor_heart',
@@ -18,8 +21,18 @@ const UPCOMING = [
     date: 'Nov 02, 2023', time: '2:30 PM - 3:00 PM', meetingLabel: 'Main Medical Center', meetingSubLabel: 'West Wing, Suite 402',
     meetingIcon: 'location_on', selected: false,
     img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCrdTzMqp0wEV3GoiPW535SNT9zyGymMtY-m3MPnmvklmqRjT84NqmrVYGHw5daPfMI4OCwXb0hFpROIi7wra4N3YDcKyDzg-lDS81yvVOd5yqyoBMU7JjGXKAhfzl08MedV_bdfUVmHloDPn6RCapqpU3Iol9KHm_Weqpg88SHDxjixb-FPeARv6v0obL3MVKFqZM6R1Z02bwloQO-7Y8qGmNgXx6VPxU--fyw8q-rFHnEWSmrZTOopSt1s9loYiINYl6koIK8OHLL',
-    actions: ['Cancel','Reschedule'],
+    actions: ['Cancel', 'Reschedule'],
   },
+];
+
+const PATIENT_SIDEBAR = [
+  { icon: 'dashboard', label: 'Dashboard', to: '/patient_dashboard_medcore_health' },
+  { icon: 'calendar_today', label: 'Appointments', to: '/my_appointments_medcore_health', active: true },
+  { icon: 'timeline', label: 'Health Timeline', to: '/health_timeline_medcore_health' },
+  { icon: 'videocam', label: 'Telemedicine', to: '/telemedicine_medcore_health' },
+  { icon: 'history_edu', label: 'Medical Records', to: '/medical_records_medcore_health' },
+  { icon: 'medication', label: 'Prescriptions', to: '/prescriptions_medcore_health' },
+  { icon: 'payments', label: 'Billing', to: '/billing_payments_medcore_health' },
 ];
 
 export default function MyAppointmentsMedcoreHealth() {
@@ -40,21 +53,11 @@ export default function MyAppointmentsMedcoreHealth() {
             </div>
           </div>
           <nav className="flex-1 px-2 space-y-1 overflow-y-auto">
-            <Link className="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-100 hover:text-blue-600 transition-all font-manrope text-sm font-medium rounded-r-lg" to="/patient_dashboard_medcore_health">
-              <span className="material-symbols-outlined">dashboard</span>Dashboard
-            </Link>
-            <Link className="flex items-center gap-3 px-4 py-3 bg-blue-50 text-blue-600 border-r-4 border-blue-600 rounded-r-lg font-manrope text-sm font-medium" to="/my_appointments_medcore_health">
-              <span className="material-symbols-outlined">calendar_today</span>Appointments
-            </Link>
-            <Link className="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-100 hover:text-blue-600 transition-all font-manrope text-sm font-medium rounded-r-lg" to="/medical_records_medcore_health">
-              <span className="material-symbols-outlined">history_edu</span>Medical Records
-            </Link>
-            <Link className="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-100 hover:text-blue-600 transition-all font-manrope text-sm font-medium rounded-r-lg" to="/prescriptions_medcore_health">
-              <span className="material-symbols-outlined">medication</span>Prescriptions
-            </Link>
-            <Link className="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-100 hover:text-blue-600 transition-all font-manrope text-sm font-medium rounded-r-lg" to="/billing_payments_medcore_health">
-              <span className="material-symbols-outlined">payments</span>Billing
-            </Link>
+            {PATIENT_SIDEBAR.map(item => (
+              <Link key={item.to} to={item.to} className={`flex items-center gap-3 px-4 py-3 font-manrope text-sm font-medium rounded-r-lg transition-all ${item.active ? 'bg-blue-50 text-blue-600 border-r-4 border-blue-600' : 'text-slate-600 hover:bg-slate-100 hover:text-blue-600'}`}>
+                <span className="material-symbols-outlined">{item.icon}</span>{item.label}
+              </Link>
+            ))}
           </nav>
           <div className="px-2 mt-auto space-y-1">
             <div className="border-t border-slate-200 mb-2 mx-4"></div>
@@ -79,10 +82,7 @@ export default function MyAppointmentsMedcoreHealth() {
               </div>
             </div>
             <div className="flex items-center gap-4">
-              <button
-                onClick={() => navigate('/notifications_medcore_health')}
-                className="text-slate-600 hover:bg-slate-50 transition-colors p-2 rounded-full relative"
-              >
+              <button onClick={() => navigate('/notifications_medcore_health')} className="text-slate-600 hover:bg-slate-50 transition-colors p-2 rounded-full relative">
                 <span className="material-symbols-outlined">notifications</span>
                 <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
               </button>
@@ -98,35 +98,68 @@ export default function MyAppointmentsMedcoreHealth() {
           </header>
 
           <main className="flex-1 overflow-y-auto p-4 md:p-grid-margin bg-background">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-xl gap-4">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
               <div>
                 <h1 className="font-h1 text-h1 text-on-surface">My Appointments</h1>
                 <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">Manage your upcoming visits and view consultation history.</p>
               </div>
-              <button
-                onClick={() => navigate('/search_doctors_medcore_health')}
-                className="bg-primary-container text-on-primary-container font-label-md text-label-md px-lg py-sm rounded-lg hover:bg-primary-fixed-variant transition-colors flex items-center gap-2 shadow-sm"
-              >
-                <span className="material-symbols-outlined text-sm">add</span>
-                Book Appointment
+              <button onClick={() => navigate('/search_doctors_medcore_health')} className="bg-primary-container text-on-primary-container font-label-md text-label-md px-lg py-sm rounded-lg hover:bg-primary-fixed-variant transition-colors flex items-center gap-2 shadow-sm">
+                <span className="material-symbols-outlined text-sm">add</span>Book Appointment
               </button>
+            </div>
+
+            {/* ── Real-Time Appointment Tracker ── */}
+            <div className="bg-gradient-to-r from-blue-50 via-indigo-50 to-blue-50 border border-blue-200 rounded-2xl p-5 mb-6 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-blue-100/40 rounded-full -translate-y-8 translate-x-8"></div>
+              <div className="relative">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                    <h3 className="font-semibold text-slate-800 text-sm">Today's Appointment Tracker</h3>
+                    <span className="text-xs bg-white border border-slate-200 text-slate-600 px-2 py-0.5 rounded-full">Live</span>
+                  </div>
+                  <div className="flex items-center gap-4 text-xs text-slate-500">
+                    <span className="flex items-center gap-1"><span className="material-symbols-outlined text-[14px] text-amber-500">hourglass_top</span>Est. wait: ~20 min</span>
+                    <span className="flex items-center gap-1"><span className="material-symbols-outlined text-[14px] text-blue-500">queue</span>Queue position: #3</span>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-blue-300 shrink-0">
+                    <img src={UPCOMING[0].img} alt="Dr. Emily Chen" className="w-full h-full object-cover" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-slate-800">Dr. Emily Chen — Neurology</p>
+                    <p className="text-xs text-slate-500">Oct 24, 2023 · 10:00 AM · Virtual Consultation</p>
+                  </div>
+                  <button onClick={() => navigate('/telemedicine_medcore_health')} className="ml-auto flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-xs font-semibold transition-all shadow-sm">
+                    <span className="material-symbols-outlined text-[14px]">videocam</span>Join Room
+                  </button>
+                </div>
+
+                <div className="flex items-center gap-0">
+                  {TRACKER_STEPS.map((step, i) => (
+                    <React.Fragment key={step}>
+                      <div className="flex flex-col items-center gap-1.5 flex-1">
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold border-2 transition-all ${i < CURRENT_STEP ? 'bg-green-500 border-green-500 text-white' : i === CURRENT_STEP ? 'bg-blue-600 border-blue-600 text-white shadow-lg shadow-blue-200 scale-110' : 'bg-white border-slate-300 text-slate-400'}`}>
+                          {i < CURRENT_STEP ? <span className="material-symbols-outlined text-[14px]">check</span> : i === CURRENT_STEP ? <span className="material-symbols-outlined text-[14px] animate-pulse">person</span> : i + 1}
+                        </div>
+                        <span className={`text-[10px] font-semibold text-center leading-tight ${i === CURRENT_STEP ? 'text-blue-600' : i < CURRENT_STEP ? 'text-green-600' : 'text-slate-400'}`}>{step}</span>
+                      </div>
+                      {i < TRACKER_STEPS.length - 1 && (
+                        <div className={`h-0.5 flex-1 mb-4 ${i < CURRENT_STEP ? 'bg-green-400' : 'bg-slate-200'}`}></div>
+                      )}
+                    </React.Fragment>
+                  ))}
+                </div>
+              </div>
             </div>
 
             <div className="flex gap-lg border-b border-surface-variant mb-lg">
               {TABS.map(tab => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`pb-sm border-b-2 font-label-md text-label-md transition-colors relative top-[1px] ${
-                    activeTab === tab
-                      ? 'border-primary text-primary'
-                      : 'border-transparent text-on-surface-variant hover:text-on-surface'
-                  }`}
-                >
+                <button key={tab} onClick={() => setActiveTab(tab)} className={`pb-sm border-b-2 font-label-md text-label-md transition-colors relative top-[1px] ${activeTab === tab ? 'border-primary text-primary' : 'border-transparent text-on-surface-variant hover:text-on-surface'}`}>
                   {tab}
-                  {tab === 'Upcoming' && (
-                    <span className="ml-2 bg-primary-container text-on-primary-container text-[10px] py-[2px] px-2 rounded-full">2</span>
-                  )}
+                  {tab === 'Upcoming' && <span className="ml-2 bg-primary-container text-on-primary-container text-[10px] py-[2px] px-2 rounded-full">2</span>}
                 </button>
               ))}
             </div>
@@ -134,10 +167,7 @@ export default function MyAppointmentsMedcoreHealth() {
             <div className="grid grid-cols-1 xl:grid-cols-12 gap-grid-gutter items-start">
               <div className="xl:col-span-7 flex flex-col gap-md">
                 {activeTab === 'Upcoming' && UPCOMING.map(appt => (
-                  <div
-                    key={appt.id}
-                    className={`bg-surface-container-lowest rounded-xl p-lg border-2 shadow-[0_4px_12px_rgba(0,0,0,0.04)] relative overflow-hidden transition-all cursor-pointer ${appt.selected ? 'border-primary' : 'border-surface-variant hover:shadow-[0_8px_24px_rgba(0,0,0,0.06)]'}`}
-                  >
+                  <div key={appt.id} className={`bg-surface-container-lowest rounded-xl p-lg border-2 shadow-[0_4px_12px_rgba(0,0,0,0.04)] relative overflow-hidden transition-all cursor-pointer ${appt.selected ? 'border-primary' : 'border-surface-variant hover:shadow-[0_8px_24px_rgba(0,0,0,0.06)]'}`}>
                     {appt.selected && <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>}
                     <div className="flex flex-col sm:flex-row justify-between items-start gap-4 mb-4 border-b border-surface-variant pb-4">
                       <div className="flex items-center gap-4">
@@ -147,14 +177,12 @@ export default function MyAppointmentsMedcoreHealth() {
                         <div>
                           <h3 className="font-h3 text-[18px] leading-tight text-on-surface">{appt.doctor}</h3>
                           <p className="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1 mt-1">
-                            <span className="material-symbols-outlined text-[16px]">{appt.specialtyIcon}</span>
-                            {appt.specialty}
+                            <span className="material-symbols-outlined text-[16px]">{appt.specialtyIcon}</span>{appt.specialty}
                           </p>
                         </div>
                       </div>
                       <div className={`${appt.typeBg} font-label-sm text-label-sm px-3 py-1 rounded-full flex items-center gap-1 shrink-0 border`}>
-                        <span className="material-symbols-outlined text-[14px]">{appt.typeIcon}</span>
-                        {appt.type}
+                        <span className="material-symbols-outlined text-[14px]">{appt.typeIcon}</span>{appt.type}
                       </div>
                     </div>
                     <div className="flex flex-col sm:flex-row gap-6 mb-6">
@@ -183,25 +211,15 @@ export default function MyAppointmentsMedcoreHealth() {
                     <div className="flex justify-end gap-3 pt-2">
                       {appt.actions[0] === 'Reschedule' && appt.actions[1] === 'Join' ? (
                         <>
-                          <button
-                            onClick={() => navigate('/select_slot_medcore_health')}
-                            className="font-label-md text-label-md text-on-surface border border-outline-variant px-4 py-2 rounded-lg hover:bg-surface-container transition-colors"
-                          >
-                            Reschedule
-                          </button>
-                          <button className="font-label-md text-label-md bg-secondary text-on-secondary px-6 py-2 rounded-lg hover:opacity-90 transition-opacity flex items-center gap-2 shadow-sm">
+                          <button onClick={() => navigate('/select_slot_medcore_health')} className="font-label-md text-label-md text-on-surface border border-outline-variant px-4 py-2 rounded-lg hover:bg-surface-container transition-colors">Reschedule</button>
+                          <button onClick={() => navigate('/telemedicine_medcore_health')} className="font-label-md text-label-md bg-secondary text-on-secondary px-6 py-2 rounded-lg hover:opacity-90 transition-opacity flex items-center gap-2 shadow-sm">
                             <span className="material-symbols-outlined text-[18px]">videocam</span>Join Consultation
                           </button>
                         </>
                       ) : (
                         <>
                           <button className="font-label-md text-label-md text-error hover:bg-error-container/20 px-4 py-2 rounded-lg transition-colors">Cancel</button>
-                          <button
-                            onClick={() => navigate('/select_slot_medcore_health')}
-                            className="font-label-md text-label-md text-on-surface border border-outline-variant px-4 py-2 rounded-lg hover:bg-surface-container transition-colors"
-                          >
-                            Reschedule
-                          </button>
+                          <button onClick={() => navigate('/select_slot_medcore_health')} className="font-label-md text-label-md text-on-surface border border-outline-variant px-4 py-2 rounded-lg hover:bg-surface-container transition-colors">Reschedule</button>
                         </>
                       )}
                     </div>
@@ -209,14 +227,12 @@ export default function MyAppointmentsMedcoreHealth() {
                 ))}
                 {activeTab === 'Completed' && (
                   <div className="text-center py-16 text-on-surface-variant">
-                    <span className="material-symbols-outlined text-[48px] text-outline block mb-2">check_circle</span>
-                    No completed appointments to show.
+                    <span className="material-symbols-outlined text-[48px] text-outline block mb-2">check_circle</span>No completed appointments to show.
                   </div>
                 )}
                 {activeTab === 'Cancelled' && (
                   <div className="text-center py-16 text-on-surface-variant">
-                    <span className="material-symbols-outlined text-[48px] text-outline block mb-2">cancel</span>
-                    No cancelled appointments.
+                    <span className="material-symbols-outlined text-[48px] text-outline block mb-2">cancel</span>No cancelled appointments.
                   </div>
                 )}
               </div>
@@ -237,10 +253,7 @@ export default function MyAppointmentsMedcoreHealth() {
                       <h3 className="font-h2 text-[24px] text-on-surface mb-1">Dr. Emily Chen</h3>
                       <p className="font-body-md text-body-md text-on-surface-variant">Neurology Specialist</p>
                       <div className="mt-4 flex gap-2">
-                        <button
-                          onClick={() => navigate('/messages_medcore_health')}
-                          className="w-10 h-10 rounded-full bg-surface-container text-primary flex items-center justify-center hover:bg-surface-container-high transition-colors"
-                        >
+                        <button onClick={() => navigate('/messages_medcore_health')} className="w-10 h-10 rounded-full bg-surface-container text-primary flex items-center justify-center hover:bg-surface-container-high transition-colors">
                           <span className="material-symbols-outlined text-[20px]">chat</span>
                         </button>
                         <button className="w-10 h-10 rounded-full bg-surface-container text-primary flex items-center justify-center hover:bg-surface-container-high transition-colors">
@@ -254,8 +267,7 @@ export default function MyAppointmentsMedcoreHealth() {
                         <div className="bg-surface-container-low rounded-lg p-4 border border-outline-variant/30">
                           <p className="font-body-sm text-body-sm text-on-surface mb-2">Please ensure you are in a quiet room with a stable internet connection. Have your recent medication list ready.</p>
                           <Link className="flex items-center gap-2 text-primary font-label-sm text-label-sm hover:underline mt-2" to="/patient_dashboard_medcore_health">
-                            <span className="material-symbols-outlined text-[16px]">description</span>
-                            Complete Pre-visit Questionnaire
+                            <span className="material-symbols-outlined text-[16px]">description</span>Complete Pre-visit Questionnaire
                           </Link>
                         </div>
                       </div>
@@ -268,7 +280,7 @@ export default function MyAppointmentsMedcoreHealth() {
                     </div>
                   </div>
                   <div className="bg-surface px-6 py-4 border-t border-surface-variant shrink-0 mt-auto">
-                    <button className="w-full bg-secondary text-on-secondary font-label-md text-label-md py-3 rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-2 shadow-sm">
+                    <button onClick={() => navigate('/telemedicine_medcore_health')} className="w-full bg-secondary text-on-secondary font-label-md text-label-md py-3 rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-2 shadow-sm">
                       <span className="material-symbols-outlined">videocam</span>Join Consultation Now
                     </button>
                   </div>
