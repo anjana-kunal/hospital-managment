@@ -96,6 +96,11 @@ export default function SelectSlotMedcoreHealth() {
               <span className="material-symbols-outlined">settings</span>Settings
             </Link>
           </li>
+          <li>
+            <Link className="flex items-center gap-3 text-slate-500 dark:text-slate-400 px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-900 rounded-lg" to="/login_medcore_health">
+              <span className="material-symbols-outlined">logout</span>Logout
+            </Link>
+          </li>
         </ul>
       </nav>
 

@@ -61,6 +61,9 @@ export default function MyAppointmentsMedcoreHealth() {
             <Link className="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-100 hover:text-blue-600 transition-all font-manrope text-sm font-medium rounded-r-lg" to="/settings_medcore_health">
               <span className="material-symbols-outlined">settings</span>Settings
             </Link>
+            <Link className="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-100 hover:text-blue-600 transition-all font-manrope text-sm font-medium rounded-r-lg" to="/login_medcore_health">
+              <span className="material-symbols-outlined">logout</span>Logout
+            </Link>
           </div>
         </aside>
 

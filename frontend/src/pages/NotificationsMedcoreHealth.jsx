@@ -88,6 +88,10 @@ export default function NotificationsMedcoreHealth() {
             <span className="material-symbols-outlined">settings</span>
             <span className="font-label-md text-label-md">Settings</span>
           </Link>
+          <Link className="flex items-center gap-3 px-lg py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors" to="/login_medcore_health">
+            <span className="material-symbols-outlined">logout</span>
+            <span className="font-label-md text-label-md">Logout</span>
+          </Link>
         </div>
       </nav>
 

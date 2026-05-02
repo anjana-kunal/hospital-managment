@@ -66,6 +66,10 @@ export default function SearchDoctorsMedcoreHealth() {
             <span className="material-symbols-outlined text-xl">settings</span>
             <span>Settings</span>
           </Link>
+          <Link className="flex items-center gap-3 text-on-surface-variant px-4 py-3 hover:bg-surface-variant rounded-lg transition-all" to="/login_medcore_health">
+            <span className="material-symbols-outlined text-xl">logout</span>
+            <span>Logout</span>
+          </Link>
         </div>
         <div className="mt-auto border-t border-outline-variant pt-4 flex items-center gap-3 px-2">
           <img alt="Patient Profile" className="w-10 h-10 rounded-full object-cover border border-outline-variant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJqhiI1dugi9mu4EKWsyDzdUswo62UHMm0YBiK5SssV_qIn4j27x6POhz6MiC0Zy0UrK4gBEM_Llo5-q6CwGvr6M36CKO-7CkF78oJOGSXlUXjXY9saymuQ-9N7ZaHgK6b1Vro-LMYo1sxYGNqC-OM9Bffw0oaUiskwt_ns8DtDp_aocbzxhQydQJN0AWMyP1pzrRgZGnyDP0mFXSDC8d6a6SfFkKB5FFxRU52rXlT3AD_d2cvf090KYC6" />

@@ -67,6 +67,10 @@ export default function MessagesMedcoreHealth() {
             <span className="material-symbols-outlined">settings</span>
             <span className="font-manrope text-sm font-medium">Settings</span>
           </Link>
+          <Link className="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-50 transition-colors" to="/login_medcore_health">
+            <span className="material-symbols-outlined">logout</span>
+            <span className="font-manrope text-sm font-medium">Logout</span>
+          </Link>
         </div>
       </nav>
 
