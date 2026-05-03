@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
 const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -32,6 +32,14 @@ export default function SelectSlotMedcoreHealth() {
   const [reason, setReason] = useState('');
   const [interpreterNeeded, setInterpreterNeeded] = useState(false);
 
+  // Auth guard: only registered (patient-logged-in) users may book
+  useEffect(() => {
+    const loggedIn = localStorage.getItem('medcore_user_role');
+    if (!loggedIn) {
+      navigate('/login_medcore_health', { state: { from: '/select_slot_medcore_health', message: 'Please log in to book an appointment.' } });
+    }
+  }, [navigate]);
+
   const cells = buildCalendar(currentYear, currentMonth);
 
   function prevMonth() {
@@ -54,7 +62,16 @@ export default function SelectSlotMedcoreHealth() {
 
   function handleConfirm() {
     if (selectedDay && selectedTime) {
-      navigate('/booking_confirmed_medcore_health');
+      navigate('/payment_wall_medcore_health', {
+        state: {
+          doctor: 'Dr. Sarah Jenkins',
+          specialty: 'Cardiology Specialist',
+          date: `${MONTHS[currentMonth]} ${selectedDay}, ${currentYear}`,
+          time: `${selectedTime} (EST)`,
+          type: visitType === 'virtual' ? 'Virtual Telehealth' : 'In-person Visit',
+          fee: '$150.00',
+        },
+      });
     }
   }
 

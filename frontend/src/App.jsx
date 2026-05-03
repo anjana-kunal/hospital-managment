@@ -51,6 +51,7 @@ import HealthTimelineMedcoreHealth from './pages/HealthTimelineMedcoreHealth';
 import PatientQueueMedcoreHealth from './pages/PatientQueueMedcoreHealth';
 import ConsultationSummaryMedcoreHealth from './pages/ConsultationSummaryMedcoreHealth';
 import StaffShiftPlannerMedcoreHealth from './pages/StaffShiftPlannerMedcoreHealth';
+import PaymentWallMedcoreHealth from './pages/PaymentWallMedcoreHealth';
 
 function App() {
   return (
@@ -108,6 +109,7 @@ function App() {
         <Route path="/patient_queue_medcore_health" element={<PatientQueueMedcoreHealth />} />
         <Route path="/consultation_summary_medcore_health" element={<ConsultationSummaryMedcoreHealth />} />
         <Route path="/staff_shift_planner_medcore_health" element={<StaffShiftPlannerMedcoreHealth />} />
+        <Route path="/payment_wall_medcore_health" element={<PaymentWallMedcoreHealth />} />
       </Routes>
     </Router>
   );

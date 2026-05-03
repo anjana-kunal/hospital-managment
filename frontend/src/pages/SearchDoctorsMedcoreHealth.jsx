@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const ALL_DOCTORS = [
@@ -32,6 +32,16 @@ export default function SearchDoctorsMedcoreHealth() {
   const [timeOfDay, setTimeOfDay] = useState('Any Time');
   const [consultType, setConsultType] = useState('All Types');
   const [sortBy, setSortBy] = useState('Recommended');
+
+  // Auth-aware booking: redirect to login if not logged in
+  const handleBookNow = () => {
+    const role = localStorage.getItem('medcore_user_role');
+    if (!role) {
+      navigate('/login_medcore_health', { state: { from: '/select_slot_medcore_health', message: 'Please log in to book an appointment.' } });
+    } else {
+      navigate('/select_slot_medcore_health');
+    }
+  };
 
   const filtered = ALL_DOCTORS.filter(doc =>
     doc.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -250,7 +260,7 @@ export default function SearchDoctorsMedcoreHealth() {
                 </div>
                 <div className="p-md pt-0 bg-surface-bright flex gap-2">
                   <button
-                    onClick={() => navigate('/select_slot_medcore_health')}
+                    onClick={handleBookNow}
                     className="flex-1 bg-primary-container text-on-primary-container py-2.5 rounded-DEFAULT font-label-md text-label-md hover:bg-primary-container/90 transition-colors shadow-sm"
                   >
                     Book Now

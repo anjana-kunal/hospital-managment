@@ -1,5 +1,8 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { signInWithPopup } from 'firebase/auth';
+import { firebaseAuth, googleProvider } from '../config/firebase';
+import { getDashboardPath, loginWithFirebaseIdToken } from '../services/authApi';
 
 const ROLE_RULES = [
   { match: (e) => e.includes('admin'), role: 'Admin', icon: 'admin_panel_settings', dest: '/admin_dashboard_medcore_health', color: 'text-tertiary' },
@@ -16,20 +19,38 @@ function detectRole(email) {
 
 export default function LoginMedcoreHealth() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const redirectTo = location.state?.from || null;
   const [email, setEmail] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+  const [googleLoading, setGoogleLoading] = useState(false);
 
   const detectedRole = email.trim() ? detectRole(email) : null;
 
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!email.trim()) { setError('Please enter your email.'); return; }
-    navigate(detectedRole.dest);
+    const role = detectRole(email);
+    localStorage.setItem('medcore_user_role', role.role);
+    navigate(redirectTo || role.dest);
   };
 
-  const handleGoogleLogin = () => {
-    navigate('/patient_dashboard_medcore_health');
+  const handleGoogleLogin = async () => {
+    setGoogleLoading(true);
+    setError('');
+
+    try {
+      const result = await signInWithPopup(firebaseAuth, googleProvider);
+      const idToken = await result.user.getIdToken();
+      const session = await loginWithFirebaseIdToken(idToken);
+      localStorage.setItem('medcore_user_role', session.user.role);
+      navigate(redirectTo || getDashboardPath(session.user.role));
+    } catch (err) {
+      setError(err.message || 'Google login failed. Please try again.');
+    } finally {
+      setGoogleLoading(false);
+    }
   };
 
   return (
@@ -108,6 +129,7 @@ export default function LoginMedcoreHealth() {
               <button
                 type="button"
                 onClick={handleGoogleLogin}
+                disabled={googleLoading}
                 className="w-full h-12 flex items-center justify-center gap-3 rounded-lg border-2 border-outline-variant/50 bg-white hover:bg-surface-container-low hover:border-outline transition-all font-label-md text-label-md text-on-surface shadow-sm"
               >
                 <svg width="20" height="20" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
@@ -117,7 +139,7 @@ export default function LoginMedcoreHealth() {
                   <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.29-8.16 2.29-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
                   <path fill="none" d="M0 0h48v48H0z"/>
                 </svg>
-                Continue with Google
+                {googleLoading ? 'Connecting...' : 'Continue with Google'}
               </button>
 
               <div className="flex items-center gap-3">

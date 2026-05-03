@@ -18,12 +18,10 @@ export default function LandingPageMedcoreHealth() {
 <a className="text-slate-600 dark:text-slate-400 font-medium hover:text-blue-600 transition-colors hover:bg-slate-50 dark:hover:bg-slate-800 rounded-md" href="#support">Support</a>
 </nav>
 <div className="flex gap-4 items-center">
-<Link className="font-label-md text-label-md text-primary bg-primary-fixed border border-primary-fixed-dim px-md py-sm rounded-lg hover:bg-primary-fixed-dim transition-colors hidden sm:block" to="/login_medcore_health">
-                    Staff Portal
-                </Link>
-<Link className="font-label-md text-label-md text-on-primary bg-primary-container px-md py-sm rounded-lg hover:bg-primary hover:shadow-ambient-1 transition-all" to="/login_medcore_health">
-                    Patient Login
-                </Link>
+<Link className="font-label-md text-label-md text-on-primary bg-primary px-5 py-2.5 rounded-lg hover:bg-primary/90 hover:shadow-ambient-1 transition-all flex items-center gap-2" to="/login_medcore_health">
+  <span className="material-symbols-outlined text-[18px]">login</span>
+  Login
+</Link>
 </div>
 </div>
 </header>
@@ -92,7 +90,7 @@ export default function LandingPageMedcoreHealth() {
 </div>
 </section>
 {/*  Features Section (Bento Grid Layout)  */}
-<section className="py-24 px-6 lg:px-grid-gutter bg-surface-container-lowest border-y border-surface-variant">
+<section id="features" className="py-24 px-6 lg:px-grid-gutter bg-surface-container-lowest border-y border-surface-variant">
 <div className="max-w-7xl mx-auto">
 <div className="text-center max-w-3xl mx-auto mb-16">
 <h2 className="font-h2 text-h2 text-on-surface mb-md">Comprehensive Clinical Toolkit</h2>
@@ -153,6 +151,118 @@ export default function LandingPageMedcoreHealth() {
 </div>
 </div>
 </section>
+
+{/* Testimonials Section */}
+<section id="testimonials" className="py-24 px-6 lg:px-grid-gutter bg-surface">
+  <div className="max-w-7xl mx-auto">
+    <div className="text-center max-w-2xl mx-auto mb-16">
+      <h2 className="font-h2 text-h2 text-on-surface mb-md">Trusted by Healthcare Professionals</h2>
+      <p className="font-body-lg text-body-lg text-on-surface-variant">Hear from the doctors, nurses, and administrators who rely on MedCore every day.</p>
+    </div>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-lg">
+      {[
+        { name: 'Dr. Emily Carter', role: 'Chief of Internal Medicine', quote: 'MedCore cut our administrative overhead by 40%. Our staff spends more time on patient care than paperwork.', avatar: 'EC' },
+        { name: 'James Okonkwo', role: 'Hospital Administrator', quote: 'The real-time billing and audit dashboards give us complete financial visibility. Compliance audits are now stress-free.', avatar: 'JO' },
+        { name: 'Dr. Priya Nair', role: 'Cardiology Specialist', quote: 'Scheduling, lab results, prescriptions — all in one place. I can focus entirely on my patients instead of switching between systems.', avatar: 'PN' },
+      ].map((t) => (
+        <div key={t.name} className="bg-surface-container-lowest rounded-xl p-xl border border-surface-variant shadow-ambient-1 flex flex-col gap-md">
+          <span className="material-symbols-outlined text-primary text-[32px]" style={{fontVariationSettings:"'FILL' 1"}}>format_quote</span>
+          <p className="font-body-md text-body-md text-on-surface-variant flex-1">{t.quote}</p>
+          <div className="flex items-center gap-3 pt-sm border-t border-surface-variant">
+            <div className="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-label-md text-label-md">{t.avatar}</div>
+            <div>
+              <p className="font-label-md text-label-md text-on-surface">{t.name}</p>
+              <p className="font-label-sm text-label-sm text-on-surface-variant">{t.role}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+{/* About Section */}
+<section id="about" className="py-24 px-6 lg:px-grid-gutter bg-surface-container-lowest border-y border-surface-variant">
+  <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-grid-gutter items-center">
+    <div className="flex flex-col gap-lg">
+      <div className="inline-flex items-center gap-sm bg-primary-fixed/20 border border-primary-fixed rounded-full px-4 py-2 w-fit">
+        <span className="material-symbols-outlined text-primary text-[20px]">info</span>
+        <span className="font-label-sm text-label-sm text-primary uppercase tracking-widest">About MedCore</span>
+      </div>
+      <h2 className="font-h2 text-h2 text-on-surface">Built for the Future of Healthcare</h2>
+      <p className="font-body-lg text-body-lg text-on-surface-variant">MedCore Health was founded by a team of engineers and clinicians who experienced firsthand the pain of fragmented hospital systems. Our mission is to unify every workflow under one secure, intuitive platform.</p>
+      <p className="font-body-md text-body-md text-on-surface-variant">Today, MedCore powers operations across 150+ hospitals and clinics, serving over 2,000 healthcare professionals and hundreds of thousands of patients worldwide.</p>
+      <div className="grid grid-cols-3 gap-md pt-sm">
+        {[{v:'150+',l:'Hospitals'},{v:'2K+',l:'Professionals'},{v:'99.9%',l:'Uptime SLA'}].map(s => (
+          <div key={s.l} className="bg-surface rounded-lg border border-surface-variant p-md text-center">
+            <p className="font-h2 text-h2 text-primary text-[28px]">{s.v}</p>
+            <p className="font-label-sm text-label-sm text-on-surface-variant">{s.l}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+    <div className="bg-surface rounded-xl shadow-ambient-2 border border-surface-variant p-xl flex flex-col gap-md">
+      <h3 className="font-h3 text-h3 text-on-surface">Our Core Values</h3>
+      {[
+        {i:'security',t:'Patient Privacy First', d:'Every design decision starts with HIPAA compliance and zero-trust security architecture.'},
+        {i:'speed',t:'Clinical Speed', d:'Sub-second load times and keyboard-driven navigation designed for busy clinical environments.'},
+        {i:'diversity',t:'Inclusive by Design', d:'Multi-language support and accessibility standards built in from the ground up.'},
+      ].map(v => (
+        <div key={v.t} className="flex items-start gap-md p-md bg-surface-container-low rounded-lg border border-surface-variant">
+          <span className="material-symbols-outlined text-primary text-[24px] mt-0.5">{v.i}</span>
+          <div>
+            <p className="font-label-md text-label-md text-on-surface">{v.t}</p>
+            <p className="font-body-sm text-body-sm text-on-surface-variant">{v.d}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+{/* Support Section */}
+<section id="support" className="py-24 px-6 lg:px-grid-gutter bg-surface">
+  <div className="max-w-4xl mx-auto text-center flex flex-col items-center gap-xl">
+    <div className="inline-flex items-center gap-sm bg-secondary-container/30 border border-secondary-container rounded-full px-4 py-2">
+      <span className="material-symbols-outlined text-secondary text-[20px]">support_agent</span>
+      <span className="font-label-sm text-label-sm text-secondary uppercase tracking-widest">24/7 Support</span>
+    </div>
+    <h2 className="font-h2 text-h2 text-on-surface">We're Here When You Need Us</h2>
+    <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Our dedicated clinical support team is available around the clock. From onboarding to advanced troubleshooting, we've got your facility covered.</p>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-md w-full">
+      {[
+        {i:'mail',t:'Email Support', d:'support@medcore.health', action:'mailto:support@medcore.health'},
+        {i:'phone_in_talk',t:'24/7 Hotline', d:'+1 (800) MED-CORE', action:'tel:+18006332673'},
+        {i:'chat',t:'Live Chat', d:'Average response: 2 min', action:'#support'},
+      ].map(s => (
+        <a key={s.t} href={s.action} className="bg-surface-container-lowest rounded-xl border border-surface-variant p-lg flex flex-col items-center gap-sm hover:shadow-ambient-2 hover:border-primary/30 transition-all">
+          <div className="w-12 h-12 rounded-full bg-primary-fixed/20 text-primary flex items-center justify-center">
+            <span className="material-symbols-outlined text-[24px]">{s.i}</span>
+          </div>
+          <p className="font-label-md text-label-md text-on-surface">{s.t}</p>
+          <p className="font-body-sm text-body-sm text-on-surface-variant">{s.d}</p>
+        </a>
+      ))}
+    </div>
+    <div className="bg-primary/5 border border-primary/20 rounded-xl p-xl w-full">
+      <h3 className="font-h3 text-h3 text-on-surface mb-sm">Frequently Asked Questions</h3>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-md text-left">
+        {[
+          {q:'Is MedCore HIPAA compliant?', a:'Yes. All data is encrypted at rest and in transit with full audit logging.'},
+          {q:'Can I access it on mobile?', a:'MedCore is fully responsive and works on phones, tablets, and desktops.'},
+          {q:'How long does onboarding take?', a:'Most facilities are live within 48 hours with dedicated support.'},
+          {q:'Is there a free trial?', a:'Yes — contact our sales team for a 30-day full-access trial.'},
+        ].map(f => (
+          <div key={f.q} className="p-md bg-surface rounded-lg border border-surface-variant">
+            <p className="font-label-md text-label-md text-on-surface mb-1">{f.q}</p>
+            <p className="font-body-sm text-body-sm text-on-surface-variant">{f.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
 </main>
 {/*  Footer from JSON  */}
 <footer className="bg-slate-50 dark:bg-slate-950 font-manrope text-xs text-slate-500 dark:text-slate-400 w-full py-12 px-6 border-t border-slate-200 dark:border-slate-800 flat no shadows mt-auto">

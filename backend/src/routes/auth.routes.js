@@ -1,8 +1,10 @@
 import { Router } from 'express';
 import bcrypt from 'bcryptjs';
+import { randomBytes } from 'crypto';
 import { z } from 'zod';
 import { prisma } from '../config/prisma.js';
 import { env } from '../config/env.js';
+import { verifyFirebaseIdToken } from '../config/firebaseAdmin.js';
 import { authenticate, signToken } from '../middleware/auth.js';
 import { validate } from '../middleware/validate.js';
 import { asyncHandler } from '../utils/asyncHandler.js';
@@ -34,6 +36,14 @@ const registerPatientSchema = z.object({
     emergencyContactRelation: z.string().optional(),
     insuranceProvider: z.string().optional(),
     insurancePolicyNumber: z.string().optional(),
+  }),
+  query: z.object({}).passthrough(),
+  params: z.object({}).passthrough(),
+});
+
+const firebaseLoginSchema = z.object({
+  body: z.object({
+    idToken: z.string().min(20),
   }),
   query: z.object({}).passthrough(),
   params: z.object({}).passthrough(),
@@ -92,6 +102,88 @@ router.post('/login', validate(loginSchema), asyncHandler(async (req, res) => {
         patient: updatedUser.patient,
         doctor: updatedUser.doctor,
         staff: updatedUser.staff,
+      },
+    },
+  });
+}));
+
+router.post('/firebase/google', validate(firebaseLoginSchema), asyncHandler(async (req, res) => {
+  const decodedToken = await verifyFirebaseIdToken(req.validated.body.idToken);
+  const email = decodedToken.email?.toLowerCase();
+
+  if (!email) {
+    throw new HttpError(400, 'Your Google account does not expose an email address');
+  }
+
+  if (decodedToken.email_verified === false) {
+    throw new HttpError(403, 'Your Google email address is not verified');
+  }
+
+  const fullName = decodedToken.name || email.split('@')[0];
+  const avatarUrl = decodedToken.picture;
+  let user = await prisma.user.findUnique({
+    where: { email },
+    include: { patient: true, doctor: true, staff: true },
+  });
+
+  if (!user) {
+    const passwordHash = await bcrypt.hash(randomBytes(32).toString('hex'), env.bcryptSaltRounds);
+
+    user = await prisma.user.create({
+      data: {
+        fullName,
+        email,
+        passwordHash,
+        avatarUrl,
+        role: 'PATIENT',
+        status: 'ACTIVE',
+        patient: {
+          create: {
+            patientCode: makeCode('PT'),
+            fullName,
+            email,
+          },
+        },
+      },
+      include: { patient: true, doctor: true, staff: true },
+    });
+
+    req.user = { id: user.id };
+    await writeAuditLog({ req, action: 'CREATE', entity: 'Patient', entityId: user.patient.id, metadata: { provider: 'firebase_google' } });
+  } else {
+    user = await prisma.user.update({
+      where: { id: user.id },
+      data: {
+        fullName: user.fullName || fullName,
+        avatarUrl: user.avatarUrl || avatarUrl,
+        lastLoginAt: new Date(),
+      },
+      include: { patient: true, doctor: true, staff: true },
+    });
+  }
+
+  if (user.status === 'SUSPENDED' || user.status === 'INACTIVE') {
+    throw new HttpError(403, 'Your account is not active');
+  }
+
+  req.user = { id: user.id };
+  await writeAuditLog({ req, action: 'LOGIN', entity: 'User', entityId: user.id, metadata: { provider: 'firebase_google' } });
+
+  res.json({
+    success: true,
+    data: {
+      token: signToken(user),
+      user: {
+        id: user.id,
+        fullName: user.fullName,
+        email: user.email,
+        phone: user.phone,
+        role: user.role,
+        status: user.status,
+        avatarUrl: user.avatarUrl,
+        patient: user.patient,
+        doctor: user.doctor,
+        staff: user.staff,
       },
     },
   });
