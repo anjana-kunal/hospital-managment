@@ -15,6 +15,7 @@ import facilityRoutes from './facility.routes.js';
 import pharmacyRoutes from './pharmacy.routes.js';
 import communicationRoutes from './communication.routes.js';
 import dashboardRoutes from './dashboard.routes.js';
+import stripeRoutes from './stripe.routes.js';
 
 const router = Router();
 
@@ -29,6 +30,7 @@ router.use('/facility', facilityRoutes);
 router.use('/pharmacy', pharmacyRoutes);
 router.use('/communication', communicationRoutes);
 router.use('/dashboard', dashboardRoutes);
+router.use('/stripe', stripeRoutes);
 
 router.use('/patients', createCrudRouter({
   model: 'patient',

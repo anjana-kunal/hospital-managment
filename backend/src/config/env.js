@@ -14,6 +14,7 @@ export const env = {
   firebaseClientEmail: process.env.FIREBASE_CLIENT_EMAIL,
   firebasePrivateKey: process.env.FIREBASE_PRIVATE_KEY,
   firebaseServiceAccountPath: process.env.FIREBASE_SERVICE_ACCOUNT_PATH,
+  stripeSecretKey: process.env.STRIPE_SECRET_KEY,
 };
 
 export function validateEnv() {
