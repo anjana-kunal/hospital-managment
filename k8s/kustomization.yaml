@@ -1,0 +1,11 @@
+resources:
+  - namespace.yaml
+  - security/service-accounts.yaml
+  - backend/configmap.yaml
+  - database/postgres.yaml
+  - database/migrate-job.yaml
+  - backend/services.yaml
+  - backend/hpa.yaml
+  - frontend/deployment.yaml
+  - ingress/alb-ingress.yaml
+  - security/network-policies.yaml

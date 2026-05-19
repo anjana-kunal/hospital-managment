@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: medcore-backend-config
+  namespace: medcore
+data:
+  NODE_ENV: production
+  PORT: "5000"
+  CLIENT_ORIGIN: http://replace-with-your-alb-dns-name
+  JWT_EXPIRES_IN: 7d
+  BCRYPT_SALT_ROUNDS: "12"

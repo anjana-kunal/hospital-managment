@@ -1,0 +1,28 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: medcore-prisma-migrate
+  namespace: medcore
+spec:
+  backoffLimit: 3
+  template:
+    metadata:
+      labels:
+        app: medcore-prisma-migrate
+    spec:
+      serviceAccountName: medcore-backend
+      restartPolicy: OnFailure
+      containers:
+        - name: migrate
+          image: ACCOUNT_ID.dkr.ecr.REGION.amazonaws.com/medcore-backend:latest
+          imagePullPolicy: IfNotPresent
+          command:
+            - npx
+            - prisma
+            - migrate
+            - deploy
+          envFrom:
+            - configMapRef:
+                name: medcore-backend-config
+            - secretRef:
+                name: medcore-secrets

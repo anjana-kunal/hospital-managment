@@ -12,6 +12,43 @@ A comprehensive hospital management system with a React frontend and a Node.js/E
 - **Validation:** Zod
 - **Security:** Helmet, CORS, rate limiting
 
+## Microservice Split
+
+The backend can now run as either the original monolith or as a route-scoped service. This is a safe first microservice step for learning Kubernetes and DevSecOps because the current Prisma schema still has many cross-domain relations.
+
+Set `MEDCORE_SERVICE` to choose which service the backend process exposes:
+
+| Service | Owns routes |
+|---|---|
+| `monolith` | All API routes, useful for local development |
+| `auth` | `/api/v1/auth` |
+| `admin` | `/api/v1/users`, `/api/v1/dashboard`, `/api/v1/audit-logs`, `/api/v1/settings` |
+| `patient` | `/api/v1/patients` |
+| `doctor` | `/api/v1/doctors`, `/api/v1/departments`, `/api/v1/schedule-slots` |
+| `appointment` | `/api/v1/appointments` |
+| `clinical` | `/api/v1/medical`, `/api/v1/lab` |
+| `payment` | `/api/v1/billing`, `/api/v1/stripe` |
+| `operations` | `/api/v1/facility`, `/api/v1/pharmacy` |
+| `communication` | `/api/v1/communication` |
+
+Kubernetes routes traffic with AWS ALB Ingress:
+
+```text
+Internet -> AWS ALB -> Kubernetes Ingress
+                         ├── frontend
+                         ├── auth-service
+                         ├── admin-service
+                         ├── patient-service
+                         ├── doctor-service
+                         ├── appointment-service
+                         ├── clinical-service
+                         ├── payment-service
+                         ├── operations-service
+                         └── communication-service
+```
+
+For this learning split, all backend services use one PostgreSQL StatefulSet. A true database-per-service design is the next refactor and requires removing cross-service Prisma joins in favor of service APIs/events.
+
 ## Setup Instructions
 
 ### Backend Setup
@@ -42,6 +79,12 @@ A comprehensive hospital management system with a React frontend and a Node.js/E
 
 Backend runs on `http://localhost:5000`
 
+To run one backend service locally:
+
+```bash
+MEDCORE_SERVICE=auth npm run dev
+```
+
 ### Frontend Setup
 
 1. Copy the environment file:
@@ -59,7 +102,194 @@ Backend runs on `http://localhost:5000`
    npm run dev
    ```
 
-Frontend runs on `http://127.0.0.1:3000`
+Frontend runs on `http://127.0.0.1:5173`
+
+## Docker Images
+
+Build the backend image once and run it with different `MEDCORE_SERVICE` values:
+
+```bash
+docker build -t medcore-backend:local ./backend
+docker build -t medcore-frontend:local ./frontend
+```
+
+For AWS, push images to Amazon ECR and replace this placeholder in the Kubernetes YAML files:
+
+```text
+ACCOUNT_ID.dkr.ecr.REGION.amazonaws.com
+```
+
+## Kubernetes on AWS EKS
+
+Kubernetes files are in `k8s/`:
+
+```text
+k8s/
+  namespace.yaml
+  secrets.example.yaml
+  backend/configmap.yaml
+  backend/services.yaml
+  backend/hpa.yaml
+  database/postgres.yaml
+  database/migrate-job.yaml
+  frontend/deployment.yaml
+  ingress/alb-ingress.yaml
+  security/service-accounts.yaml
+  security/network-policies.yaml
+  kustomization.yaml
+```
+
+Before deployment:
+
+1. Copy `k8s/secrets.example.yaml` to your own secret file and replace placeholder values.
+2. Replace the backend/frontend image placeholders with your ECR image URLs.
+3. Update `CLIENT_ORIGIN` in `k8s/backend/configmap.yaml` after you know your ALB DNS name.
+4. Install AWS Load Balancer Controller in your EKS cluster.
+5. Install metrics-server if you want the HorizontalPodAutoscaler resources to work.
+6. Use an EKS networking setup that enforces Kubernetes NetworkPolicy if you want the network policies to be active.
+7. Apply namespace and secrets first, then apply the rest of `k8s/`.
+
+Educational deployment order:
+
+```bash
+kubectl apply -f k8s/namespace.yaml
+kubectl apply -f k8s/secrets.yaml
+kubectl apply -k k8s
+```
+
+After Postgres is ready, run or re-run the Prisma migration job:
+
+```bash
+kubectl delete job medcore-prisma-migrate -n medcore --ignore-not-found
+kubectl apply -f k8s/database/migrate-job.yaml
+```
+
+## Azure AKS with Terraform
+
+Azure Terraform code is in `terraform/azure/`. It provisions:
+
+```text
+Azure Resource Group
+Azure Virtual Network
+Azure Kubernetes Service
+Azure Container Registry
+Azure Database for PostgreSQL Flexible Server
+Private DNS for PostgreSQL
+Single DevSecOps Azure VM for Jenkins, ELK, Prometheus, Grafana, Trivy, and SonarQube
+ingress-nginx on AKS
+ArgoCD on AKS
+Kubernetes namespace, secrets, config, deployments, services, ingress, HPAs, and network policies
+```
+
+Recommended first deployment flow:
+
+```bash
+cd terraform/azure
+copy terraform.tfvars.example terraform.tfvars
+terraform init
+terraform apply -var="deploy_application=false"
+```
+
+If Terraform cannot detect your Azure subscription, set `subscription_id` in `terraform.tfvars` or export `ARM_SUBSCRIPTION_ID`.
+
+Before applying, replace this placeholder in `terraform.tfvars` with your real SSH public key:
+
+```hcl
+devsecops_admin_ssh_public_key = "ssh-rsa REPLACE_WITH_YOUR_PUBLIC_KEY"
+```
+
+The DevSecOps VM default is intentionally large for your one-day lab:
+
+```hcl
+enable_devsecops_vm         = true
+devsecops_vm_size           = "Standard_D16s_v5"
+devsecops_data_disk_size_gb = 1024
+```
+
+It runs these tools with Docker Compose:
+
+```text
+Jenkins      -> http://<devsecops-vm-ip>:8080
+SonarQube    -> http://<devsecops-vm-ip>:9000
+Kibana       -> http://<devsecops-vm-ip>:5601
+Prometheus   -> http://<devsecops-vm-ip>:9090
+Grafana      -> http://<devsecops-vm-ip>:3000
+Elasticsearch-> http://<devsecops-vm-ip>:9200
+Trivy server -> http://<devsecops-vm-ip>:4954
+```
+
+For better security, replace this open lab setting with your own public IP CIDR:
+
+```hcl
+devsecops_allowed_source_cidrs = ["YOUR_PUBLIC_IP/32"]
+```
+
+Then build and push the images to the ACR created by Terraform:
+
+```bash
+ACR_NAME=$(terraform output -raw acr_name)
+ACR_LOGIN_SERVER=$(terraform output -raw acr_login_server)
+
+az acr login --name "$ACR_NAME"
+
+docker build -t "$ACR_LOGIN_SERVER/medcore-backend:latest" ../../backend
+docker build -t "$ACR_LOGIN_SERVER/medcore-frontend:latest" ../../frontend
+
+docker push "$ACR_LOGIN_SERVER/medcore-backend:latest"
+docker push "$ACR_LOGIN_SERVER/medcore-frontend:latest"
+```
+
+Then deploy the Kubernetes application resources:
+
+```bash
+terraform apply -var="deploy_application=true"
+```
+
+After deployment, configure kubectl:
+
+```bash
+terraform output -raw get_credentials_command
+az aks get-credentials --resource-group <resource-group> --name <aks-name>
+kubectl get pods -n medcore
+kubectl get ingress -n medcore
+```
+
+Useful DevSecOps and ArgoCD outputs:
+
+```bash
+terraform output devsecops_vm_ssh_command
+terraform output jenkins_url
+terraform output sonarqube_url
+terraform output kibana_url
+terraform output prometheus_url
+terraform output grafana_url
+terraform output -raw grafana_admin_password
+terraform output jenkins_initial_password_command
+terraform output argocd_port_forward_command
+terraform output argocd_initial_admin_password_command
+```
+
+Access ArgoCD locally:
+
+```bash
+kubectl port-forward svc/argocd-server -n argocd 8088:443
+```
+
+Then open:
+
+```text
+https://localhost:8088
+```
+
+For Azure, Terraform creates Kubernetes resources directly, so the AWS ALB ingress manifest in `k8s/ingress/alb-ingress.yaml` is not used.
+
+Terraform state contains generated database/JWT secrets, so keep state in a secure remote backend for real environments.
+
+For a one-day lab, destroy everything when finished:
+
+```bash
+terraform destroy
+```
 
 ## Demo Accounts
 

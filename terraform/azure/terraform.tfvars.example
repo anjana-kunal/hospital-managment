@@ -1,0 +1,23 @@
+project      = "medcore"
+environment  = "dev"
+location     = "eastus"
+image_tag    = "latest"
+client_origin = "*"
+
+deploy_application = false
+run_migrations     = true
+enable_argocd      = true
+
+enable_devsecops_vm              = true
+devsecops_vm_size                = "Standard_D16s_v5"
+devsecops_data_disk_size_gb      = 1024
+devsecops_admin_username         = "azureuser"
+devsecops_admin_ssh_public_key   = "ssh-rsa REPLACE_WITH_YOUR_PUBLIC_KEY"
+devsecops_allowed_source_cidrs   = ["0.0.0.0/0"]
+
+stripe_secret_key = "sk_test_replace_me"
+
+tags = {
+  workload = "hospital-management"
+  purpose  = "devsecops-learning"
+}

@@ -25,7 +25,7 @@ export function createApp() {
   app.use(rateLimit({ windowMs: 15 * 60 * 1000, limit: 300, standardHeaders: true, legacyHeaders: false }));
 
   app.get('/health', (req, res) => {
-    res.json({ success: true, message: 'MedCore Health API is running' });
+    res.json({ success: true, service: env.serviceName, message: `MedCore Health ${env.serviceName} service is running` });
   });
 
   app.use('/api/v1', routes);

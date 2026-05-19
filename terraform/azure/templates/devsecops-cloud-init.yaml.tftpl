@@ -1,0 +1,283 @@
+#cloud-config
+package_update: true
+package_upgrade: false
+
+bootcmd:
+  - mkdir -p /opt/devsecops/jenkins /opt/devsecops/prometheus /opt/devsecops/logstash/pipeline
+
+write_files:
+  - path: /opt/devsecops/jenkins/Dockerfile
+    permissions: "0644"
+    content: |
+      FROM jenkins/jenkins:lts-jdk17
+      USER root
+      RUN apt-get update \
+        && apt-get install -y --no-install-recommends ca-certificates curl docker.io git jq unzip \
+        && rm -rf /var/lib/apt/lists/*
+      USER jenkins
+
+  - path: /opt/devsecops/prometheus/prometheus.yml
+    permissions: "0644"
+    content: |
+      global:
+        scrape_interval: 15s
+
+      scrape_configs:
+        - job_name: prometheus
+          static_configs:
+            - targets:
+                - localhost:9090
+
+        - job_name: node-exporter-placeholder
+          static_configs:
+            - targets: []
+
+  - path: /opt/devsecops/logstash/pipeline/medcore.conf
+    permissions: "0644"
+    content: |
+      input {
+        beats {
+          port => 5044
+        }
+
+        tcp {
+          port => 5000
+          codec => json_lines
+        }
+      }
+
+      output {
+        elasticsearch {
+          hosts => ["http://elasticsearch:9200"]
+          index => "medcore-%{+YYYY.MM.dd}"
+        }
+        stdout {
+          codec => rubydebug
+        }
+      }
+
+  - path: /opt/devsecops/docker-compose.yml
+    permissions: "0644"
+    content: |
+      name: medcore-devsecops
+
+      services:
+        jenkins:
+          build:
+            context: ./jenkins
+          container_name: jenkins
+          restart: unless-stopped
+          user: root
+          ports:
+            - "8080:8080"
+            - "50000:50000"
+          volumes:
+            - /data/devsecops/jenkins:/var/jenkins_home
+            - /var/run/docker.sock:/var/run/docker.sock
+
+        sonarqube-db:
+          image: postgres:15-alpine
+          container_name: sonarqube-db
+          restart: unless-stopped
+          environment:
+            POSTGRES_USER: sonar
+            POSTGRES_PASSWORD: "${sonarqube_db_password}"
+            POSTGRES_DB: sonarqube
+          volumes:
+            - /data/devsecops/sonarqube-db:/var/lib/postgresql/data
+
+        sonarqube:
+          image: sonarqube:lts-community
+          container_name: sonarqube
+          restart: unless-stopped
+          depends_on:
+            - sonarqube-db
+          environment:
+            SONAR_JDBC_URL: jdbc:postgresql://sonarqube-db:5432/sonarqube
+            SONAR_JDBC_USERNAME: sonar
+            SONAR_JDBC_PASSWORD: "${sonarqube_db_password}"
+          ports:
+            - "9000:9000"
+          volumes:
+            - /data/devsecops/sonarqube/data:/opt/sonarqube/data
+            - /data/devsecops/sonarqube/extensions:/opt/sonarqube/extensions
+            - /data/devsecops/sonarqube/logs:/opt/sonarqube/logs
+
+        elasticsearch:
+          image: docker.elastic.co/elasticsearch/elasticsearch:8.15.3
+          container_name: elasticsearch
+          restart: unless-stopped
+          environment:
+            discovery.type: single-node
+            xpack.security.enabled: "false"
+            ES_JAVA_OPTS: "-Xms4g -Xmx4g"
+          ulimits:
+            memlock:
+              soft: -1
+              hard: -1
+            nofile:
+              soft: 65536
+              hard: 65536
+          ports:
+            - "9200:9200"
+          volumes:
+            - /data/devsecops/elasticsearch:/usr/share/elasticsearch/data
+
+        logstash:
+          image: docker.elastic.co/logstash/logstash:8.15.3
+          container_name: logstash
+          restart: unless-stopped
+          depends_on:
+            - elasticsearch
+          environment:
+            LS_JAVA_OPTS: "-Xms1g -Xmx1g"
+          ports:
+            - "5044:5044"
+          volumes:
+            - /opt/devsecops/logstash/pipeline:/usr/share/logstash/pipeline:ro
+
+        kibana:
+          image: docker.elastic.co/kibana/kibana:8.15.3
+          container_name: kibana
+          restart: unless-stopped
+          depends_on:
+            - elasticsearch
+          environment:
+            ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+          ports:
+            - "5601:5601"
+
+        prometheus:
+          image: prom/prometheus:v2.55.1
+          container_name: prometheus
+          restart: unless-stopped
+          command:
+            - --config.file=/etc/prometheus/prometheus.yml
+            - --storage.tsdb.path=/prometheus
+            - --storage.tsdb.retention.time=1d
+            - --web.enable-lifecycle
+          ports:
+            - "9090:9090"
+          volumes:
+            - /opt/devsecops/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+            - /data/devsecops/prometheus:/prometheus
+
+        grafana:
+          image: grafana/grafana:11.2.2
+          container_name: grafana
+          restart: unless-stopped
+          environment:
+            GF_SECURITY_ADMIN_USER: "${grafana_admin_user}"
+            GF_SECURITY_ADMIN_PASSWORD: "${grafana_admin_password}"
+          ports:
+            - "3000:3000"
+          volumes:
+            - /data/devsecops/grafana:/var/lib/grafana
+
+        trivy:
+          image: aquasec/trivy:0.56.2
+          container_name: trivy
+          restart: unless-stopped
+          command:
+            - server
+            - --listen
+            - 0.0.0.0:4954
+          ports:
+            - "4954:4954"
+          volumes:
+            - /data/devsecops/trivy-cache:/root/.cache/trivy
+
+runcmd:
+  - |
+    set -euxo pipefail
+
+    export DEBIAN_FRONTEND=noninteractive
+
+    apt-get update
+    apt-get install -y ca-certificates curl gnupg lsb-release apt-transport-https jq unzip
+
+    install -m 0755 -d /etc/apt/keyrings
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+    chmod a+r /etc/apt/keyrings/docker.asc
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" > /etc/apt/sources.list.d/docker.list
+    apt-get update
+    apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+    curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+    az aks install-cli
+    curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+    curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
+
+    echo "vm.max_map_count=262144" > /etc/sysctl.d/99-elasticsearch.conf
+    sysctl --system
+
+    for i in $(seq 1 120); do
+      if [ -e /dev/disk/azure/scsi1/lun0 ]; then
+        break
+      fi
+      sleep 10
+    done
+
+    if [ ! -e /dev/disk/azure/scsi1/lun0 ]; then
+      echo "Data disk /dev/disk/azure/scsi1/lun0 was not attached in time" >&2
+      exit 1
+    fi
+
+    DATA_DISK=/dev/disk/azure/scsi1/lun0
+    if ! blkid "$DATA_DISK"; then
+      mkfs.ext4 -F "$DATA_DISK"
+    fi
+
+    mkdir -p /data
+    if ! grep -q "/data" /etc/fstab; then
+      echo "$DATA_DISK /data ext4 defaults,nofail 0 2" >> /etc/fstab
+    fi
+    mount -a
+
+    mkdir -p \
+      /data/docker \
+      /data/devsecops/jenkins \
+      /data/devsecops/sonarqube-db \
+      /data/devsecops/sonarqube/data \
+      /data/devsecops/sonarqube/extensions \
+      /data/devsecops/sonarqube/logs \
+      /data/devsecops/elasticsearch \
+      /data/devsecops/prometheus \
+      /data/devsecops/grafana \
+      /data/devsecops/trivy-cache
+
+    chown -R 1000:1000 /data/devsecops/grafana /data/devsecops/elasticsearch /data/devsecops/sonarqube || true
+
+    systemctl stop docker || true
+    mkdir -p /etc/docker
+    cat > /etc/docker/daemon.json <<'JSON'
+    {
+      "data-root": "/data/docker",
+      "log-driver": "json-file",
+      "log-opts": {
+        "max-size": "50m",
+        "max-file": "3"
+      }
+    }
+    JSON
+    systemctl enable docker
+    systemctl restart docker
+
+    usermod -aG docker ${devsecops_admin_username}
+
+    cd /opt/devsecops
+    docker compose up -d --build
+
+    cat > /opt/devsecops/README.txt <<'EOF'
+    MedCore DevSecOps VM tools:
+    - Jenkins: http://VM_PUBLIC_IP:8080
+    - SonarQube: http://VM_PUBLIC_IP:9000
+    - Kibana: http://VM_PUBLIC_IP:5601
+    - Prometheus: http://VM_PUBLIC_IP:9090
+    - Grafana: http://VM_PUBLIC_IP:3000
+    - Elasticsearch: http://VM_PUBLIC_IP:9200
+    - Trivy server: http://VM_PUBLIC_IP:4954
+
+    Jenkins initial password:
+    sudo docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
+    EOF

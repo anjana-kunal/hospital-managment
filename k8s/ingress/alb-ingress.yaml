@@ -1,0 +1,143 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: medcore-ingress
+  namespace: medcore
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
+    alb.ingress.kubernetes.io/healthcheck-path: /health
+    alb.ingress.kubernetes.io/success-codes: "200-399"
+spec:
+  ingressClassName: alb
+  rules:
+    - http:
+        paths:
+          - path: /api/v1/auth
+            pathType: Prefix
+            backend:
+              service:
+                name: auth-service
+                port:
+                  number: 5000
+          - path: /api/v1/users
+            pathType: Prefix
+            backend:
+              service:
+                name: admin-service
+                port:
+                  number: 5000
+          - path: /api/v1/dashboard
+            pathType: Prefix
+            backend:
+              service:
+                name: admin-service
+                port:
+                  number: 5000
+          - path: /api/v1/audit-logs
+            pathType: Prefix
+            backend:
+              service:
+                name: admin-service
+                port:
+                  number: 5000
+          - path: /api/v1/settings
+            pathType: Prefix
+            backend:
+              service:
+                name: admin-service
+                port:
+                  number: 5000
+          - path: /api/v1/patients
+            pathType: Prefix
+            backend:
+              service:
+                name: patient-service
+                port:
+                  number: 5000
+          - path: /api/v1/doctors
+            pathType: Prefix
+            backend:
+              service:
+                name: doctor-service
+                port:
+                  number: 5000
+          - path: /api/v1/departments
+            pathType: Prefix
+            backend:
+              service:
+                name: doctor-service
+                port:
+                  number: 5000
+          - path: /api/v1/schedule-slots
+            pathType: Prefix
+            backend:
+              service:
+                name: doctor-service
+                port:
+                  number: 5000
+          - path: /api/v1/appointments
+            pathType: Prefix
+            backend:
+              service:
+                name: appointment-service
+                port:
+                  number: 5000
+          - path: /api/v1/medical
+            pathType: Prefix
+            backend:
+              service:
+                name: clinical-service
+                port:
+                  number: 5000
+          - path: /api/v1/lab
+            pathType: Prefix
+            backend:
+              service:
+                name: clinical-service
+                port:
+                  number: 5000
+          - path: /api/v1/billing
+            pathType: Prefix
+            backend:
+              service:
+                name: payment-service
+                port:
+                  number: 5000
+          - path: /api/v1/stripe
+            pathType: Prefix
+            backend:
+              service:
+                name: payment-service
+                port:
+                  number: 5000
+          - path: /api/v1/facility
+            pathType: Prefix
+            backend:
+              service:
+                name: operations-service
+                port:
+                  number: 5000
+          - path: /api/v1/pharmacy
+            pathType: Prefix
+            backend:
+              service:
+                name: operations-service
+                port:
+                  number: 5000
+          - path: /api/v1/communication
+            pathType: Prefix
+            backend:
+              service:
+                name: communication-service
+                port:
+                  number: 5000
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: 80
