@@ -84,9 +84,21 @@ output "jenkins_initial_password_command" {
 }
 
 output "argocd_port_forward_command" {
-  value = var.deploy_application && var.enable_argocd ? "kubectl port-forward svc/argocd-server -n ${var.argocd_namespace} 8088:443" : null
+  value = var.enable_argocd ? "kubectl port-forward svc/argocd-server -n ${var.argocd_namespace} 8088:443" : null
 }
 
 output "argocd_initial_admin_password_command" {
-  value = var.deploy_application && var.enable_argocd ? "kubectl -n ${var.argocd_namespace} get secret argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d" : null
+  value = var.enable_argocd ? "kubectl -n ${var.argocd_namespace} get secret argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d" : null
+}
+
+output "gitops_repo_url" {
+  value = local.gitops_enabled ? var.gitops_repo_url : null
+}
+
+output "aks_prometheus_internal_lb_ip" {
+  value = local.gitops_enabled ? local.aks_prometheus_internal_lb_ip : null
+}
+
+output "logstash_private_endpoint" {
+  value = var.enable_devsecops_vm ? "${local.devsecops_private_ip}:5044" : null
 }

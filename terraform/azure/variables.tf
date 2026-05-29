@@ -132,13 +132,19 @@ variable "kubernetes_namespace" {
 }
 
 variable "deploy_application" {
-  description = "Whether Terraform should deploy Kubernetes application resources."
+  description = "Whether Terraform should bootstrap Kubernetes resources needed for MedCore on AKS, including namespace prerequisites, ingress-nginx, and ArgoCD-managed GitOps apps."
   type        = bool
   default     = true
 }
 
+variable "enable_legacy_direct_deployment" {
+  description = "Legacy mode where Terraform deploys the MedCore application objects directly. Keep false for the true GitOps flow."
+  type        = bool
+  default     = false
+}
+
 variable "run_migrations" {
-  description = "Whether Terraform should create a Prisma migration Job."
+  description = "Whether Terraform should create a Prisma migration Job in legacy direct deployment mode."
   type        = bool
   default     = true
 }
@@ -156,15 +162,20 @@ variable "frontend_image_name" {
 }
 
 variable "image_tag" {
-  description = "Container image tag to deploy."
+  description = "Container image tag to deploy in legacy direct deployment mode. Never use latest; use an immutable tag like a git SHA or release version."
   type        = string
-  default     = "latest"
+  default     = "2026.05.20-001"
+
+  validation {
+    condition     = var.image_tag != "latest"
+    error_message = "Do not use image_tag = \"latest\". Use an immutable tag such as a git SHA, build number, or release version."
+  }
 }
 
 variable "image_pull_policy" {
   description = "Kubernetes image pull policy."
   type        = string
-  default     = "IfNotPresent"
+  default     = "Always"
 }
 
 variable "backend_replicas" {
@@ -326,10 +337,75 @@ variable "argocd_chart_version" {
   default     = "7.7.11"
 }
 
+variable "argocd_apps_chart_version" {
+  description = "argocd-apps Helm chart version used to bootstrap AppProjects and Applications."
+  type        = string
+  default     = "2.0.5"
+}
+
 variable "argocd_namespace" {
   description = "Kubernetes namespace for ArgoCD."
   type        = string
   default     = "argocd"
+}
+
+variable "gitops_repo_url" {
+  description = "Git repository URL that ArgoCD should watch for MedCore manifests."
+  type        = string
+  default     = ""
+
+  validation {
+    condition     = !(var.deploy_application && var.enable_argocd) || length(trimspace(var.gitops_repo_url)) > 0
+    error_message = "Set gitops_repo_url when deploy_application and enable_argocd are true so ArgoCD can sync from Git."
+  }
+}
+
+variable "gitops_repo_revision" {
+  description = "Git revision ArgoCD should track."
+  type        = string
+  default     = "main"
+}
+
+variable "gitops_medcore_path" {
+  description = "Repository path for the MedCore application manifests."
+  type        = string
+  default     = "k8s/apps/medcore-azure"
+}
+
+variable "gitops_logging_path" {
+  description = "Repository path for the AKS log shipper manifests."
+  type        = string
+  default     = "k8s/logging/filebeat"
+}
+
+variable "gitops_monitoring_values_path" {
+  description = "Repository path for the kube-prometheus-stack Helm values file."
+  type        = string
+  default     = "k8s/monitoring/kube-prometheus-stack/values.yaml"
+}
+
+variable "logging_namespace" {
+  description = "Namespace used for AKS log shipping components."
+  type        = string
+  default     = "logging"
+}
+
+variable "monitoring_namespace" {
+  description = "Namespace used for AKS monitoring components."
+  type        = string
+  default     = "monitoring"
+}
+
+variable "kube_prometheus_stack_chart_version" {
+  description = "kube-prometheus-stack Helm chart version deployed by ArgoCD."
+  type        = string
+  default     = "83.5.0"
+}
+
+variable "aks_prometheus_internal_lb_ip" {
+  description = "Optional static internal load balancer IP for the in-cluster Prometheus service. If null, Terraform derives one from the AKS subnet."
+  type        = string
+  default     = null
 }
 
 variable "enable_devsecops_vm" {

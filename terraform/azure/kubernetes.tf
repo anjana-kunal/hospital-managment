@@ -104,14 +104,14 @@ resource "kubernetes_secret_v1" "medcore" {
 }
 
 resource "kubernetes_deployment_v1" "backend" {
-  for_each = var.deploy_application ? local.backend_services : {}
+  for_each = var.deploy_application && var.enable_legacy_direct_deployment ? local.backend_services : {}
 
   metadata {
     name      = each.value.name
     namespace = kubernetes_namespace_v1.medcore[0].metadata[0].name
 
     labels = {
-      app                          = each.value.name
+      app                           = each.value.name
       "app.kubernetes.io/component" = "backend"
     }
   }
@@ -128,7 +128,7 @@ resource "kubernetes_deployment_v1" "backend" {
     template {
       metadata {
         labels = {
-          app                          = each.value.name
+          app                           = each.value.name
           "app.kubernetes.io/component" = "backend"
         }
       }
@@ -215,7 +215,7 @@ resource "kubernetes_deployment_v1" "backend" {
 }
 
 resource "kubernetes_service_v1" "backend" {
-  for_each = var.deploy_application ? local.backend_services : {}
+  for_each = var.deploy_application && var.enable_legacy_direct_deployment ? local.backend_services : {}
 
   metadata {
     name      = each.value.name
@@ -236,14 +236,14 @@ resource "kubernetes_service_v1" "backend" {
 }
 
 resource "kubernetes_deployment_v1" "frontend" {
-  count = var.deploy_application ? 1 : 0
+  count = var.deploy_application && var.enable_legacy_direct_deployment ? 1 : 0
 
   metadata {
     name      = "frontend"
     namespace = kubernetes_namespace_v1.medcore[0].metadata[0].name
 
     labels = {
-      app                          = "frontend"
+      app                           = "frontend"
       "app.kubernetes.io/component" = "frontend"
     }
   }
@@ -260,7 +260,7 @@ resource "kubernetes_deployment_v1" "frontend" {
     template {
       metadata {
         labels = {
-          app                          = "frontend"
+          app                           = "frontend"
           "app.kubernetes.io/component" = "frontend"
         }
       }
@@ -328,7 +328,7 @@ resource "kubernetes_deployment_v1" "frontend" {
 }
 
 resource "kubernetes_service_v1" "frontend" {
-  count = var.deploy_application ? 1 : 0
+  count = var.deploy_application && var.enable_legacy_direct_deployment ? 1 : 0
 
   metadata {
     name      = "frontend"
@@ -349,7 +349,7 @@ resource "kubernetes_service_v1" "frontend" {
 }
 
 resource "kubernetes_job_v1" "migrate" {
-  count = var.deploy_application && var.run_migrations ? 1 : 0
+  count = var.deploy_application && var.enable_legacy_direct_deployment && var.run_migrations ? 1 : 0
 
   metadata {
     name      = "medcore-prisma-migrate"
@@ -362,7 +362,7 @@ resource "kubernetes_job_v1" "migrate" {
     template {
       metadata {
         labels = {
-          app                          = "medcore-prisma-migrate"
+          app                           = "medcore-prisma-migrate"
           "app.kubernetes.io/component" = "backend"
         }
       }
@@ -407,7 +407,7 @@ resource "kubernetes_job_v1" "migrate" {
 }
 
 resource "kubernetes_ingress_v1" "medcore" {
-  count = var.deploy_application ? 1 : 0
+  count = var.deploy_application && var.enable_legacy_direct_deployment ? 1 : 0
 
   metadata {
     name      = "medcore-ingress"
@@ -452,7 +452,7 @@ resource "kubernetes_ingress_v1" "medcore" {
 }
 
 resource "kubernetes_horizontal_pod_autoscaler_v2" "backend" {
-  for_each = var.deploy_application && var.enable_hpa ? local.backend_services : {}
+  for_each = var.deploy_application && var.enable_legacy_direct_deployment && var.enable_hpa ? local.backend_services : {}
 
   metadata {
     name      = each.value.name
@@ -489,7 +489,7 @@ resource "kubernetes_horizontal_pod_autoscaler_v2" "backend" {
 }
 
 resource "kubernetes_horizontal_pod_autoscaler_v2" "frontend" {
-  count = var.deploy_application && var.enable_hpa ? 1 : 0
+  count = var.deploy_application && var.enable_legacy_direct_deployment && var.enable_hpa ? 1 : 0
 
   metadata {
     name      = "frontend"
@@ -526,7 +526,7 @@ resource "kubernetes_horizontal_pod_autoscaler_v2" "frontend" {
 }
 
 resource "kubernetes_network_policy_v1" "default_deny_ingress" {
-  count = var.deploy_application ? 1 : 0
+  count = var.deploy_application && var.enable_legacy_direct_deployment ? 1 : 0
 
   metadata {
     name      = "default-deny-ingress"
@@ -540,7 +540,7 @@ resource "kubernetes_network_policy_v1" "default_deny_ingress" {
 }
 
 resource "kubernetes_network_policy_v1" "allow_ingress_to_app" {
-  count = var.deploy_application ? 1 : 0
+  count = var.deploy_application && var.enable_legacy_direct_deployment ? 1 : 0
 
   metadata {
     name      = "allow-ingress-to-frontend-and-backend"

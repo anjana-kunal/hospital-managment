@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: medcore-prisma-migrate
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation,HookSucceeded
+spec:
+  backoffLimit: 3
+  template:
+    metadata:
+      labels:
+        app: medcore-prisma-migrate
+        app.kubernetes.io/component: backend
+    spec:
+      restartPolicy: OnFailure
+      serviceAccountName: medcore-backend
+      containers:
+        - name: migrate
+          image: medcore-backend
+          imagePullPolicy: Always
+          command:
+            - npx
+            - prisma
+            - migrate
+            - deploy
+          envFrom:
+            - configMapRef:
+                name: medcore-backend-config
+            - secretRef:
+                name: medcore-secrets

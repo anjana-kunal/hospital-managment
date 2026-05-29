@@ -66,7 +66,8 @@ resource "azurerm_network_interface" "devsecops" {
   ip_configuration {
     name                          = "primary"
     subnet_id                     = azurerm_subnet.devsecops[0].id
-    private_ip_address_allocation = "Dynamic"
+    private_ip_address_allocation = "Static"
+    private_ip_address            = local.devsecops_private_ip
     public_ip_address_id          = azurerm_public_ip.devsecops[0].id
   }
 }
@@ -84,9 +85,10 @@ resource "azurerm_linux_virtual_machine" "devsecops" {
   ]
   custom_data = base64encode(templatefile("${path.module}/templates/devsecops-cloud-init.yaml.tftpl", {
     devsecops_admin_username = var.devsecops_admin_username
-    grafana_admin_user     = var.grafana_admin_user
-    grafana_admin_password = local.grafana_password
-    sonarqube_db_password  = local.sonarqube_db_pass
+    aks_prometheus_host      = local.aks_prometheus_internal_lb_ip
+    grafana_admin_user       = var.grafana_admin_user
+    grafana_admin_password   = local.grafana_password
+    sonarqube_db_password    = local.sonarqube_db_pass
   }))
   tags = local.common_tags
 

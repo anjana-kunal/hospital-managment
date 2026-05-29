@@ -1,12 +1,15 @@
 project      = "medcore"
 environment  = "dev"
 location     = "eastus"
-image_tag    = "latest"
+image_tag    = "2026.05.20-001"
 client_origin = "*"
 
-deploy_application = false
-run_migrations     = true
-enable_argocd      = true
+deploy_application             = true
+enable_legacy_direct_deployment = false
+run_migrations                 = true
+enable_argocd                  = true
+gitops_repo_url                = "https://github.com/REPLACE_WITH_YOUR_ORG/REPLACE_WITH_YOUR_REPO.git"
+gitops_repo_revision           = "main"
 
 enable_devsecops_vm              = true
 devsecops_vm_size                = "Standard_D16s_v5"

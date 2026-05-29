@@ -166,7 +166,16 @@ kubectl apply -f k8s/database/migrate-job.yaml
 
 ## Azure AKS with Terraform
 
-Azure Terraform code is in `terraform/azure/`. It provisions:
+Azure Terraform code is in `terraform/azure/`. The Azure stack now follows a GitOps-oriented flow:
+
+```text
+Terraform -> Resource Group, VNet, AKS, ACR, PostgreSQL, ingress-nginx, ArgoCD, DevSecOps VM, app bootstrap resources
+ArgoCD    -> MedCore application manifests from k8s/apps/medcore-azure
+ArgoCD    -> Filebeat log shipping manifests from k8s/logging/filebeat
+ArgoCD    -> kube-prometheus-stack using values from k8s/monitoring/kube-prometheus-stack/values.yaml
+```
+
+What Terraform provisions:
 
 ```text
 Azure Resource Group
@@ -178,27 +187,33 @@ Private DNS for PostgreSQL
 Single DevSecOps Azure VM for Jenkins, ELK, Prometheus, Grafana, Trivy, and SonarQube
 ingress-nginx on AKS
 ArgoCD on AKS
-Kubernetes namespace, secrets, config, deployments, services, ingress, HPAs, and network policies
+Application namespace prerequisites, secrets, config, service accounts, and GitOps bootstrap Applications
 ```
 
-Recommended first deployment flow:
+### 1. Prepare Terraform inputs
 
 ```bash
 cd terraform/azure
 copy terraform.tfvars.example terraform.tfvars
-terraform init
-terraform apply -var="deploy_application=false"
+```
+
+Set at least these values in `terraform.tfvars`:
+
+```hcl
+devsecops_admin_ssh_public_key = "ssh-rsa REPLACE_WITH_YOUR_PUBLIC_KEY"
+gitops_repo_url                = "https://github.com/REPLACE_WITH_YOUR_ORG/REPLACE_WITH_YOUR_REPO.git"
+gitops_repo_revision           = "main"
 ```
 
 If Terraform cannot detect your Azure subscription, set `subscription_id` in `terraform.tfvars` or export `ARM_SUBSCRIPTION_ID`.
 
-Before applying, replace this placeholder in `terraform.tfvars` with your real SSH public key:
+For better security, replace the default lab CIDR with your own public IP:
 
 ```hcl
-devsecops_admin_ssh_public_key = "ssh-rsa REPLACE_WITH_YOUR_PUBLIC_KEY"
+devsecops_allowed_source_cidrs = ["YOUR_PUBLIC_IP/32"]
 ```
 
-The DevSecOps VM default is intentionally large for your one-day lab:
+The single DevSecOps VM is intentionally large for a one-box learning setup:
 
 ```hcl
 enable_devsecops_vm         = true
@@ -206,25 +221,34 @@ devsecops_vm_size           = "Standard_D16s_v5"
 devsecops_data_disk_size_gb = 1024
 ```
 
-It runs these tools with Docker Compose:
+It runs:
 
 ```text
-Jenkins      -> http://<devsecops-vm-ip>:8080
-SonarQube    -> http://<devsecops-vm-ip>:9000
-Kibana       -> http://<devsecops-vm-ip>:5601
-Prometheus   -> http://<devsecops-vm-ip>:9090
-Grafana      -> http://<devsecops-vm-ip>:3000
-Elasticsearch-> http://<devsecops-vm-ip>:9200
-Trivy server -> http://<devsecops-vm-ip>:4954
+Jenkins       -> http://<devsecops-vm-ip>:8080
+SonarQube     -> http://<devsecops-vm-ip>:9000
+Kibana        -> http://<devsecops-vm-ip>:5601
+Prometheus    -> http://<devsecops-vm-ip>:9090
+Grafana       -> http://<devsecops-vm-ip>:3000
+Elasticsearch -> http://<devsecops-vm-ip>:9200
+Trivy server  -> http://<devsecops-vm-ip>:4954
 ```
 
-For better security, replace this open lab setting with your own public IP CIDR:
+### 2. Build immutable images and push them to ACR
 
-```hcl
-devsecops_allowed_source_cidrs = ["YOUR_PUBLIC_IP/32"]
+Do not use `latest`. Pick a versioned tag such as a git SHA or release ID:
+
+```bash
+IMAGE_TAG=2026.05.20-001
 ```
 
-Then build and push the images to the ACR created by Terraform:
+Initialize Terraform and create the Azure platform:
+
+```bash
+terraform init
+terraform apply
+```
+
+Then get the ACR details and push both images with the immutable tag:
 
 ```bash
 ACR_NAME=$(terraform output -raw acr_name)
@@ -232,41 +256,40 @@ ACR_LOGIN_SERVER=$(terraform output -raw acr_login_server)
 
 az acr login --name "$ACR_NAME"
 
-docker build -t "$ACR_LOGIN_SERVER/medcore-backend:latest" ../../backend
-docker build -t "$ACR_LOGIN_SERVER/medcore-frontend:latest" ../../frontend
+docker build -t "$ACR_LOGIN_SERVER/medcore-backend:$IMAGE_TAG" ../../backend
+docker build -t "$ACR_LOGIN_SERVER/medcore-frontend:$IMAGE_TAG" ../../frontend
 
-docker push "$ACR_LOGIN_SERVER/medcore-backend:latest"
-docker push "$ACR_LOGIN_SERVER/medcore-frontend:latest"
+docker push "$ACR_LOGIN_SERVER/medcore-backend:$IMAGE_TAG"
+docker push "$ACR_LOGIN_SERVER/medcore-frontend:$IMAGE_TAG"
 ```
 
-Then deploy the Kubernetes application resources:
+### 3. Commit the image tag change to Git
 
-```bash
-terraform apply -var="deploy_application=true"
+ArgoCD reads the application manifests from Git, so update the tag in:
+
+- `k8s/apps/medcore-azure/kustomization.yaml`
+
+Example:
+
+```yaml
+images:
+  - name: medcore-backend
+    newTag: 2026.05.20-001
+  - name: medcore-frontend
+    newTag: 2026.05.20-001
 ```
 
-After deployment, configure kubectl:
+Commit and push that Git change. Terraform only injects the ACR registry hostname; the version tag should live in Git.
+
+### 4. Let ArgoCD deploy the cluster workloads
+
+After Terraform finishes:
 
 ```bash
 terraform output -raw get_credentials_command
 az aks get-credentials --resource-group <resource-group> --name <aks-name>
 kubectl get pods -n medcore
-kubectl get ingress -n medcore
-```
-
-Useful DevSecOps and ArgoCD outputs:
-
-```bash
-terraform output devsecops_vm_ssh_command
-terraform output jenkins_url
-terraform output sonarqube_url
-terraform output kibana_url
-terraform output prometheus_url
-terraform output grafana_url
-terraform output -raw grafana_admin_password
-terraform output jenkins_initial_password_command
-terraform output argocd_port_forward_command
-terraform output argocd_initial_admin_password_command
+kubectl get applications -n argocd
 ```
 
 Access ArgoCD locally:
@@ -281,9 +304,36 @@ Then open:
 https://localhost:8088
 ```
 
-For Azure, Terraform creates Kubernetes resources directly, so the AWS ALB ingress manifest in `k8s/ingress/alb-ingress.yaml` is not used.
+Useful outputs:
 
-Terraform state contains generated database/JWT secrets, so keep state in a secure remote backend for real environments.
+```bash
+terraform output devsecops_vm_ssh_command
+terraform output jenkins_url
+terraform output sonarqube_url
+terraform output kibana_url
+terraform output prometheus_url
+terraform output grafana_url
+terraform output -raw grafana_admin_password
+terraform output jenkins_initial_password_command
+terraform output argocd_port_forward_command
+terraform output argocd_initial_admin_password_command
+terraform output gitops_repo_url
+terraform output aks_prometheus_internal_lb_ip
+terraform output logstash_private_endpoint
+```
+
+### 5. Observability flow in this design
+
+- **AKS logs -> ELK:** ArgoCD deploys Filebeat as a DaemonSet from `k8s/logging/filebeat`. Filebeat ships container logs to Logstash on the DevSecOps VM over port `5044`.
+- **AKS metrics -> Prometheus:** ArgoCD deploys `kube-prometheus-stack` in-cluster. Its Prometheus service is exposed through an internal Azure load balancer, and the DevSecOps VM Prometheus federates those cluster metrics.
+- **Grafana:** Grafana on the DevSecOps VM is pre-provisioned with the local Prometheus datasource, so the federated AKS metrics appear there automatically.
+
+### 6. Notes
+
+- The AWS ALB ingress manifest in `k8s/ingress/alb-ingress.yaml` is not used for Azure.
+- Terraform no longer deploys the MedCore application objects directly unless you explicitly set `enable_legacy_direct_deployment = true`.
+- If `gitops_repo_url` points to a private repository, add repository credentials in ArgoCD before expecting syncs to succeed.
+- Terraform state contains generated database and JWT secrets, so use a secure remote backend for real environments.
 
 For a one-day lab, destroy everything when finished:
 

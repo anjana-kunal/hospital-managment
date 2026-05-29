@@ -1,0 +1,581 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-service
+  labels:
+    app: auth-service
+    app.kubernetes.io/component: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: auth-service
+  template:
+    metadata:
+      labels:
+        app: auth-service
+        app.kubernetes.io/component: backend
+    spec:
+      serviceAccountName: medcore-backend
+      containers:
+        - name: auth-service
+          image: medcore-backend
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          env:
+            - name: MEDCORE_SERVICE
+              value: auth
+          envFrom:
+            - configMapRef:
+                name: medcore-backend-config
+            - secretRef:
+                name: medcore-secrets
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 30
+            periodSeconds: 20
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: admin-service
+  labels:
+    app: admin-service
+    app.kubernetes.io/component: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: admin-service
+  template:
+    metadata:
+      labels:
+        app: admin-service
+        app.kubernetes.io/component: backend
+    spec:
+      serviceAccountName: medcore-backend
+      containers:
+        - name: admin-service
+          image: medcore-backend
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          env:
+            - name: MEDCORE_SERVICE
+              value: admin
+          envFrom:
+            - configMapRef:
+                name: medcore-backend-config
+            - secretRef:
+                name: medcore-secrets
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 30
+            periodSeconds: 20
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: patient-service
+  labels:
+    app: patient-service
+    app.kubernetes.io/component: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: patient-service
+  template:
+    metadata:
+      labels:
+        app: patient-service
+        app.kubernetes.io/component: backend
+    spec:
+      serviceAccountName: medcore-backend
+      containers:
+        - name: patient-service
+          image: medcore-backend
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          env:
+            - name: MEDCORE_SERVICE
+              value: patient
+          envFrom:
+            - configMapRef:
+                name: medcore-backend-config
+            - secretRef:
+                name: medcore-secrets
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 30
+            periodSeconds: 20
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: doctor-service
+  labels:
+    app: doctor-service
+    app.kubernetes.io/component: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: doctor-service
+  template:
+    metadata:
+      labels:
+        app: doctor-service
+        app.kubernetes.io/component: backend
+    spec:
+      serviceAccountName: medcore-backend
+      containers:
+        - name: doctor-service
+          image: medcore-backend
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          env:
+            - name: MEDCORE_SERVICE
+              value: doctor
+          envFrom:
+            - configMapRef:
+                name: medcore-backend-config
+            - secretRef:
+                name: medcore-secrets
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 30
+            periodSeconds: 20
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appointment-service
+  labels:
+    app: appointment-service
+    app.kubernetes.io/component: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: appointment-service
+  template:
+    metadata:
+      labels:
+        app: appointment-service
+        app.kubernetes.io/component: backend
+    spec:
+      serviceAccountName: medcore-backend
+      containers:
+        - name: appointment-service
+          image: medcore-backend
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          env:
+            - name: MEDCORE_SERVICE
+              value: appointment
+          envFrom:
+            - configMapRef:
+                name: medcore-backend-config
+            - secretRef:
+                name: medcore-secrets
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 30
+            periodSeconds: 20
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clinical-service
+  labels:
+    app: clinical-service
+    app.kubernetes.io/component: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: clinical-service
+  template:
+    metadata:
+      labels:
+        app: clinical-service
+        app.kubernetes.io/component: backend
+    spec:
+      serviceAccountName: medcore-backend
+      containers:
+        - name: clinical-service
+          image: medcore-backend
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          env:
+            - name: MEDCORE_SERVICE
+              value: clinical
+          envFrom:
+            - configMapRef:
+                name: medcore-backend-config
+            - secretRef:
+                name: medcore-secrets
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 30
+            periodSeconds: 20
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment-service
+  labels:
+    app: payment-service
+    app.kubernetes.io/component: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: payment-service
+  template:
+    metadata:
+      labels:
+        app: payment-service
+        app.kubernetes.io/component: backend
+    spec:
+      serviceAccountName: medcore-backend
+      containers:
+        - name: payment-service
+          image: medcore-backend
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          env:
+            - name: MEDCORE_SERVICE
+              value: payment
+          envFrom:
+            - configMapRef:
+                name: medcore-backend-config
+            - secretRef:
+                name: medcore-secrets
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 30
+            periodSeconds: 20
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: operations-service
+  labels:
+    app: operations-service
+    app.kubernetes.io/component: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: operations-service
+  template:
+    metadata:
+      labels:
+        app: operations-service
+        app.kubernetes.io/component: backend
+    spec:
+      serviceAccountName: medcore-backend
+      containers:
+        - name: operations-service
+          image: medcore-backend
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          env:
+            - name: MEDCORE_SERVICE
+              value: operations
+          envFrom:
+            - configMapRef:
+                name: medcore-backend-config
+            - secretRef:
+                name: medcore-secrets
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 30
+            periodSeconds: 20
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: communication-service
+  labels:
+    app: communication-service
+    app.kubernetes.io/component: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: communication-service
+  template:
+    metadata:
+      labels:
+        app: communication-service
+        app.kubernetes.io/component: backend
+    spec:
+      serviceAccountName: medcore-backend
+      containers:
+        - name: communication-service
+          image: medcore-backend
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          env:
+            - name: MEDCORE_SERVICE
+              value: communication
+          envFrom:
+            - configMapRef:
+                name: medcore-backend-config
+            - secretRef:
+                name: medcore-secrets
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 30
+            periodSeconds: 20
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  labels:
+    app: frontend
+    app.kubernetes.io/component: frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+        app.kubernetes.io/component: frontend
+    spec:
+      serviceAccountName: medcore-frontend
+      containers:
+        - name: frontend
+          image: medcore-frontend
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 20
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi

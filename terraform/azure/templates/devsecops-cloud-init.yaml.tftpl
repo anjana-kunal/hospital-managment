@@ -3,7 +3,7 @@ package_update: true
 package_upgrade: false
 
 bootcmd:
-  - mkdir -p /opt/devsecops/jenkins /opt/devsecops/prometheus /opt/devsecops/logstash/pipeline
+  - mkdir -p /opt/devsecops/jenkins /opt/devsecops/prometheus /opt/devsecops/logstash/pipeline /opt/devsecops/grafana/provisioning/datasources
 
 write_files:
   - path: /opt/devsecops/jenkins/Dockerfile
@@ -28,9 +28,38 @@ write_files:
             - targets:
                 - localhost:9090
 
-        - job_name: node-exporter-placeholder
+        - job_name: devsecops-node-exporter
           static_configs:
-            - targets: []
+            - targets:
+                - node-exporter:9100
+
+        - job_name: devsecops-cadvisor
+          static_configs:
+            - targets:
+                - cadvisor:8080
+
+        - job_name: aks-prometheus-federation
+          scrape_interval: 30s
+          honor_labels: true
+          metrics_path: /federate
+          params:
+            'match[]':
+              - '{__name__=~".+"}'
+          static_configs:
+            - targets:
+                - ${aks_prometheus_host}:9090
+
+  - path: /opt/devsecops/grafana/provisioning/datasources/prometheus.yaml
+    permissions: "0644"
+    content: |
+      apiVersion: 1
+      datasources:
+        - name: Prometheus
+          type: prometheus
+          access: proxy
+          url: http://prometheus:9090
+          isDefault: true
+          editable: true
 
   - path: /opt/devsecops/logstash/pipeline/medcore.conf
     permissions: "0644"
@@ -49,7 +78,7 @@ write_files:
       output {
         elasticsearch {
           hosts => ["http://elasticsearch:9200"]
-          index => "medcore-%{+YYYY.MM.dd}"
+          index => "medcore-%%{+YYYY.MM.dd}"
         }
         stdout {
           codec => rubydebug
@@ -162,6 +191,34 @@ write_files:
             - /opt/devsecops/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
             - /data/devsecops/prometheus:/prometheus
 
+        node-exporter:
+          image: quay.io/prometheus/node-exporter:v1.8.2
+          container_name: node-exporter
+          restart: unless-stopped
+          command:
+            - --path.procfs=/host/proc
+            - --path.sysfs=/host/sys
+            - --path.rootfs=/rootfs
+            - --collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)
+          volumes:
+            - /proc:/host/proc:ro
+            - /sys:/host/sys:ro
+            - /:/rootfs:ro
+
+        cadvisor:
+          image: gcr.io/cadvisor/cadvisor:v0.49.1
+          container_name: cadvisor
+          restart: unless-stopped
+          privileged: true
+          devices:
+            - /dev/kmsg:/dev/kmsg
+          volumes:
+            - /:/rootfs:ro
+            - /var/run:/var/run:ro
+            - /sys:/sys:ro
+            - /var/lib/docker:/var/lib/docker:ro
+            - /dev/disk:/dev/disk:ro
+
         grafana:
           image: grafana/grafana:11.2.2
           container_name: grafana
@@ -173,6 +230,7 @@ write_files:
             - "3000:3000"
           volumes:
             - /data/devsecops/grafana:/var/lib/grafana
+            - /opt/devsecops/grafana/provisioning:/etc/grafana/provisioning:ro
 
         trivy:
           image: aquasec/trivy:0.56.2

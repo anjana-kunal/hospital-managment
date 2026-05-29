@@ -1,0 +1,27 @@
+grafana:
+  enabled: false
+
+alertmanager:
+  enabled: false
+
+kubeEtcd:
+  enabled: false
+
+kubeScheduler:
+  enabled: false
+
+kubeControllerManager:
+  enabled: false
+
+prometheus:
+  service:
+    type: LoadBalancer
+    annotations:
+      service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+  prometheusSpec:
+    retention: 24h
+    evaluationInterval: 30s
+    scrapeInterval: 30s
+    enableAdminAPI: true
+    externalLabels:
+      cluster: medcore-aks
