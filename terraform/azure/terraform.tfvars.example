@@ -20,6 +20,10 @@ devsecops_allowed_source_cidrs   = ["0.0.0.0/0"]
 
 stripe_secret_key = "sk_test_replace_me"
 
+firebase_project_id   = "your-project-id"
+firebase_client_email = "firebase-adminsdk-xxx@your-project-id.iam.gserviceaccount.com"
+firebase_private_key  = "-----BEGIN PRIVATE KEY-----\nMIIEv...[replace with your full key]...\n-----END PRIVATE KEY-----\n"
+
 tags = {
   workload = "hospital-management"
   purpose  = "devsecops-learning"
