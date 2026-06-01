@@ -7,7 +7,7 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: auth-service
-  minReplicas: 2
+  minReplicas: 1
   maxReplicas: 5
   metrics:
     - type: Resource
@@ -26,7 +26,7 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: admin-service
-  minReplicas: 2
+  minReplicas: 1
   maxReplicas: 5
   metrics:
     - type: Resource
@@ -45,7 +45,7 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: patient-service
-  minReplicas: 2
+  minReplicas: 1
   maxReplicas: 5
   metrics:
     - type: Resource
@@ -64,7 +64,7 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: doctor-service
-  minReplicas: 2
+  minReplicas: 1
   maxReplicas: 5
   metrics:
     - type: Resource
@@ -83,7 +83,7 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: appointment-service
-  minReplicas: 2
+  minReplicas: 1
   maxReplicas: 5
   metrics:
     - type: Resource
@@ -102,7 +102,7 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: clinical-service
-  minReplicas: 2
+  minReplicas: 1
   maxReplicas: 5
   metrics:
     - type: Resource
@@ -121,7 +121,7 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: payment-service
-  minReplicas: 2
+  minReplicas: 1
   maxReplicas: 5
   metrics:
     - type: Resource
@@ -140,7 +140,7 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: operations-service
-  minReplicas: 2
+  minReplicas: 1
   maxReplicas: 5
   metrics:
     - type: Resource
@@ -159,7 +159,7 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: communication-service
-  minReplicas: 2
+  minReplicas: 1
   maxReplicas: 5
   metrics:
     - type: Resource
