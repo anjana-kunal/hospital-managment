@@ -39,7 +39,7 @@ locals {
   aks_name                      = substr("${local.name_prefix}-aks", 0, 63)
   vnet_name                     = "${local.name_prefix}-vnet"
   devsecops_private_ip          = cidrhost(var.devsecops_subnet_address_prefixes[0], 10)
-  aks_prometheus_internal_lb_ip = coalesce(var.aks_prometheus_internal_lb_ip, cidrhost(var.aks_subnet_address_prefixes[0], 20))
+  aks_prometheus_internal_lb_ip = coalesce(var.aks_prometheus_internal_lb_ip, cidrhost(var.aks_subnet_address_prefixes[0], 4090))
   gitops_enabled                = var.deploy_application && var.enable_argocd
   postgres_password             = coalesce(var.postgres_admin_password, try(random_password.postgres_admin_password[0].result, null))
   jwt_secret                    = coalesce(var.jwt_secret, try(random_password.jwt_secret[0].result, null))
