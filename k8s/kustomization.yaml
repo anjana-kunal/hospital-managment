@@ -9,3 +9,11 @@ resources:
   - frontend/deployment.yaml
   - ingress/alb-ingress.yaml
   - security/network-policies.yaml
+
+images:
+  - name: ACCOUNT_ID.dkr.ecr.REGION.amazonaws.com/medcore-backend:latest
+    newName: medcoredevqkoqpy.azurecr.io/medcore-backend
+    newTag: 2026.05.20-001
+  - name: ACCOUNT_ID.dkr.ecr.REGION.amazonaws.com/medcore-frontend:latest
+    newName: medcoredevqkoqpy.azurecr.io/medcore-frontend
+    newTag: 2026.05.20-001

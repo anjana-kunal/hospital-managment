@@ -9,6 +9,8 @@ resources:
   - network-policies.yaml
 images:
   - name: medcore-backend
+    newName: medcoredevqkoqpy.azurecr.io/medcore-backend
     newTag: 2026.05.20-001
   - name: medcore-frontend
+    newName: medcoredevqkoqpy.azurecr.io/medcore-frontend
     newTag: 2026.05.20-001
