@@ -55,6 +55,10 @@ resource "helm_release" "argocd_apps" {
               namespace = var.monitoring_namespace
               server    = "https://kubernetes.default.svc"
             },
+            {
+              namespace = "kube-system"
+              server    = "https://kubernetes.default.svc"
+            },
           ]
           clusterResourceWhitelist = [
             {
