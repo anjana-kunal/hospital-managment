@@ -82,8 +82,8 @@ resource "helm_release" "argocd_apps" {
               path           = var.gitops_medcore_path
               kustomize = {
                 images = [
-                  "medcore-backend=${azurerm_container_registry.acr.login_server}/${var.backend_image_name}",
-                  "medcore-frontend=${azurerm_container_registry.acr.login_server}/${var.frontend_image_name}",
+                  "medcore-backend=${azurerm_container_registry.acr.login_server}/${var.backend_image_name}:${var.image_tag}",
+                  "medcore-frontend=${azurerm_container_registry.acr.login_server}/${var.frontend_image_name}:${var.image_tag}",
                 ]
               }
             }
