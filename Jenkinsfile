@@ -99,7 +99,7 @@ pipeline {
                 // so sed can replace only the tag field in the YAML.
                 GIT_REPO_URL = 'https://github.com/anjana-kunal/hospital-managment.git'
                 MANIFEST_DIR = 'k8s/apps/medcore-azure'
-                MANIFEST_FILE = 'deployment.yaml'
+                MANIFEST_FILE = 'deployments.yaml'
                 // For a Helm-based setup replace MANIFEST_FILE with 'values.yaml'
                 // and adjust the sed pattern below to match your image.tag key.
             }
@@ -132,12 +132,12 @@ pipeline {
                         git config user.name  "Jenkins CI Bot"
 
                         # ── 3. Patch the image tag in the deployment manifest ─────────────────
-                        # The sed command targets a line that looks like:
-                        #   image: medcoredevqkoqpy.azurecr.io/medcore-backend:<old-tag>
-                        # and replaces <old-tag> with the current BUILD_NUMBER tag.
+                        # The actual YAML uses the short image name: "image: medcore-backend"
+                        # We replace it with the fully-qualified ACR image + BUILD_NUMBER tag.
+                        # Only backend containers are updated (not medcore-frontend).
                         #
-                        # ┌─ For a plain deployment.yaml ──────────────────────────────────────┐
-                        sed -i "s|image: medcoredevqkoqpy.azurecr.io/medcore-backend:.*|image: ''' + env.IMAGE_TAG + '''|g" \
+                        # ┌─ For a plain deployments.yaml ─────────────────────────────────────┐
+                        sed -i "s|image: medcore-backend.*|image: ''' + env.IMAGE_TAG + '''|g" \
                             "${MANIFEST_DIR}/${MANIFEST_FILE}"
                         #
                         # ┌─ For a Helm values.yaml (uncomment and adjust as needed) ──────────┐
