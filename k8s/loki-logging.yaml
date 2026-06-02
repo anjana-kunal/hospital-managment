@@ -16,8 +16,12 @@ spec:
           isDefault: true
         promtail:
           enabled: true
+          # THIS IS THE NEW PART: Telling Promtail where Loki actually lives
+          config:
+            clients:
+              - url: http://medcore-logging-loki.logging.svc.cluster.local:3100/loki/api/v1/push
         grafana:
-          enabled: false # We already have Grafana running!
+          enabled: false
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: logging
