@@ -74,7 +74,7 @@ pipeline {
                 sh "docker build -t ${BACKEND_IMAGE_TAG} ./backend"
                 
                 echo ">>> Building Frontend Docker image: ${FRONTEND_IMAGE_TAG}"
-                sh "docker build -t ${FRONTEND_IMAGE_TAG} ./frontend"
+                sh "docker build --no-cache -t ${FRONTEND_IMAGE_TAG} ./frontend"
             }
         }
 
@@ -124,9 +124,9 @@ pipeline {
                         git config user.email "jenkins-bot@medcore.ci"
                         git config user.name  "Jenkins CI Bot"
 
-                        # Patch BOTH Backend and Frontend image tags
-                        sed -i "s|image: medcore-backend.*|image: ''' + env.BACKEND_IMAGE_TAG + '''|g" "${MANIFEST_DIR}/${MANIFEST_FILE}"
-                        sed -i "s|image: medcore-frontend.*|image: ''' + env.FRONTEND_IMAGE_TAG + '''|g" "${MANIFEST_DIR}/${MANIFEST_FILE}"
+                        # THESE ARE THE TWO FIXED LINES!
+                        sed -i "s|image: .*medcore-backend.*|image: ''' + env.BACKEND_IMAGE_TAG + '''|g" "${MANIFEST_DIR}/${MANIFEST_FILE}"
+                        sed -i "s|image: .*medcore-frontend.*|image: ''' + env.FRONTEND_IMAGE_TAG + '''|g" "${MANIFEST_DIR}/${MANIFEST_FILE}"
 
                         git add "${MANIFEST_DIR}/${MANIFEST_FILE}"
 
