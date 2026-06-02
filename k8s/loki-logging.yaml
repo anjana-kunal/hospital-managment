@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: medcore-logging
+  namespace: argocd
+spec:
+  project: medcore-platform
+  source:
+    repoURL: 'https://grafana.github.io/helm-charts'
+    targetRevision: 2.10.1
+    chart: loki-stack
+    helm:
+      values: |
+        loki:
+          enabled: true
+          isDefault: true
+        promtail:
+          enabled: true
+        grafana:
+          enabled: false # We already have Grafana running!
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: logging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
