@@ -1,6 +1,14 @@
 grafana:
   enabled: true
   adminPassword: "prom-operator"
+  additionalDataSources:
+    - name: Loki
+      type: loki
+      # Here is your exact Loki service URL!
+      url: http://medcore-logging-loki.logging.svc.cluster.local:3100
+      access: proxy
+      isDefault: false
+
 
 alertmanager:
   enabled: false
