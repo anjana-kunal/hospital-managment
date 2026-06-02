@@ -86,6 +86,85 @@ pipeline {
                 }
             }
         }
+
+        // -----------------------------------------------------------------------
+        // Stage 8 – GitOps: Update Kubernetes Manifest
+        // Patches the image tag in the deployment manifest and pushes the commit
+        // back to GitHub so ArgoCD picks up the new image automatically.
+        // "[skip ci]" in the commit message prevents Jenkins from re-triggering.
+        // -----------------------------------------------------------------------
+        stage('GitOps: Update Kubernetes Manifest') {
+            environment {
+                // Derive just the tag portion (e.g. "42") from the full image reference
+                // so sed can replace only the tag field in the YAML.
+                GIT_REPO_URL = 'https://github.com/anjana-kunal/hospital-managment.git'
+                MANIFEST_DIR = 'k8s/apps/medcore-azure'
+                MANIFEST_FILE = 'deployment.yaml'
+                // For a Helm-based setup replace MANIFEST_FILE with 'values.yaml'
+                // and adjust the sed pattern below to match your image.tag key.
+            }
+            steps {
+                echo '>>> Updating Kubernetes manifest with new image tag for ArgoCD...'
+
+                // Inject the GitHub PAT stored as Username/Password credential.
+                // GIT_USER  → the GitHub username (or any string for a PAT login)
+                // GIT_TOKEN → the Personal Access Token used as the password
+                withCredentials([usernamePassword(
+                    credentialsId: "${GITHUB_CREDS}",
+                    usernameVariable: 'GIT_USER',
+                    passwordVariable: 'GIT_TOKEN'
+                )]) {
+                    sh '''
+                        set -e  # Exit immediately on any error
+
+                        # ── 1. Clone into a temporary directory ──────────────────────────────
+                        TEMP_DIR=$(mktemp -d)
+                        echo ">>> Cloning repository into ${TEMP_DIR}"
+
+                        # Embed credentials in the URL so git can push without an interactive prompt.
+                        # The token is masked in Jenkins logs by withCredentials.
+                        git clone "https://${GIT_USER}:${GIT_TOKEN}@github.com/anjana-kunal/hospital-managment.git" "${TEMP_DIR}"
+
+                        cd "${TEMP_DIR}"
+
+                        # ── 2. Configure a Jenkins bot identity ───────────────────────────────
+                        git config user.email "jenkins-bot@medcore.ci"
+                        git config user.name  "Jenkins CI Bot"
+
+                        # ── 3. Patch the image tag in the deployment manifest ─────────────────
+                        # The sed command targets a line that looks like:
+                        #   image: medcoredevqkoqpy.azurecr.io/medcore-backend:<old-tag>
+                        # and replaces <old-tag> with the current BUILD_NUMBER tag.
+                        #
+                        # ┌─ For a plain deployment.yaml ──────────────────────────────────────┐
+                        sed -i "s|image: medcoredevqkoqpy.azurecr.io/medcore-backend:.*|image: ''' + env.IMAGE_TAG + '''|g" \
+                            "${MANIFEST_DIR}/${MANIFEST_FILE}"
+                        #
+                        # ┌─ For a Helm values.yaml (uncomment and adjust as needed) ──────────┐
+                        # sed -i "s|tag:.*|tag: \\"''' + env.BUILD_NUMBER + '''\\" |g" \
+                        #     "${MANIFEST_DIR}/values.yaml"
+
+                        # ── 4. Commit and push ────────────────────────────────────────────────
+                        git add "${MANIFEST_DIR}/${MANIFEST_FILE}"
+
+                        # Check whether there is actually something to commit
+                        # (avoids a failure if the tag was somehow already up to date)
+                        if git diff --cached --quiet; then
+                            echo ">>> No manifest changes detected – skipping commit."
+                        else
+                            git commit -m "ci: update medcore-backend image to ''' + env.IMAGE_TAG + ''' [skip ci]"
+                            git push origin main
+                            echo ">>> Manifest updated and pushed successfully."
+                        fi
+
+                        # ── 5. Clean up the temp clone ────────────────────────────────────────
+                        cd /
+                        rm -rf "${TEMP_DIR}"
+                        echo ">>> Temp directory removed."
+                    '''
+                }
+            }
+        }
     }
 
     post {
