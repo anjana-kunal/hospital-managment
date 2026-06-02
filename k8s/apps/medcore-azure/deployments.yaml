@@ -568,7 +568,7 @@ spec:
       serviceAccountName: medcore-frontend
       containers:
         - name: frontend
-          image: medcore-frontend
+          image: medcoredevqkoqpy.azurecr.io/medcore-frontend:15
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
