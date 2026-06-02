@@ -1,5 +1,6 @@
 grafana:
-  enabled: false
+  enabled: true
+  adminPassword: "prom-operator"
 
 alertmanager:
   enabled: false
