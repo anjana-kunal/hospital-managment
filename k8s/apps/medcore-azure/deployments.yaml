@@ -19,7 +19,7 @@ spec:
       serviceAccountName: medcore-backend
       containers:
         - name: auth-service
-          image: medcoredevqkoqpy.azurecr.io/medcore-backend:14
+          image: medcoredevqkoqpy.azurecr.io/medcore-backend:19
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
@@ -80,7 +80,7 @@ spec:
       serviceAccountName: medcore-backend
       containers:
         - name: admin-service
-          image: medcoredevqkoqpy.azurecr.io/medcore-backend:14
+          image: medcoredevqkoqpy.azurecr.io/medcore-backend:19
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
@@ -141,7 +141,7 @@ spec:
       serviceAccountName: medcore-backend
       containers:
         - name: patient-service
-          image: medcoredevqkoqpy.azurecr.io/medcore-backend:14
+          image: medcoredevqkoqpy.azurecr.io/medcore-backend:19
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
@@ -202,7 +202,7 @@ spec:
       serviceAccountName: medcore-backend
       containers:
         - name: doctor-service
-          image: medcoredevqkoqpy.azurecr.io/medcore-backend:14
+          image: medcoredevqkoqpy.azurecr.io/medcore-backend:19
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
@@ -263,7 +263,7 @@ spec:
       serviceAccountName: medcore-backend
       containers:
         - name: appointment-service
-          image: medcoredevqkoqpy.azurecr.io/medcore-backend:14
+          image: medcoredevqkoqpy.azurecr.io/medcore-backend:19
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
@@ -324,7 +324,7 @@ spec:
       serviceAccountName: medcore-backend
       containers:
         - name: clinical-service
-          image: medcoredevqkoqpy.azurecr.io/medcore-backend:14
+          image: medcoredevqkoqpy.azurecr.io/medcore-backend:19
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
@@ -385,7 +385,7 @@ spec:
       serviceAccountName: medcore-backend
       containers:
         - name: payment-service
-          image: medcoredevqkoqpy.azurecr.io/medcore-backend:14
+          image: medcoredevqkoqpy.azurecr.io/medcore-backend:19
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
@@ -446,7 +446,7 @@ spec:
       serviceAccountName: medcore-backend
       containers:
         - name: operations-service
-          image: medcoredevqkoqpy.azurecr.io/medcore-backend:14
+          image: medcoredevqkoqpy.azurecr.io/medcore-backend:19
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
@@ -507,7 +507,7 @@ spec:
       serviceAccountName: medcore-backend
       containers:
         - name: communication-service
-          image: medcoredevqkoqpy.azurecr.io/medcore-backend:14
+          image: medcoredevqkoqpy.azurecr.io/medcore-backend:19
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
@@ -568,7 +568,7 @@ spec:
       serviceAccountName: medcore-frontend
       containers:
         - name: frontend
-          image: medcoredevqkoqpy.azurecr.io/medcore-frontend:15
+          image: medcoredevqkoqpy.azurecr.io/medcore-frontend:19
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
