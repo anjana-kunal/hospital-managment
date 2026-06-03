@@ -1,8 +1,8 @@
-# MedCore Health System
+# DevSecOps-Microservice-Architecture-Hospital-Management
 
-A comprehensive hospital management system with a React frontend and a Node.js/Express backend.
+## Overview
 
-## Architecture
+This project is a cloud-native Hospital Management System built using a microservices architecture and deployed on Microsoft Azure. It demonstrates a complete DevSecOps implementation, integrating GitHub, Jenkins, SonarQube, Trivy, Docker, Azure Container Registry (ACR), Argo CD, and Azure Kubernetes Service (AKS) to automate secure software delivery. The platform consists of independent services for authentication, patient management, doctor management, and appointment scheduling, while Prometheus, Grafana, and Loki provide monitoring, logging, and observability across the application.
 
 ## DevOps Architecture
 
