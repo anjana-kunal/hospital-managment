@@ -4,6 +4,13 @@ A comprehensive hospital management system with a React frontend and a Node.js/E
 
 ## Architecture
 
+## DevOps Architecture
+
+<p align="center">
+  <img src="image.png" alt="MedCore AKS Architecture" width="1200"/>
+</p>
+
+
 - **Frontend:** React + Vite, Tailwind CSS
 - **Backend:** Node.js + Express
 - **Database:** PostgreSQL
